@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+    defaultConfig {
+        applicationId "com.zuoni.riyuecun"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //这里修改apk文件名
+//                def fileName = outputFile.name.replace("app","${defaultConfig.applicationId }_${defaultConfig.versionName}_${releaseTime() }")
+                def fileName = outputFile.name.replace("app", "日月存_"+"${defaultConfig.versionName}"+"_${releaseTime() }")
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+}
+
+
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    compile project(':zuoni-common')
+    compile 'com.jaeger.statusbarutil:library:1.4.0'
+    compile 'com.google.code.gson:gson:2.8.2'
+        compile 'com.github.bumptech.glide:glide:3.7.0'
+//    compile 'com.github.bumptech.glide:glide:4.1.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.yanzhenjie.nohttp:okhttp:1.1.4'
+    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+    compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.yanzhenjie:permission:1.1.0'
+    compile 'com.joooonho:selectableroundedimageview:1.0.1'
+    compile project(path: ':qrcode')
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    compile files('libs/BaiduLBS_Android.jar')
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    compile 'com.github.jdsjlzx:LRecyclerView:1.4.3'
+    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
+}

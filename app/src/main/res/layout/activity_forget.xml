@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#101318"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_bar_style" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:text="请输入您注册的邮箱或绑定的手机号?"
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/et2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="邮箱或手机号"
+        android:textCursorDrawable="@drawable/text_cursor_cyan"
+        android:textSize="28sp"
+        app:met_baseColor="#ffff"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="#FF7741"
+        app:met_singleLineEllipsis="true"
+        app:met_textColorHint="@color/textColorHint" />
+
+    <Button
+        android:id="@+id/btSure"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bt_bg_03"
+        android:text="确定"
+        android:textColor="#FFFFFF" />
+</LinearLayout>

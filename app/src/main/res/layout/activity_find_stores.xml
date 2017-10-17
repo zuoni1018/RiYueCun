@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_bar_style" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/layoutMap"
+        android:orientation="vertical"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#414246">
+
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="杭州海创园店"
+                android:textColor="#FEFEFE"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="杭州海创园店杭州海创园店杭州海创园店杭州海创园店"
+                android:textColor="#D3D3D3"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
+
+           <ImageView
+               android:src="@mipmap/find"
+               android:layout_width="30dp"
+               android:layout_height="30dp" />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="700m"
+                android:textColor="#D3D3D3"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

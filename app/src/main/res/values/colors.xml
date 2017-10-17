@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#101318</color>
+    <color name="colorPrimaryDark">#101318</color>
+    <color name="colorAccent">#FF7740</color>
+
+    <!--EditText-->
+    <color name="textColorHint">#CFCECC</color>
+    <color name="primaryColor">#CFCECC</color>
+
+
+    <color name="menu_color_1">#3effffff</color>
+    <color name="menu_color_2">#00ffffff</color>
+</resources>
