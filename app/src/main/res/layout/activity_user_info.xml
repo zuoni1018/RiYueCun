@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#101318"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_bar_style" />
+
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/et2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:hint="姓名"
+        android:textCursorDrawable="@drawable/text_cursor_cyan"
+        android:textSize="@dimen/login_et_text_size"
+        app:met_baseColor="#ffff"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="#FF7741"
+        app:met_singleLineEllipsis="true"
+        app:met_textColorHint="@color/textColorHint" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:text="您升级为太阳级用户,获得的优惠会更多."
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="用户名"
+        android:textCursorDrawable="@drawable/text_cursor_cyan"
+        android:textSize="@dimen/login_et_text_size"
+        app:met_baseColor="#ffff"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="#FF7741"
+        app:met_singleLineEllipsis="true"
+        app:met_textColorHint="@color/textColorHint" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="手机号"
+        android:textCursorDrawable="@drawable/text_cursor_cyan"
+        android:textSize="@dimen/login_et_text_size"
+        app:met_baseColor="#ffff"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="#FF7741"
+        app:met_singleLineEllipsis="true"
+        app:met_textColorHint="@color/textColorHint" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="男"
+            android:textColor="@color/color_white"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:checked="true"
+            android:text="女"
+            android:textColor="@color/color_white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="1dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="订阅"
+            android:textColor="@color/color_white"
+            android:textSize="26sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/kai" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我同意接受某某条款"
+            android:textColor="@color/color_white"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="#414246"
+        android:gravity="center"
+        android:text="完成"
+        android:textColor="#FF7841"
+        android:textSize="16sp" />
+
+</LinearLayout>

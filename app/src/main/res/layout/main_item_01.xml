@@ -9,7 +9,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/setting_bg_01"
+        android:background="@drawable/setting_bg_01_1"
         android:orientation="horizontal">
 
         <TextView
@@ -47,7 +47,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="1dp"
-        android:background="@drawable/setting_bg_02"
+        android:background="@drawable/setting_bg_02_1"
         android:orientation="vertical">
 
         <TextView

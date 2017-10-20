@@ -21,7 +21,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="#1C1F24"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true" />
 
 
                 <LinearLayout
@@ -35,10 +42,7 @@
                         android:layout_height="1dp"
                         android:layout_weight="2" />
 
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="match_parent"
-                        android:background="#ff0000" />
+                    <include layout="@layout/bottle" />
 
                     <View
                         android:layout_width="0dp"
@@ -47,17 +51,32 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <TextView
+                        <LinearLayout
+                            android:id="@+id/tvRank"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="星星级"
-                            android:textColor="@color/color_white"
-                            android:textSize="18sp" />
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="金皓月级"
+                                android:textColor="@color/color_white"
+                                android:textSize="18sp" />
+
+                            <ImageView
+                                android:layout_width="10dp"
+                                android:layout_height="14dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:src="@mipmap/right" />
+                        </LinearLayout>
+
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -80,17 +99,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="再消费3次可升级为"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="集齐58个小太阳,\n升级为至尊太阳系会员会员"
                             android:textColor="@color/color_white"
                             android:textSize="12sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="20dp"
-                            android:text="月亮级"
-                            android:textColor="@color/color_white"
-                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <View
@@ -104,6 +118,8 @@
             <include layout="@layout/club_item_01" />
 
             <include layout="@layout/club_item_02" />
+
+            <include layout="@layout/club_item_03" />
         </LinearLayout>
 
 

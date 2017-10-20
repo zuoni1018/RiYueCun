@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+import com.zuoni.common.utils.LogUtil;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.adapter.RvMainNewsAdapter;
 import com.zuoni.riyuecun.ui.activity.MainActivity;
@@ -41,6 +42,7 @@ public class NewsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        LogUtil.i("消息列表Fragment创建了");
         view = inflater.inflate(R.layout.fragment_news, null);
         unbinder = ButterKnife.bind(this, view);
         List<String > mList=new ArrayList<>();

@@ -34,11 +34,11 @@
             android:textSize="12sp" />
 
         <ImageView
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:src="@mipmap/qrcode" />
 
 
@@ -60,7 +60,7 @@
             android:layout_marginRight="5dp"
             android:text="扫一扫,积星星,享好礼"
             android:textColor="@color/color_white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
 
         <View
@@ -97,15 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:text="完成"
-                android:textColor="#FF7640"
-                android:textSize="16sp" />
+
 
         </LinearLayout>
 

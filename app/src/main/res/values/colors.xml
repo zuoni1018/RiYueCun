@@ -11,4 +11,12 @@
 
     <color name="menu_color_1">#3effffff</color>
     <color name="menu_color_2">#00ffffff</color>
+
+
+    <color name="settings_item_bg_color">#414246</color>
+
+
+
+    <color name="club_tab_color_01">#1C1F24</color>
+    <color name="club_tab_color_02">#414246</color>
 </resources>

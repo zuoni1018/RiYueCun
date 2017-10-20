@@ -1,5 +1,6 @@
 package com.zuoni.riyuecun.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,9 +12,12 @@ import com.joooonho.SelectableRoundedImageView;
 import com.zuoni.riyuecun.GlobalVariable;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.ui.activity.MainActivity;
+import com.zuoni.riyuecun.ui.activity.ManagerCardActivity;
+import com.zuoni.riyuecun.ui.activity.MoreCardActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -39,6 +43,7 @@ public class CardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_card, null);
         unbinder = ButterKnife.bind(this, view);
+
         Glide
                 .with(getContext())
                 .load(GlobalVariable.TEST_IMAGE_URL)
@@ -57,19 +62,18 @@ public class CardFragment extends Fragment {
         unbinder.unbind();
     }
 
-//    Intent mIntent;
-//    @OnClick({R.id.btRegister, R.id.btLogin})
-//    public void mainLoginView(View view) {
-//        switch (view.getId()) {
-//            case R.id.btRegister:
-//                mIntent=new Intent(getContext(), RegisterActivity.class);
-//                startActivity(mIntent);
-//                break;
-//            case R.id.btLogin:
-//                mIntent=new Intent(getContext(), LoginActivity.class);
-//                startActivity(mIntent);
-//                break;
-//
-//        }
-//    }
+    Intent mIntent;
+    @OnClick({R.id.tvMore,R.id.layoutManager})
+    public void mainLoginView(View view) {
+        switch (view.getId()) {
+            case R.id.tvMore:
+                mIntent=new Intent(getContext(), MoreCardActivity.class);
+                startActivity(mIntent);
+                break;
+            case R.id.layoutManager:
+                mIntent=new Intent(getContext(), ManagerCardActivity.class);
+                startActivity(mIntent);
+                break;
+        }
+    }
 }

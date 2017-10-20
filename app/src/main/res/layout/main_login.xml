@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:background="@mipmap/denglutu"
     android:orientation="vertical">
 
@@ -25,7 +26,7 @@
             android:layout_marginTop="10dp"
             android:text="开启你的味蕾"
             android:textColor="@color/color_white"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,10 +38,11 @@
             android:textSize="12sp" />
 
         <TextView
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
             android:text="成为我们的会员等级越高获得的奖品越多 !"
             android:textColor="@color/color_white"
             android:textSize="12sp" />
@@ -74,11 +76,6 @@
                 android:background="@drawable/bt_bg_01"
                 android:text="登录"
                 android:textColor="@color/color_white" />
-
-
         </LinearLayout>
-
     </LinearLayout>
-
-
 </LinearLayout>

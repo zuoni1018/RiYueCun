@@ -2,6 +2,7 @@ package com.zuoni.riyuecun.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -26,5 +27,10 @@ public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAd
     @Override
     public Fragment getItem(int position) {
         return mList.get(position);
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+//        super.destroyItem(container, position, object);
     }
 }

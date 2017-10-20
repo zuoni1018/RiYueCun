@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.joooonho.SelectableRoundedImageView;
 import com.zuoni.common.gallery.ViewPagerGallery;
+import com.zuoni.common.utils.LogUtil;
 import com.zuoni.common.utils.ToastUtils;
 import com.zuoni.riyuecun.GlobalVariable;
 import com.zuoni.riyuecun.R;
@@ -51,6 +52,7 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        LogUtil.i("首页Fragment创建了");
         view = inflater.inflate(R.layout.fragment_mian, null);
         unbinder = ButterKnife.bind(this, view);
 
@@ -59,7 +61,6 @@ public class MainFragment extends Fragment {
             SelectableRoundedImageView selectableRoundedImageView = new SelectableRoundedImageView(getContext());
             selectableRoundedImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             selectableRoundedImageView.setCornerRadiiDP(4, 4, 4, 4);
-
 
             Glide.with(getContext())
                     .load(GlobalVariable.TEST_IMAGE_URL)

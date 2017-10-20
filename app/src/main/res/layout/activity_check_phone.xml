@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:hint="用户名或邮箱"
             android:textCursorDrawable="@drawable/text_cursor_cyan"
-            android:textSize="28sp"
+            android:textSize="@dimen/login_et_text_size"
             app:met_baseColor="#ffffff"
             app:met_floatingLabel="highlight"
             app:met_primaryColor="#FF7741"

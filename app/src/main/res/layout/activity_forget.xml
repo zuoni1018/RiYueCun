@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:text="请输入您注册的邮箱或绑定的手机号?"
+        android:text="请输入您已认证的手机号码"
         android:textColor="@color/color_white"
         android:textSize="14sp" />
 
@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:hint="邮箱或手机号"
+        android:hint="手机号码"
         android:textCursorDrawable="@drawable/text_cursor_cyan"
-        android:textSize="28sp"
+        android:textSize="@dimen/login_et_text_size"
         app:met_baseColor="#ffff"
         app:met_floatingLabel="highlight"
         app:met_primaryColor="#FF7741"

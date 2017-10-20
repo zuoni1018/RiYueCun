@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:name=".MainApplication"
@@ -43,6 +43,15 @@
         <activity android:name=".ui.activity.CheckPhoneActivity"/>
         <activity android:name=".ui.activity.PaymentActivity"/>
         <activity android:name=".ui.activity.CardActivity"/>
+        <activity android:name=".ui.activity.RecordsOfConsumptionActivity"/>
+        <activity android:name=".ui.activity.MyClubActivity"/>
+        <activity android:name=".ui.activity.UserInfoActivity"/>
+        <activity android:name=".ui.activity.ChangePasswordActivity"/>
+        <activity android:name=".ui.activity.TestActivity"/>
+        <activity android:name=".ui.activity.MyClubRankActivity"/>
+        <activity android:name=".ui.activity.MoreCardActivity"/>
+        <activity android:name=".ui.activity.ManagerCardActivity"/>
+        <activity android:name=".ui.activity.ConsumptionDetailsActivity"/>
 
         <service
             android:name="com.baidu.location.f"

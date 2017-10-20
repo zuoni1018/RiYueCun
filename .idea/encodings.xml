@@ -2,6 +2,14 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zuoni/riyuecun/adapter/FragmentPagerAdapter.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zuoni/riyuecun/adapter/FragmentPagerAddTitlesAdapter.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zuoni/riyuecun/adapter/RvClubCardAdapter.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zuoni/riyuecun/adapter/RvFindStoresAdapter.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zuoni/riyuecun/adapter/RvMainNewsAdapter.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zuoni/riyuecun/adapter/RvMoreCardAdapter.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zuoni/riyuecun/adapter/RvMoreCardTabAdapter.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zuoni/riyuecun/adapter/RvRecordsOfConsumptionAdapter.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/guan.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/kai.png" charset="GBK" />
   </component>
 </project>

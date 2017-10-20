@@ -17,27 +17,42 @@
         android:layout_marginTop="20dp"
         android:hint="用户名或邮箱"
         android:textCursorDrawable="@drawable/text_cursor_cyan"
-        android:textSize="28sp"
+        android:textSize="@dimen/login_et_text_size"
         app:met_baseColor="#ffffff"
         app:met_floatingLabel="highlight"
         app:met_primaryColor="#FF7741"
         app:met_singleLineEllipsis="true"
         app:met_textColorHint="@color/textColorHint" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/et2"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:hint="密码"
-        android:textCursorDrawable="@drawable/text_cursor_cyan"
-        android:textSize="28sp"
-        app:met_baseColor="#ffff"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="#FF7741"
-        app:met_singleLineEllipsis="true"
-        app:met_textColorHint="@color/textColorHint" />
+        android:layout_marginRight="10dp">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/et2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="密码"
+            android:textCursorDrawable="@drawable/text_cursor_cyan"
+            android:textSize="@dimen/login_et_text_size"
+            app:met_baseColor="#ffff"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="#FF7741"
+            app:met_singleLineEllipsis="true"
+            app:met_textColorHint="@color/textColorHint" />
+
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/eye_01" />
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/tv2222"

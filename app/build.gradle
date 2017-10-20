@@ -28,7 +28,7 @@ android {
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 //这里修改apk文件名
 //                def fileName = outputFile.name.replace("app","${defaultConfig.applicationId }_${defaultConfig.versionName}_${releaseTime() }")
-                def fileName = outputFile.name.replace("app", "日月存_"+"${defaultConfig.versionName}"+"_${releaseTime() }")
+                def fileName = outputFile.name.replace("app", "日月村_"+"${defaultConfig.versionName}"+"_${releaseTime() }")
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }
@@ -51,8 +51,8 @@ dependencies {
     compile project(':zuoni-common')
     compile 'com.jaeger.statusbarutil:library:1.4.0'
     compile 'com.google.code.gson:gson:2.8.2'
-        compile 'com.github.bumptech.glide:glide:3.7.0'
-//    compile 'com.github.bumptech.glide:glide:4.1.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //    compile 'com.github.bumptech.glide:glide:4.1.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
@@ -67,4 +67,6 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.github.jdsjlzx:LRecyclerView:1.4.3'
     compile 'com.android.support:cardview-v7:26.0.0-alpha1'
+    compile 'com.androidkun:XTabLayout:1.1.3'
+    compile project(':MobikeLibrary2')
 }

@@ -27,8 +27,8 @@
             android:textSize="12sp" />
 
         <ImageView
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
@@ -42,7 +42,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:text="储值卡(7856)有效期至2099年12月1日"
-            android:textColor="@color/color_white"
+            android:textColor="#CECCCD"
             android:textSize="10sp" />
 
         <LinearLayout
@@ -52,9 +52,10 @@
             android:orientation="horizontal">
 
             <TextView
+                android:gravity="bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="bottom"
                 android:text="可用余额"
                 android:textColor="@color/color_white"
                 android:textSize="13sp" />
@@ -62,17 +63,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="bottom"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="￥200"
                 android:textColor="@color/color_white"
-                android:textSize="20sp" />
+                android:textSize="26sp" />
 
         </LinearLayout>
 
         <View
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="1dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
