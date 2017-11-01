@@ -9,24 +9,24 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by zangyi_shuai_ge on 2017/10/17
+ * Created by zangyi_shuai_ge on 2017/10/26
  */
 
-public class ForgrtActivity extends BaseTitleActivity {
+public class AddCardActivity extends BaseTitleActivity {
     @Override
     public int setLayoutId() {
-        return R.layout.activity_forget;
+        return R.layout.activity_add_card;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        setTitle("忘记密码");
+        setTitle("添加会员卡");
     }
 
-    @OnClick(R.id.btSure)
+    @OnClick(R.id.tvOK)
     public void onViewClicked() {
-        jumpToActivity(CheckPhoneActivity.class);
+        finish();
     }
 }

@@ -8,68 +8,126 @@
 
     <include layout="@layout/top_bar_style" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/et1"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:hint="用户名或邮箱"
-        android:textCursorDrawable="@drawable/text_cursor_cyan"
-        android:textSize="@dimen/login_et_text_size"
-        app:met_baseColor="#ffffff"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="#FF7741"
-        app:met_singleLineEllipsis="true"
-        app:met_textColorHint="@color/textColorHint" />
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="13dp"
+            android:text="请输入用户名或手机号"
+            android:textColor="@color/et_hint"
+            android:textSize="13sp" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/et2"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="密码"
-            android:textCursorDrawable="@drawable/text_cursor_cyan"
-            android:textSize="@dimen/login_et_text_size"
-            app:met_baseColor="#ffff"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="#FF7741"
-            app:met_singleLineEllipsis="true"
-            app:met_textColorHint="@color/textColorHint" />
+            android:orientation="horizontal">
 
+            <EditText
+                android:id="@+id/et01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/et_bottom"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="@dimen/et_top"
+                android:background="@null"
+                android:hint="请输入用户名或手机号"
+                android:singleLine="true"
+                android:textColor="@color/et_text"
+                android:textColorHint="@color/et_text"
+                android:textSize="20sp" />
 
-        <ImageView
-            android:layout_width="26dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/eye_01" />
-    </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/et_line" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="13dp"
+            android:text="密码"
+            android:textColor="@color/et_hint"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:inputType="textPassword"
+                android:id="@+id/et02"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/et_bottom"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="@dimen/et_top"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入密码"
+                android:singleLine="true"
+                android:textColor="@color/et_text"
+                android:textColorHint="@color/et_text"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/iv02"
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="24dp"
+                android:src="@mipmap/eye_01" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/et_line" />
+
+    </LinearLayout>
 
 
     <TextView
-        android:id="@+id/tv2222"
+        android:id="@+id/tv03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="18dp"
         android:text="忘记密码 ?"
-        android:textColor="#FF7740" />
+        android:textColor="#FF7740"
+        android:textSize="13sp" />
 
     <Button
-        android:layout_width="140dp"
-        android:layout_height="50dp"
+        android:id="@+id/bt04"
+        android:layout_width="163dp"
+        android:layout_height="54dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bt_bg_03"
+        android:layout_marginTop="29dp"
+        android:background="@drawable/bt_bg_04"
         android:text="确定"
         android:textColor="@color/color_white"
-
-        />
+        android:textSize="14sp" />
 </LinearLayout>

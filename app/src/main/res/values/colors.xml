@@ -19,4 +19,8 @@
 
     <color name="club_tab_color_01">#1C1F24</color>
     <color name="club_tab_color_02">#414246</color>
+    <color name="et_color">#F9763F</color>
+    <color name="et_hint">#F9763F</color>
+    <color name="et_text">#ffffff</color>
+    <color name="et_line">#F9763F</color>
 </resources>

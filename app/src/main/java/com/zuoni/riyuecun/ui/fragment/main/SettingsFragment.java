@@ -11,13 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zuoni.common.utils.LogUtil;
 import com.zuoni.common.utils.ToastUtils;
 import com.zuoni.riyuecun.R;
-import com.zuoni.riyuecun.ui.activity.ChangePasswordActivity;
+import com.zuoni.riyuecun.cache.CacheUtils;
+import com.zuoni.riyuecun.ui.activity.settings.ChangePasswordActivity;
 import com.zuoni.riyuecun.ui.activity.MainActivity;
 import com.zuoni.riyuecun.ui.activity.TestActivity;
-import com.zuoni.riyuecun.ui.activity.UserInfoActivity;
+import com.zuoni.riyuecun.ui.activity.settings.UserInfoActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -77,8 +77,10 @@ public class SettingsFragment extends Fragment {
                 builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        ToastUtils.showToast(getContext(),"好,你已经退出了");
-                        dialog.dismiss();
+                        CacheUtils.setLogin(false,getContext());
+                        CacheUtils.setToken("",getContext());
+                        ToastUtils.showToast(getContext(),"退出登录成功");
+                        mainActivity.turnFirstPage();
                     }
                 });
 

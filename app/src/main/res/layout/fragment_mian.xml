@@ -11,8 +11,10 @@
         android:orientation="vertical">
 
         <include layout="@layout/main_login" />
+        <include layout="@layout/main_1"/>
 
         <LinearLayout
+            android:id="@+id/layoutMain2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#414246"
@@ -62,7 +64,9 @@
             </LinearLayout>
 
         </LinearLayout>
-        <include layout="@layout/main_item_01"/>
+        <include
+            android:id="@+id/layoutMain03"
+            layout="@layout/main_item_01"/>
         <include layout="@layout/main_item_02"/>
 
         <include

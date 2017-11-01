@@ -2,24 +2,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zuoni.riyuecun">
 
+    <!-- 百度地图 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/logo1"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -27,36 +34,46 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="xCqchibVLTrWVgqZHFj6sUXcArxnjFMF" />
 
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.MainActivity" />
 
         <activity android:name=".ui.activity.CreateQrCodeActivity" />
         <activity android:name=".ui.activity.FindStoresActivity" />
-        <activity android:name=".ui.activity.LoginActivity"/>
-        <activity android:name=".ui.activity.RegisterActivity"/>
-        <activity android:name=".ui.activity.ForgrtActivity"/>
-        <activity android:name=".ui.activity.CheckPhoneActivity"/>
-        <activity android:name=".ui.activity.PaymentActivity"/>
-        <activity android:name=".ui.activity.CardActivity"/>
-        <activity android:name=".ui.activity.RecordsOfConsumptionActivity"/>
-        <activity android:name=".ui.activity.MyClubActivity"/>
-        <activity android:name=".ui.activity.UserInfoActivity"/>
-        <activity android:name=".ui.activity.ChangePasswordActivity"/>
-        <activity android:name=".ui.activity.TestActivity"/>
-        <activity android:name=".ui.activity.MyClubRankActivity"/>
-        <activity android:name=".ui.activity.MoreCardActivity"/>
-        <activity android:name=".ui.activity.ManagerCardActivity"/>
-        <activity android:name=".ui.activity.ConsumptionDetailsActivity"/>
+        <activity android:name=".ui.activity.LoginActivity" />
+
+
+        <activity android:name=".ui.activity.PaymentActivity" />
+        <activity android:name=".ui.activity.CardActivity" />
+        <activity android:name=".ui.activity.RecordsOfConsumptionActivity" />
+        <activity android:name=".ui.activity.MyClubActivity" />
+        <activity android:name=".ui.activity.settings.UserInfoActivity" />
+        <activity android:name=".ui.activity.settings.ChangePasswordActivity" />
+        <activity android:name=".ui.activity.TestActivity" />
+        <activity android:name=".ui.activity.MyClubRankActivity" />
+        <activity android:name=".ui.activity.MoreCardActivity" />
+        <activity android:name=".ui.activity.ManagerCardActivity" />
+        <activity android:name=".ui.activity.ConsumptionDetailsActivity" />
+        <activity android:name=".ui.activity.AddCardActivity" />
+
+
+        <activity android:name=".ui.activity.register.RegisterActivity" />
+        <activity android:name=".ui.activity.register.RegisterUserInfoActivity" />
+
+        <activity android:name=".ui.activity.forget.ForgetActivity" />
+        <activity android:name=".ui.activity.forget.ForgetGetCodeActivity" />
+        <activity android:name=".ui.activity.forget.ForgetChangePasswordActivity" />
+
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"/>
+            android:process=":remote" />
 
         <activity
             android:name=".wxapi.WXEntryActivity"

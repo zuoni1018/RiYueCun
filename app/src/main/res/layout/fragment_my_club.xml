@@ -26,8 +26,9 @@
                 android:paddingTop="10dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:src="@mipmap/watermark"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
                     android:layout_centerInParent="true" />
 
 
@@ -50,13 +51,14 @@
                         android:layout_weight="1.8" />
 
                     <LinearLayout
+                        android:id="@+id/layoutRank"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:id="@+id/tvRank"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"

@@ -14,28 +14,29 @@
 
         <com.joooonho.SelectableRoundedImageView
             android:id="@+id/ivCard"
-            android:layout_width="334dp"
-            android:layout_height="222dp"
+            android:layout_width="336dp"
+            android:layout_height="219dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:scaleType="centerCrop"
-            app:sriv_left_bottom_corner_radius="8dp"
-            app:sriv_left_top_corner_radius="8dp"
-            app:sriv_right_bottom_corner_radius="8dp"
-            app:sriv_right_top_corner_radius="8dp" />
+            app:sriv_left_bottom_corner_radius="10dp"
+            app:sriv_left_top_corner_radius="10dp"
+            app:sriv_right_bottom_corner_radius="10dp"
+            app:sriv_right_top_corner_radius="10dp" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="卡号(123456789)"
+            android:layout_marginTop="16dp"
+            android:text="储值卡（7878）有效期至2020年09月24日"
             android:textColor="#CECECE"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <LinearLayout
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -48,7 +49,7 @@
                 android:gravity="bottom"
                 android:text="可用余额"
                 android:textColor="@color/color_white"
-                android:textSize="13sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -59,17 +60,13 @@
                 android:gravity="bottom"
                 android:text="￥200"
                 android:textColor="@color/color_white"
-                android:textSize="28sp"
+                android:textSize="24sp"
 
                 />
 
         </LinearLayout>
 
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="0.2" />
 
         <View
             android:layout_width="match_parent"
@@ -79,6 +76,7 @@
             android:background="#414246" />
 
         <LinearLayout
+            android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
@@ -86,15 +84,14 @@
             android:paddingTop="5dp">
 
             <View
-                android:layout_width="16dp"
+                android:layout_width="3dp"
                 android:layout_height="18dp"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginLeft="40dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="消费记录"
                 android:textColor="@color/color_white"
@@ -111,6 +108,7 @@
             android:background="#414246" />
 
         <LinearLayout
+            android:id="@+id/layout2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
@@ -118,15 +116,13 @@
             android:paddingTop="5dp">
 
             <View
-                android:layout_width="16dp"
+                android:layout_width="3dp"
                 android:layout_height="18dp"
-                android:layout_marginLeft="20dp" />
-
+                android:layout_marginLeft="40dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="解除绑定"
                 android:textColor="@color/color_white"
@@ -148,6 +144,4 @@
             android:layout_weight="1" />
 
     </LinearLayout>
-
-
 </LinearLayout>

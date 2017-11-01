@@ -8,6 +8,7 @@
     <include layout="@layout/top_bar_style" />
 
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/mRecyclerViewTop"
         android:layout_width="match_parent"
         android:layout_height="50dp"

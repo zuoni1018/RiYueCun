@@ -95,6 +95,7 @@ public class MyClubActivity extends BaseTitleActivity {
 
     @OnClick(R.id.layoutRight)
     public void onViewClicked() {
+        jumpToActivity(AddCardActivity.class);
 
 
     }

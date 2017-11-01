@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layoutMain"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="74dp"
     android:layout_marginTop="8dp"
     android:background="@drawable/setting_bg_03"
     android:orientation="horizontal">
@@ -19,9 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
             android:text="杭州海创园店"
             android:textColor="@color/color_white"
             android:textSize="16sp" />
@@ -30,18 +29,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="12dp"
             android:text="文一西路什么大道"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <ImageView
-        android:layout_width="14dp"
-        android:layout_height="16dp"
+        android:layout_width="11dp"
+        android:layout_height="20dp"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="12dp"
         android:src="@mipmap/you" />
 </LinearLayout>

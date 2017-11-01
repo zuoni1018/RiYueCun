@@ -1,4 +1,4 @@
-package com.zuoni.riyuecun.ui.fragment;
+package com.zuoni.riyuecun.ui.fragment.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
-import com.zuoni.common.utils.LogUtil;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.adapter.RvMainNewsAdapter;
 import com.zuoni.riyuecun.ui.activity.MainActivity;
@@ -42,12 +41,12 @@ public class NewsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogUtil.i("消息列表Fragment创建了");
         view = inflater.inflate(R.layout.fragment_news, null);
         unbinder = ButterKnife.bind(this, view);
         List<String > mList=new ArrayList<>();
-        mList.add("");
-        mList.add("");
+        for (int i = 0; i <6 ; i++) {
+            mList.add("消息"+i);
+        }
 
         LRecyclerViewAdapter mAdapter=new LRecyclerViewAdapter(new RvMainNewsAdapter(getContext(),mList));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

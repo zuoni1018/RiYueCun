@@ -21,13 +21,15 @@ import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.PermissionListener;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RationaleListener;
+import com.zuoni.common.callback.TabOnClickListener;
 import com.zuoni.common.widget.MyViewPager;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.adapter.FragmentPagerAdapter;
+import com.zuoni.riyuecun.cache.CacheUtils;
 import com.zuoni.riyuecun.ui.activity.base.BaseActivity;
-import com.zuoni.riyuecun.ui.fragment.CardFragment;
-import com.zuoni.riyuecun.ui.fragment.MainFragment;
-import com.zuoni.riyuecun.ui.fragment.NewsFragment;
+import com.zuoni.riyuecun.ui.fragment.main.CardFragment;
+import com.zuoni.riyuecun.ui.fragment.main.MainFragment;
+import com.zuoni.riyuecun.ui.fragment.main.NewsFragment;
 import com.zuoni.riyuecun.ui.fragment.main.ClubFragment;
 import com.zuoni.riyuecun.ui.fragment.main.FindStoreFragment;
 import com.zuoni.riyuecun.ui.fragment.main.SettingsFragment;
@@ -52,7 +54,7 @@ public class MainActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.top_bar_right_icon)
     ImageView topBarRightIcon;
-    private static final int REQUEST_CODE_PERMISSION = 100;
+
     //侧滑菜单
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -78,7 +80,7 @@ public class MainActivity extends BaseActivity {
 
 
     private ClubFragment clubFragment;
-
+    private static final int REQUEST_CODE_PERMISSION = 100;
     private static final int REQUEST_CODE_SETTING = 300;
 
     private List<Fragment> mList;
@@ -87,7 +89,22 @@ public class MainActivity extends BaseActivity {
 
     private Handler handler = new Handler();
 
-android.support.v7.app.AlertDialog alertDialog;
+    android.support.v7.app.AlertDialog alertDialog;
+
+
+    //tab
+    private MainFragment mainFragment;
+
+    private TabOnClickListener tabOnClickListener01;
+
+    public void setTabOnClickListener01(TabOnClickListener tabOnClickListener01) {
+        this.tabOnClickListener01 = tabOnClickListener01;
+    }
+
+    private SettingsFragment settingsFragment;
+
+
+//    private T
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,24 +121,45 @@ android.support.v7.app.AlertDialog alertDialog;
             public void run() {
                 closeLoading();
             }
-        },3000);
+        }, 3000);
 
 
         clubFragment = new ClubFragment();
         clubFragment.showClubFragment(false);
 //        init
         mList = new ArrayList<>();
-        mList.add(new MainFragment());
+
+        //首页
+        mainFragment = new MainFragment();
+        mainFragment.setMainActivity(this);
+        mList.add(mainFragment);
+
+
         mList.add(clubFragment);
         mList.add(new CardFragment());
         mList.add(new NewsFragment());
         mList.add(new FindStoreFragment());
-        mList.add(new SettingsFragment());
+
+
+        //
+        settingsFragment = new SettingsFragment();
+        settingsFragment.setMainActivity(this);
+        mList.add(settingsFragment);
+
+
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), mList);
         viewPager.setOffscreenPageLimit(-1);
         viewPager.setAdapter(mPagerAdapter);
 
+    }
 
+    public void turnFirstPage() {
+        restMenu();
+        menu1.setBackgroundResource(R.drawable.menu_bg_01);
+        viewPager.setCurrentItem(0, false);
+        setTitle("首页");
+        clubFragment.showClubFragment(false);
+        tabOnClickListener01.onClick();
     }
 
     private void setTitle(String title) {
@@ -163,33 +201,46 @@ android.support.v7.app.AlertDialog alertDialog;
             case R.id.menu_1:
                 //首页
                 restMenu();
-                menu1.setBackgroundColor(getResources().getColor(R.color.menu_color_1));
+                menu1.setBackgroundResource(R.drawable.menu_bg_01);
                 viewPager.setCurrentItem(0, false);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 setTitle("首页");
                 clubFragment.showClubFragment(false);
+                tabOnClickListener01.onClick();
                 break;
             case R.id.menu_2:
                 //我的俱乐部
-                restMenu();
-                menu2.setBackgroundColor(getResources().getColor(R.color.menu_color_1));
-                viewPager.setCurrentItem(1, false);
-                drawerLayout.closeDrawer(GravityCompat.START);
-                setTitle("我的俱乐部");
-                clubFragment.showClubFragment(true);
+                if (CacheUtils.isLogin(getContext())) {
+                    restMenu();
+                    menu2.setBackgroundResource(R.drawable.menu_bg_01);
+                    viewPager.setCurrentItem(1, false);
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    setTitle("我的俱乐部");
+                    clubFragment.showClubFragment(true);
+
+                } else {
+                    showToast("请先登录");
+                }
+
                 break;
             case R.id.menu_3:
                 //电子储值卡
-                restMenu();
-                menu3.setBackgroundColor(getResources().getColor(R.color.menu_color_1));
-                viewPager.setCurrentItem(2, false);
-                drawerLayout.closeDrawer(GravityCompat.START);
-                setTitle("电子储值卡");
-                clubFragment.showClubFragment(false);
+
+                if (CacheUtils.isLogin(getContext())) {
+                    restMenu();
+                    menu3.setBackgroundResource(R.drawable.menu_bg_01);
+                    viewPager.setCurrentItem(2, false);
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    setTitle("电子储值卡");
+                    clubFragment.showClubFragment(false);
+                } else {
+                    showToast("请先登录");
+                }
+
                 break;
             case R.id.menu_4:
                 restMenu();
-                menu4.setBackgroundColor(getResources().getColor(R.color.menu_color_1));
+                menu4.setBackgroundResource(R.drawable.menu_bg_01);
                 viewPager.setCurrentItem(3, false);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 setTitle("消息中心");
@@ -197,7 +248,7 @@ android.support.v7.app.AlertDialog alertDialog;
                 break;
             case R.id.menu_5:
                 restMenu();
-                menu5.setBackgroundColor(getResources().getColor(R.color.menu_color_1));
+                menu5.setBackgroundResource(R.drawable.menu_bg_01);
                 viewPager.setCurrentItem(4, false);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 setTitle("查找门店");
@@ -206,24 +257,28 @@ android.support.v7.app.AlertDialog alertDialog;
 //                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.menu_6:
-                restMenu();
-                menu6.setBackgroundColor(getResources().getColor(R.color.menu_color_1));
-                viewPager.setCurrentItem(5, false);
-                drawerLayout.closeDrawer(GravityCompat.START);
-                setTitle("设置");
-                clubFragment.showClubFragment(false);
+                if (CacheUtils.isLogin(getContext())) {
+                    restMenu();
+                    menu6.setBackgroundResource(R.drawable.menu_bg_01);
+                    viewPager.setCurrentItem(5, false);
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    setTitle("设置");
+                    clubFragment.showClubFragment(false);
+                } else {
+                    showToast("请先登录");
+                }
                 break;
-
         }
     }
 
     private void restMenu() {
-        menu1.setBackgroundColor(getResources().getColor(R.color.menu_color_2));
-        menu2.setBackgroundColor(getResources().getColor(R.color.menu_color_2));
-        menu3.setBackgroundColor(getResources().getColor(R.color.menu_color_2));
-        menu4.setBackgroundColor(getResources().getColor(R.color.menu_color_2));
-        menu5.setBackgroundColor(getResources().getColor(R.color.menu_color_2));
-        menu6.setBackgroundColor(getResources().getColor(R.color.menu_color_2));
+        menu1.setBackgroundResource(R.drawable.menu_bg_02);
+        menu2.setBackgroundResource(R.drawable.menu_bg_02);
+        menu3.setBackgroundResource(R.drawable.menu_bg_02);
+
+        menu4.setBackgroundResource(R.drawable.menu_bg_02);
+        menu5.setBackgroundResource(R.drawable.menu_bg_02);
+        menu6.setBackgroundResource(R.drawable.menu_bg_02);
     }
 
     private void getPermission() {

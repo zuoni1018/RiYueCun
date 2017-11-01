@@ -18,7 +18,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/mendian" />
+            android:src="@mipmap/shop" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -182,7 +182,7 @@
         android:gravity="right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="总计58元"
+        android:text="总计 58元"
         android:textColor="@color/color_white"
         android:textSize="18sp" />
 </LinearLayout>

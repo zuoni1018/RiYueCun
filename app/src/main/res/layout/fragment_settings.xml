@@ -24,6 +24,7 @@
             <include layout="@layout/settings_item_03" />
 
             <Button
+                android:visibility="gone"
                 android:layout_marginBottom="20dp"
                 android:id="@+id/btGo"
                 android:layout_width="match_parent"

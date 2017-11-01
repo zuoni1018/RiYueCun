@@ -5,22 +5,29 @@ package com.zuoni.riyuecun.bean.gson;
  */
 
 public class BaseHttpResponse  {
-    private int httpCode;
-    private String httpMessage;
+
+
+    /**
+     * HttpCode : 300
+     * Message : 验证卡片失败
+     */
+
+    private int HttpCode;
+    private String Message;
 
     public int getHttpCode() {
-        return httpCode;
+        return HttpCode;
     }
 
-    public void setHttpCode(int httpCode) {
-        this.httpCode = httpCode;
+    public void setHttpCode(int HttpCode) {
+        this.HttpCode = HttpCode;
     }
 
-    public String getHttpMessage() {
-        return httpMessage;
+    public String getMessage() {
+        return Message;
     }
 
-    public void setHttpMessage(String httpMessage) {
-        this.httpMessage = httpMessage;
+    public void setMessage(String Message) {
+        this.Message = Message;
     }
 }

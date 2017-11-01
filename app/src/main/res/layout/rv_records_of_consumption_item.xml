@@ -34,22 +34,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"
-                android:text="门店消费"
+                android:text="杭州海创园店"
                 android:textColor="@color/color_white"
                 android:textSize="14sp" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|left"
-                android:text="2017-12-28 13:42"
-                android:textColor="#D3D3D3"
-                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,22 +52,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"
-                android:text="杭州海创园店"
+                android:text="2017-12-28 13:42"
                 android:textColor="#D1D1D1"
                 android:textSize="14sp" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|left"
-                android:text="￥ 200"
-                android:textColor="@color/color_white"
-                android:textSize="14sp" />
         </LinearLayout>
+
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="14dp"
+        android:layout_height="16dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/you" />
 </LinearLayout>

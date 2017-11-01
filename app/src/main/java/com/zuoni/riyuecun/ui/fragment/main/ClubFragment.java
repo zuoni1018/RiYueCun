@@ -51,16 +51,20 @@ public class ClubFragment extends Fragment {
             R.mipmap.club_9,
             R.mipmap.club_9,
             R.mipmap.club_9,
-            R.mipmap.club_9,
-            R.mipmap.sun,
-            R.mipmap.club_9,
-            R.mipmap.club_9,
-            R.mipmap.club_9,
-            R.mipmap.club_9,
-            R.mipmap.sun,
+//            R.mipmap.club_9,
+//            R.mipmap.sun,
+//            R.mipmap.club_9,
+//            R.mipmap.club_9,
+//            R.mipmap.club_9,
+//            R.mipmap.club_9,
+//            R.mipmap.sun,
     };
     private SensorManager sensorManager;
     private Sensor defaultSensor;
+
+
+    private boolean nowIsShow=false;
+
 
     public void setMainActivity(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -75,17 +79,17 @@ public class ClubFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         //这里要异步
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
                 initViews();
 
                 sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
                 defaultSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-                mobikeView.getmMobike().onStart();
-                sensorManager.registerListener(listerner, defaultSensor, SensorManager.SENSOR_DELAY_NORMAL);
-            }
-        }, 500);
+//                mobikeView.getmMobike().onStart();
+//                sensorManager.registerListener(listerner, defaultSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//            }
+//        }, 500);
 
 
         return view;
@@ -95,25 +99,26 @@ public class ClubFragment extends Fragment {
     public void onStart() {
         LogUtil.i("我的俱乐部onStart");
         super.onStart();
-        if(mobikeView!=null){
+        if (mobikeView != null) {
             mobikeView.getmMobike().onStart();
         }
     }
 
     //当前Fragment 是否显示
-    public void showClubFragment(boolean isShow){
-        if(isShow){
-            if(mobikeView!=null){
+    public void showClubFragment(boolean isShow) {
+        nowIsShow=isShow;
+        if (isShow) {
+            if (mobikeView != null) {
                 mobikeView.getmMobike().onStart();
             }
-            if(sensorManager!=null){
+            if (sensorManager != null) {
                 sensorManager.registerListener(listerner, defaultSensor, SensorManager.SENSOR_DELAY_NORMAL);
             }
-        }else {
-            if(mobikeView!=null){
+        } else {
+            if (mobikeView != null) {
                 mobikeView.getmMobike().onStop();
             }
-            if(sensorManager!=null){
+            if (sensorManager != null) {
                 sensorManager.unregisterListener(listerner);
             }
         }
@@ -123,7 +128,8 @@ public class ClubFragment extends Fragment {
     @Override
     public void onStop() {
         LogUtil.i("我的俱乐部onStop");
-        if(mobikeView!=null){
+
+        if (mobikeView != null) {
             mobikeView.getmMobike().onStop();
         }
         super.onStop();
@@ -133,16 +139,18 @@ public class ClubFragment extends Fragment {
     public void onResume() {
         LogUtil.i("我的俱乐部onResume");
         super.onResume();
-        if(sensorManager!=null){
-            sensorManager.registerListener(listerner, defaultSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if(nowIsShow){
+            if (sensorManager != null) {
+                sensorManager.registerListener(listerner, defaultSensor, SensorManager.SENSOR_DELAY_UI);
+            }
         }
     }
 
-    @Override
+//    @Override
     public void onPause() {
         LogUtil.i("我的俱乐部onPause");
         super.onPause();
-        if(sensorManager!=null){
+        if (sensorManager != null) {
             sensorManager.unregisterListener(listerner);
         }
     }
@@ -157,11 +165,23 @@ public class ClubFragment extends Fragment {
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                 float x = event.values[0];
                 float y = event.values[1] * 2.0f;
-                if (Math.abs(lastX * 1000 - x * 1000) > 400 | Math.abs(lastY * 1000 - y * 1000) > 400) {
+
+                LogUtil.i("重力"+y);
+
+                if (Math.abs(lastX * 1000 - x * 1000) > 100|Math.abs(lastY * 1000 - y * 1000) > 100) {
                     mobikeView.getmMobike().onSensorChanged(-x, y);
                     lastX = x;
                     lastY = y;
                 }
+// else {
+
+//                }
+
+//                if(y>0){
+//                    mobikeView.getmMobike().onSensorChanged(-x, 0);
+//                }else {
+                    mobikeView.getmMobike().onSensorChanged(-x, y);
+//                }
 
             }
         }
@@ -213,7 +233,7 @@ public class ClubFragment extends Fragment {
         startActivity(mIntent);
     }
 
-    @OnClick(R.id.tvRank)
+    @OnClick(R.id.layoutRank)
     public void onViewClicked() {
         jumpToActivity(MyClubRankActivity.class);
     }

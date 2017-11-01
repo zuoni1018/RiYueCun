@@ -43,25 +43,20 @@ public class RvMainNewsAdapter extends RecyclerView.Adapter<RvMainNewsAdapter.My
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-//        holder.layoutMain.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent mIntent=new Intent(mContext, HtAreaActivity.class);
-//                mIntent.putExtra("AreaNo",mList.get(position).getAreaNo());
-//                mContext.startActivity(mIntent);
-//
-//            }
-//        });
-//        holder.tvAreaName.setText(mList.get(position).getAreaName());
-//        holder.tvPayType.setText(mList.get(position).getPayType());
-//        holder.tvAreaNo.setText(mList.get(position).getAreaNo());
-//        holder.tvStartReadDate.setText(mList.get(position).getStartReadDate());
-//        holder.tvEndReadDate.setText(mList.get(position).getEndReadDate());
-//        holder.tvRemark.setText(mList.get(position).getRemark());
-        Glide.with(mContext)
-                .load(GlobalVariable.TEST_IMAGE_URL)
-                .asBitmap()
-                .into(holder.zzzzz);
+
+        int a=position%2;
+        if(a==0){
+            Glide.with(mContext)
+                    .load(GlobalVariable.TEST_IMAGE_URL)
+                    .asBitmap()
+                    .into(holder.zzzzz);
+        }else {
+            Glide.with(mContext)
+                    .load(GlobalVariable.TEST_URL_2)
+                    .asBitmap()
+                    .into(holder.zzzzz);
+        }
+
     }
 
     @Override

@@ -3,8 +3,6 @@ package com.zuoni.riyuecun.http;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 
 import com.google.gson.Gson;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -12,7 +10,9 @@ import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.RequestQueue;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
+import com.zuoni.common.utils.LogUtil;
 import com.zuoni.riyuecun.bean.gson.BaseHttpResponse;
+import com.zuoni.riyuecun.cache.CacheUtils;
 
 /**
  * Created by zangyi_shuai_ge on 2017/9/27
@@ -38,34 +38,37 @@ public class CallServer {
         queue = NoHttp.newRequestQueue(5);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void request(HttpRequest request, final HttpResponseListener httpResponseListener, final Context context) {
 
-        request.add("token","");
+        request.add("UserToken", CacheUtils.getToken(context));
 
         SimpleResponseListener<String> listener = new SimpleResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
                 super.onSucceed(what, response);
                 Gson gson=new Gson();
-                BaseHttpResponse baseHttpResponse=gson.fromJson("",BaseHttpResponse.class);
-                if(baseHttpResponse.getHttpCode()==700){
-                    if(context instanceof Activity){
-                        Activity activity= (Activity) context;
-                        if(!activity.isDestroyed()){
-                            Intent mIntent=new Intent("token_error");
-                            context.sendBroadcast(mIntent);
+                try{
+                    BaseHttpResponse baseHttpResponse=gson.fromJson(response.get(),BaseHttpResponse.class);
+                    if(baseHttpResponse.getHttpCode()==700){
+                        if(context instanceof Activity){
+                            Activity activity= (Activity) context;
+                            if(!activity.isDestroyed()){
+                                Intent mIntent=new Intent("token_error");
+                                context.sendBroadcast(mIntent);
+                            }
                         }
+                    }else {
+                        httpResponseListener.onSucceed(response.get(),gson);
                     }
-                }else {
-                    httpResponseListener.onSucceed(response.get(),gson);
+                }catch (Exception e) {
+                    httpResponseListener.onFailed(e);
                 }
-
             }
 
             @Override
             public void onFailed(int what, Response<String> response) {
                 super.onFailed(what, response);
+                LogUtil.i("报错主动报错");
                 httpResponseListener.onFailed(response.getException());
             }
         };

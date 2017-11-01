@@ -1,4 +1,4 @@
-package com.zuoni.riyuecun.ui.fragment;
+package com.zuoni.riyuecun.ui.fragment.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.ui.activity.MainActivity;
 import com.zuoni.riyuecun.ui.activity.ManagerCardActivity;
 import com.zuoni.riyuecun.ui.activity.MoreCardActivity;
+import com.zuoni.riyuecun.ui.activity.PaymentActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +50,15 @@ public class CardFragment extends Fragment {
                 .load(GlobalVariable.TEST_IMAGE_URL)
                 .asBitmap()
                 .into(ivCard);
+
+
+        ivCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIntent=new Intent(getContext(), PaymentActivity.class);
+                startActivity(mIntent);
+            }
+        });
 
 
 

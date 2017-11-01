@@ -1,6 +1,7 @@
 package com.zuoni.riyuecun.ui.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.joooonho.SelectableRoundedImageView;
@@ -10,6 +11,7 @@ import com.zuoni.riyuecun.ui.activity.base.BaseTitleActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by zangyi_shuai_ge on 2017/10/20
@@ -34,5 +36,21 @@ public class ManagerCardActivity extends BaseTitleActivity {
                 .load(GlobalVariable.TEST_IMAGE_URL)
                 .asBitmap()
                 .into(ivCard);
+    }
+
+    @OnClick({R.id.layout1, R.id.layout2})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.layout1:
+                jumpToActivity(RecordsOfConsumptionActivity.class);
+                break;
+            case R.id.layout2:
+                break;
+        }
+    }
+
+    @OnClick(R.id.ivCard)
+    public void onViewClicked() {
+        jumpToActivity(PaymentActivity.class);
     }
 }

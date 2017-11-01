@@ -9,12 +9,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerInParent="true"
+            android:layout_marginBottom="41dp"
+            android:layout_marginTop="51dp"
             android:src="@mipmap/menu_1" />
     </RelativeLayout>
 
@@ -23,12 +25,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/menu_1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/menu_color_1">
+            android:background="@drawable/menu_bg_01">
 
             <View
                 android:layout_width="0dp"
@@ -57,11 +60,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="@color/menu_color_2"
             android:id="@+id/menu_2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/menu_bg_02">
 
             <View
                 android:layout_width="0dp"
@@ -90,11 +93,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="@color/menu_color_2"
             android:id="@+id/menu_3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/menu_bg_02">
 
             <View
                 android:layout_width="0dp"
@@ -126,7 +129,8 @@
             android:id="@+id/menu_4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/menu_bg_02">
 
             <View
                 android:layout_width="0dp"
@@ -158,7 +162,8 @@
             android:id="@+id/menu_5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/menu_bg_02">
 
             <View
                 android:layout_width="0dp"
@@ -190,7 +195,8 @@
             android:id="@+id/menu_6"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/menu_bg_02">
 
             <View
                 android:layout_width="0dp"

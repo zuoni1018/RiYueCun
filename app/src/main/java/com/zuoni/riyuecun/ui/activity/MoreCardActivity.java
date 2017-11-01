@@ -38,6 +38,7 @@ public class MoreCardActivity extends BaseTitleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        setTitle("更多储值卡");
 
 //        List<String > mList2=new ArrayList<>();
 //        mList2.add("");

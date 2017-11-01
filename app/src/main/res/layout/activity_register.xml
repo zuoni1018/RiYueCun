@@ -13,9 +13,8 @@
         android:layout_weight="1" />
 
     <RelativeLayout
-        android:id="@+id/card"
-        android:layout_width="200dp"
-        android:layout_height="310dp"
+        android:layout_width="218dp"
+        android:layout_height="335dp"
         android:layout_gravity="center"
         android:background="@mipmap/register_card">
 
@@ -24,40 +23,82 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="48dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:layout_weight="3"
                 android:orientation="vertical">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:hint="卡号"
-                    android:textColor="@color/color_white"
-                    android:textColorHint="@color/color_white"
-                    android:textSize="14sp" />
 
-                <EditText
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:hint="密码"
-                    android:textColor="@color/color_white"
-                    android:textColorHint="@color/color_white"
-                    android:textSize="14sp" />
+                    android:layout_marginRight="10dp">
+
+                    <EditText
+                        android:id="@+id/et01"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="卡号"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/color_white"
+                        android:textColorHint="@color/color_white"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:id="@+id/iv01"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:src="@mipmap/cha"
+                        android:visibility="invisible" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <EditText
+                        android:inputType="textPassword"
+                        android:id="@+id/et02"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="密码"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/color_white"
+                        android:textColorHint="@color/color_white"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:id="@+id/iv02"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:src="@mipmap/cha"
+                        android:visibility="invisible" />
+
+
+                </RelativeLayout>
             </LinearLayout>
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="1dp"
                 android:layout_weight="1" />
 
         </LinearLayout>
@@ -76,7 +117,7 @@
         android:layout_gravity="center"
         android:text="还没有会有卡?"
         android:textColor="@color/color_white"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,15 +127,16 @@
         android:layout_marginTop="5dp"
         android:text="快到附近门店咨询我们的小伙伴"
         android:textColor="@color/color_white"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
 
     <TextView
+        android:id="@+id/tv04"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="发现最近门店"
         android:textColor="#FF7640"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
 
     <View
         android:layout_width="0dp"
@@ -102,14 +144,13 @@
         android:layout_weight="0.7" />
 
     <TextView
+        android:id="@+id/tv05"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="54dp"
         android:layout_gravity="center"
         android:background="#414246"
         android:gravity="center"
         android:text="下一步"
         android:textColor="#FF7640"
         android:textSize="16sp" />
-
-
 </LinearLayout>
