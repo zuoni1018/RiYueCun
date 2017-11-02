@@ -22,5 +22,23 @@ public class AppUrl {
     public static final String ModifyPassword=BASE_URL+"/User/ModifyPassword";
 
 
+    public static final String BindCard=BASE_URL+"/MyClub/BindCard";
+
+    public static final String VerificationCode=BASE_URL+"/User/VerificationCode";
+
+    public static final String ResetPhone=BASE_URL+"/User/ResetPhone";
+
+
+    public static final String GetMyCardList=BASE_URL+"/MyClub/GetMyCardList";
+
+    public static final String ModifyUserInfo=BASE_URL+"/User/ModifyUserInfo";
+
+    public static final String SetActiveCard=BASE_URL+"/MyClub/SetActiveCard";
+
+
+
+
+
+
 
 }

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.zuoni.common.utils.DensityUtils;
 import com.zuoni.qrcode.zxing.QRCode;
 import com.zuoni.riyuecun.R;
+import com.zuoni.riyuecun.cache.CacheUtils;
 import com.zuoni.riyuecun.ui.activity.base.BaseActivity;
 
 import butterknife.BindView;
@@ -30,8 +31,8 @@ public class CreateQrCodeActivity extends BaseActivity {
         ivTest.postDelayed(new Runnable() {
             @Override
             public void run() {
-                        ivTest.setImageBitmap(QRCode.createQRCodeWithLogo2("嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻",
-                DensityUtils.dp2px(getContext(),200), drawableToBitmap(getResources().getDrawable(R.mipmap.zzz))));
+                        ivTest.setImageBitmap(QRCode.createQRCodeWithLogo2(CacheUtils.getToken(getContext()),
+                DensityUtils.dp2px(getContext(),165), drawableToBitmap(getResources().getDrawable(R.mipmap.zzz))));
             }
         },1000);
 

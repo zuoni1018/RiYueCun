@@ -69,6 +69,9 @@
         <activity android:name=".ui.activity.forget.ForgetGetCodeActivity" />
         <activity android:name=".ui.activity.forget.ForgetChangePasswordActivity" />
 
+        <activity android:name=".ui.activity.settings.ChangePhoneOldActivity"/>
+        <activity android:name=".ui.activity.settings.ChangePhoneNewActivity"/>
+
 
         <service
             android:name="com.baidu.location.f"

@@ -13,8 +13,8 @@
 
     <com.joooonho.SelectableRoundedImageView
         android:id="@+id/ivCard"
-        android:layout_width="250dp"
-        android:layout_height="380dp"
+        android:layout_width="206dp"
+        android:layout_height="317dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
         app:sriv_left_bottom_corner_radius="@dimen/card_corner_radius"
@@ -30,12 +30,12 @@
     <TextView
         android:id="@+id/tv01"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="54dp"
         android:layout_gravity="center"
         android:background="#414246"
         android:gravity="center"
         android:text="扫一扫"
         android:textColor="@color/color_white"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
 </LinearLayout>

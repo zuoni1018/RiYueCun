@@ -13,6 +13,8 @@ import com.zuoni.common.utils.DensityUtils;
 import com.zuoni.common.utils.ScreenUtils;
 import com.zuoni.riyuecun.GlobalVariable;
 import com.zuoni.riyuecun.R;
+import com.zuoni.riyuecun.bean.gson.GetMyCardList;
+import com.zuoni.riyuecun.callback.ItemOnClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +26,15 @@ import java.util.List;
 public class RvClubCardAdapter extends RecyclerView.Adapter<RvClubCardAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<String> mList;
+    private List<GetMyCardList.ListDataBean> mList;
     private LayoutInflater mInflater;
+    private ItemOnClickListener itemOnClickListener;
 
-    public RvClubCardAdapter(Context mContext, List<String> mList) {
+    public void setItemOnClickListener(ItemOnClickListener itemOnClickListener) {
+        this.itemOnClickListener = itemOnClickListener;
+    }
+
+    public RvClubCardAdapter(Context mContext, List<GetMyCardList.ListDataBean> mList) {
         this.mContext = mContext;
         if (mList != null) {
             this.mList = mList;
@@ -49,9 +56,16 @@ public class RvClubCardAdapter extends RecyclerView.Adapter<RvClubCardAdapter.My
         setCardSize(holder.ivCard);
 
         Glide.with(mContext)
-                .load(GlobalVariable.TEST_IMAGE_URL)
+                .load(mList.get(position).getImgUrl())
                 .asBitmap()
                 .into(holder.ivCard);
+
+        holder.ivCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemOnClickListener.onClick(mList.get(position),position);
+            }
+        });
 
 
     }

@@ -61,6 +61,7 @@ public class CallServer {
                         httpResponseListener.onSucceed(response.get(),gson);
                     }
                 }catch (Exception e) {
+                    LogUtil.i("报错手动报错"+e.toString());
                     httpResponseListener.onFailed(e);
                 }
             }

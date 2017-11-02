@@ -2,20 +2,21 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#101318"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/layout222"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#101318"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginTop="30dp"
-            android:src="@mipmap/logo2" />
+            android:layout_width="208dp"
+            android:layout_height="148dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ryc_1" />
 
         <View
             android:layout_width="match_parent"
@@ -27,18 +28,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:text="卡号(123456789)"
             android:textColor="@color/color_white"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <ImageView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="165dp"
+            android:layout_height="165dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:src="@mipmap/qrcode" />
 
 
@@ -46,11 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:text="每30秒自动更新"
             android:textColor="#CECECE"
-            android:textSize="10sp" />
+            android:textSize="8sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -58,9 +56,10 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginTop="17dp"
             android:text="扫一扫,积星星,享好礼"
             android:textColor="@color/color_white"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
 
 
         <View
@@ -71,17 +70,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="67dp"
             android:background="#414246"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_marginLeft="10dp"
-                android:scaleType="centerCrop"
                 android:layout_width="80dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
                 android:gravity="center"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/zzzz" />
 
             <TextView
@@ -100,7 +99,6 @@
                 android:layout_weight="1" />
 
 
-
         </LinearLayout>
 
         <View
@@ -112,8 +110,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
+        android:layout_height="54dp"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -123,9 +120,11 @@
             android:layout_alignParentLeft="true">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_centerInParent="true"
+                android:layout_width="11dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
                 android:src="@mipmap/back_left" />
         </RelativeLayout>
 

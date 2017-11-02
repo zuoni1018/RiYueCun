@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.zuoni.common.utils.LogUtil;
+import com.zuoni.riyuecun.AppUrl;
 import com.zuoni.riyuecun.GlobalVariable;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.bean.gson.BaseHttpResponse;
@@ -16,7 +17,6 @@ import com.zuoni.riyuecun.http.CallServer;
 import com.zuoni.riyuecun.http.HttpRequest;
 import com.zuoni.riyuecun.http.HttpResponseListener;
 import com.zuoni.riyuecun.ui.activity.base.BaseTitleActivity;
-import com.zuoni.riyuecun.AppUrl;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -146,13 +146,13 @@ public class RegisterUserInfoActivity extends BaseTitleActivity {
                 break;
             case R.id.iv07nan:
                 UserSex = true;
-                iv07nan.setImageResource(R.mipmap.selected);
-                iv07nv.setImageResource(R.mipmap.select);
+                iv07nan.setImageResource(R.mipmap.ryc_18);
+                iv07nv.setImageResource(R.mipmap.ryc_16);
                 break;
             case R.id.iv07nv:
                 UserSex = false;
-                iv07nv.setImageResource(R.mipmap.selected);
-                iv07nan.setImageResource(R.mipmap.select);
+                iv07nv.setImageResource(R.mipmap.ryc_18);
+                iv07nan.setImageResource(R.mipmap.ryc_16);
                 break;
         }
     }

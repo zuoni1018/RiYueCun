@@ -337,7 +337,7 @@
                     android:id="@+id/iv07nan"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:src="@mipmap/selected" />
+                    android:src="@mipmap/ryc_18" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -353,7 +353,7 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_marginLeft="89dp"
-                    android:src="@mipmap/select" />
+                    android:src="@mipmap/ryc_16" />
 
                 <TextView
                     android:layout_width="wrap_content"

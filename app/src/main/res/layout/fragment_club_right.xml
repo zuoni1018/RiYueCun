@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#101318"
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="10dp"
         android:id="@+id/mRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/layoutNoData"
+        android:layout_width="208dp"
+        android:layout_height="208dp"
+        android:layout_centerInParent="true"
+        android:background="@mipmap/bg_333">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="暂无休眠卡"
+            android:textColor="@color/color_white"
+            android:textSize="22dp" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

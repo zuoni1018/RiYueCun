@@ -165,24 +165,11 @@ public class ClubFragment extends Fragment {
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                 float x = event.values[0];
                 float y = event.values[1] * 2.0f;
-
-                LogUtil.i("重力"+y);
-
-                if (Math.abs(lastX * 1000 - x * 1000) > 100|Math.abs(lastY * 1000 - y * 1000) > 100) {
+                if (Math.abs(lastX * 1000 - x * 1000) > 200|Math.abs(lastY * 1000 - y * 1000) > 200) {
                     mobikeView.getmMobike().onSensorChanged(-x, y);
                     lastX = x;
                     lastY = y;
                 }
-// else {
-
-//                }
-
-//                if(y>0){
-//                    mobikeView.getmMobike().onSensorChanged(-x, 0);
-//                }else {
-                    mobikeView.getmMobike().onSensorChanged(-x, y);
-//                }
-
             }
         }
 

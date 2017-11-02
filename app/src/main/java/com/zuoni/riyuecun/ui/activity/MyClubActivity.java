@@ -1,5 +1,6 @@
 package com.zuoni.riyuecun.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -38,14 +39,25 @@ public class MyClubActivity extends BaseTitleActivity {
         return R.layout.activity_my_club;
     }
 
+    private ClubLeftFragment clubLeftFragment;
+    private ClubRightFragment clubRightFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         setTitle("我的俱乐部");
+
+        clubLeftFragment = new ClubLeftFragment();
+        clubRightFragment = new ClubRightFragment();
+
+        clubLeftFragment.setMyClubActivity(this);
+        clubRightFragment.setMyClubActivity(this);
+
+
         mList = new ArrayList<>();
-        mList.add(new ClubLeftFragment());
-        mList.add(new ClubRightFragment());
+        mList.add(clubLeftFragment);
+        mList.add(clubRightFragment);
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), mList);
         viewPager.setAdapter(mPagerAdapter);
 
@@ -77,6 +89,11 @@ public class MyClubActivity extends BaseTitleActivity {
         });
     }
 
+    public void refreshAll() {
+        clubLeftFragment.refresh();
+        clubRightFragment.refresh();
+    }
+
     @OnClick({R.id.left, R.id.right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -95,8 +112,15 @@ public class MyClubActivity extends BaseTitleActivity {
 
     @OnClick(R.id.layoutRight)
     public void onViewClicked() {
-        jumpToActivity(AddCardActivity.class);
+        Intent mIntent=new Intent(getContext(),AddCardActivity.class);
+        startActivityForResult(mIntent,10086);
+    }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==10086&&resultCode==10087){
+            refreshAll();
+        }
     }
 }
