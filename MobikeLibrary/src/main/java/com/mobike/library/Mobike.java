@@ -92,7 +92,7 @@ public class Mobike {
             createLeftAndRightBounds();
 
             double h1=30/245.0001*height;
-            double h2=h1*4/5;
+            double h2=h1*4/6;
 
             double mWidth1=width/16*4;
             double mWidth2=width/32*9;//宽一点
@@ -101,12 +101,10 @@ public class Mobike {
             double mWidth5=width/16;//小一点
             createOther(0,0, width, (int) h1);//挡住瓶盖部分
             for (int i = 0; i <4 ; i++) {
-                createOther(0, (int) (h2*(i+1)), (int) (mWidth2-(mWidth1)/6*i), (int) h1);//挡住瓶盖部分
+                createOther(0, (int) (h2*(i+1)), (int) (mWidth2-(mWidth1)/5*i), (int) h1);//挡住瓶盖部分
             }
-
-//            createOther(width,0, (int) mWidth1, (int) h1);//挡住瓶盖部分
             for (int i = 0; i <4 ; i++) {
-                createOther(width, (int) (h2*(i+1)), (int) (mWidth2-(mWidth1)/6*i), (int) h1);//挡住瓶盖部分
+                createOther(width, (int) (h2*(i+1)), (int) (mWidth2-(mWidth1)/5*i), (int) h1);//挡住瓶盖部分
             }
         }
         int childCount = mViewgroup.getChildCount();
@@ -263,10 +261,12 @@ public class Mobike {
     }
 
     public void onSensorChanged(float x, float y) {
-
+        world.setGravity(new Vec2(x, y));
         int childCount = mViewgroup.getChildCount();
+
+//        world.
         for (int i = 0; i < childCount; i++) {
-            Vec2 impulse = new Vec2(x, y-10);
+            Vec2 impulse = new Vec2(x/2, y/2);
             View view = mViewgroup.getChildAt(i);
             Body body = (Body) view.getTag(R.id.mobike_body_tag);
             if (body != null) {
