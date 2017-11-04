@@ -71,6 +71,7 @@
 
         <activity android:name=".ui.activity.settings.ChangePhoneOldActivity"/>
         <activity android:name=".ui.activity.settings.ChangePhoneNewActivity"/>
+        <activity android:name=".ui.activity.AddStoredValueCardActivity"/>
 
 
         <service

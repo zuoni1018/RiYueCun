@@ -35,6 +35,10 @@ public class AppUrl {
 
     public static final String SetActiveCard=BASE_URL+"/MyClub/SetActiveCard";
 
+    public static final String GetMyLevelInfo=BASE_URL+"/MyClub/GetMyLevelInfo";
+
+
+
 
 
 

@@ -55,17 +55,18 @@
             <RelativeLayout
                 android:visibility="invisible"
                 android:id="@+id/top_bar_right"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/top_bar_right_icon"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_centerInParent="true"
+                    android:layout_width="28dp"
+                    android:layout_height="19dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/add" />
+                    android:layout_marginRight="14dp"
+                    android:src="@mipmap/add_card" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

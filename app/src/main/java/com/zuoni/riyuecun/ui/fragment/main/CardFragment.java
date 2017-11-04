@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.joooonho.SelectableRoundedImageView;
 import com.zuoni.riyuecun.GlobalVariable;
 import com.zuoni.riyuecun.R;
+import com.zuoni.riyuecun.ui.activity.AddStoredValueCardActivity;
 import com.zuoni.riyuecun.ui.activity.MainActivity;
 import com.zuoni.riyuecun.ui.activity.ManagerCardActivity;
 import com.zuoni.riyuecun.ui.activity.MoreCardActivity;
@@ -57,6 +58,14 @@ public class CardFragment extends Fragment {
             public void onClick(View v) {
                 mIntent=new Intent(getContext(), PaymentActivity.class);
                 startActivity(mIntent);
+            }
+        });
+
+        mainActivity.setTopBarRightOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent=new Intent(getContext(), AddStoredValueCardActivity.class);
+                startActivityForResult(mIntent,10086);
             }
         });
 

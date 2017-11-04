@@ -11,16 +11,16 @@
     <com.androidkun.xtablayout.XTabLayout
         android:id="@+id/xTablayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
         android:background="#414246"
         app:xTabDisplayNum="4"
         app:xTabIndicatorColor="#FF7841"
         app:xTabIndicatorHeight="1dp"
         app:xTabMode="scrollable"
         app:xTabSelectedTextColor="#D4D4D4"
-        app:xTabSelectedTextSize="15sp"
+        app:xTabSelectedTextSize="12sp"
         app:xTabTextColor="#D4D4D4"
-        app:xTabTextSize="15sp" />
+        app:xTabTextSize="12sp" />
 
 
     <LinearLayout
@@ -37,39 +37,52 @@
             android:layout_marginTop="20dp"
             android:text="会员等级"
             android:textColor="@color/color_white"
-            android:textSize="14sp"
+            android:textSize="11sp"
 
             />
 
         <TextView
-
+            android:id="@+id/tv01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="至尊太阳系会员"
             android:textColor="@color/color_white"
-            android:textSize="20sp"
+            android:textSize="22sp"
 
             />
 
         <TextView
+            android:id="@+id/tv02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="12dp"
             android:text="您满级了"
             android:textColor="@color/color_white"
-            android:textSize="14sp" />
+            android:textSize="11sp" />
 
-        <View
+
+        <LinearLayout
+            android:id="@+id/layout03"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="12dp"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/rank_bar_01" />
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rank_bar_01"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/view03"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rank_bar_02" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <android.support.v4.view.ViewPager

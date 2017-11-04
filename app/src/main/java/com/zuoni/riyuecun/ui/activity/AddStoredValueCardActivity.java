@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -25,7 +26,13 @@ import butterknife.OnClick;
  * Created by zangyi_shuai_ge on 2017/10/26
  */
 
-public class AddCardActivity extends BaseTitleActivity {
+public class AddStoredValueCardActivity extends BaseTitleActivity {
+
+
+    @BindView(R.id.layoutLeft)
+    RelativeLayout layoutLeft;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
     @BindView(R.id.et01)
     EditText et01;
     @BindView(R.id.iv01)
@@ -34,17 +41,14 @@ public class AddCardActivity extends BaseTitleActivity {
     EditText et02;
     @BindView(R.id.iv02)
     ImageView iv02;
-    @BindView(R.id.iv03)
-    ImageView iv03;
     @BindView(R.id.tv04)
     TextView tv04;
-
-    private boolean Active=false;
+    private boolean Active = false;
 
 
     @Override
     public int setLayoutId() {
-        return R.layout.activity_add_card;
+        return R.layout.activity_add_stored_value_card;
     }
 
     @Override
@@ -75,7 +79,7 @@ public class AddCardActivity extends BaseTitleActivity {
         });
     }
 
-    @OnClick({R.id.iv01, R.id.iv02, R.id.iv03, R.id.tv04})
+    @OnClick({R.id.iv01, R.id.iv02,  R.id.tv04})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv01:
@@ -85,15 +89,6 @@ public class AddCardActivity extends BaseTitleActivity {
             case R.id.iv02:
                 et02.setText("");
                 iv02.setVisibility(View.INVISIBLE);
-                break;
-            case R.id.iv03:
-                //是否设置为活跃
-                Active=!Active;
-                if(Active){
-                    iv03.setImageResource(R.mipmap.ryc_17);
-                }else {
-                    iv03.setImageResource(R.mipmap.ryc_6);
-                }
                 break;
             case R.id.tv04:
 
@@ -112,12 +107,13 @@ public class AddCardActivity extends BaseTitleActivity {
                 break;
         }
     }
+
     private void bindCard(String CardName, String CardPassword) {
         showLoading();
         HttpRequest httpRequest = new HttpRequest(AppUrl.BindCard);//绑定卡
         httpRequest.add("CardName", CardName);
         httpRequest.add("CardPassword", CardPassword);
-        httpRequest.add("Active",Active);
+        httpRequest.add("Active", Active);
         CallServer.getInstance().request(httpRequest, new HttpResponseListener() {
             @Override
             public void onSucceed(String response, Gson gson) {
@@ -142,8 +138,5 @@ public class AddCardActivity extends BaseTitleActivity {
 
     }
 
-//    @OnClick(R.id.tvOK)
-//    public void onViewClicked() {
-//        finish();
-//    }
+
 }

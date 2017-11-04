@@ -159,6 +159,9 @@ public class MainFragment extends Fragment {
 
     private Intent mIntent;
 
+
+    private static int LOGIN_TAG=10086;
+
     @OnClick({R.id.btRegister, R.id.btLogin})
     public void mainLoginView(View view) {
         switch (view.getId()) {
@@ -168,8 +171,19 @@ public class MainFragment extends Fragment {
                 break;
             case R.id.btLogin:
                 mIntent = new Intent(getContext(), LoginActivity.class);
-                startActivity(mIntent);
+                startActivityForResult(mIntent,LOGIN_TAG);
                 break;
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==LOGIN_TAG){
+            if(resultCode==1){
+                //登录成功
+            }
         }
     }
 }

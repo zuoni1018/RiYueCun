@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.RequestQueue;
@@ -60,7 +61,8 @@ public class CallServer {
                     }else {
                         httpResponseListener.onSucceed(response.get(),gson);
                     }
-                }catch (Exception e) {
+                }catch (JsonSyntaxException e) {
+                    LogUtil.i("报错手动报错"+response.get());
                     LogUtil.i("报错手动报错"+e.toString());
                     httpResponseListener.onFailed(e);
                 }
