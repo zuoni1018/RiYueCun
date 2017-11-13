@@ -22,7 +22,6 @@
         app:xTabTextColor="#D4D4D4"
         app:xTabTextSize="12sp" />
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,9 +36,7 @@
             android:layout_marginTop="20dp"
             android:text="会员等级"
             android:textColor="@color/color_white"
-            android:textSize="11sp"
-
-            />
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/tv01"
@@ -47,11 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:text="至尊太阳系会员"
             android:textColor="@color/color_white"
-            android:textSize="22sp"
-
-            />
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/tv02"
@@ -59,10 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="12dp"
-            android:text="您满级了"
             android:textColor="@color/color_white"
             android:textSize="11sp" />
-
 
         <LinearLayout
             android:id="@+id/layout03"
@@ -77,18 +69,15 @@
 
             <View
                 android:id="@+id/view03"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/rank_bar_02" />
         </LinearLayout>
-
-
     </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
 </LinearLayout>

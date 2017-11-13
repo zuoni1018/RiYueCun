@@ -13,26 +13,25 @@
 
         <com.joooonho.SelectableRoundedImageView
             android:id="@+id/ivCard"
-            android:layout_width="334dp"
-            android:layout_height="222dp"
+            android:layout_width="336dp"
+            android:layout_height="219dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:scaleType="centerCrop"
-            app:sriv_left_bottom_corner_radius="@dimen/card_corner_radius"
-            app:sriv_left_top_corner_radius="@dimen/card_corner_radius"
-            app:sriv_right_bottom_corner_radius="@dimen/card_corner_radius"
-            app:sriv_right_top_corner_radius="@dimen/card_corner_radius" />
-
+            app:sriv_left_bottom_corner_radius="10dp"
+            app:sriv_left_top_corner_radius="10dp"
+            app:sriv_right_bottom_corner_radius="10dp"
+            app:sriv_right_top_corner_radius="10dp" />
 
         <TextView
+            android:id="@+id/CardName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="13dp"
             android:text="储值卡(7872)有效期至2017年12月8日"
             android:textColor="#CECECE"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -47,7 +46,7 @@
                 android:gravity="bottom"
                 android:text="可用余额"
                 android:textColor="@color/color_white"
-                android:textSize="13sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvMoney"
@@ -59,7 +58,7 @@
                 android:gravity="bottom"
                 android:text="￥200"
                 android:textColor="@color/color_white"
-                android:textSize="28sp" />
+                android:textSize="24sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

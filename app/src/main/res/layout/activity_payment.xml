@@ -15,9 +15,10 @@
             android:scaleType="centerCrop"
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="195dp" />
+            android:layout_height="200dp" />
 
         <TextView
+            android:id="@+id/CardName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -34,6 +35,7 @@
             android:layout_marginTop="26dp"
             android:src="@mipmap/qrcode" />
         <TextView
+            android:id="@+id/EffectiveTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -59,6 +61,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/CardMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -85,7 +88,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="54dp"
             android:background="#414246"
             android:orientation="horizontal">
 
@@ -107,6 +110,7 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/finish"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
@@ -136,7 +140,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerInParent="true"
-                android:src="@mipmap/back_left" />
+                android:src="@mipmap/ryc_12" />
         </RelativeLayout>
 
         <TextView

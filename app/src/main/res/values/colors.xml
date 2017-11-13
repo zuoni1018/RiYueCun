@@ -23,4 +23,10 @@
     <color name="et_hint">#F9763F</color>
     <color name="et_text">#ffffff</color>
     <color name="et_line">#F9763F</color>
+
+
+    <color name="refresh_color_01">#1C1F24</color>
+    <color name="refresh_color_02">#ff9f67</color>
+    <color name="refresh_color_03">#ffffff</color>
+
 </resources>

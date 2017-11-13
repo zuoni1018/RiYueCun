@@ -96,7 +96,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="24dp"
-                android:src="@mipmap/eye_01" />
+                android:src="@mipmap/ryc_9" />
 
         </LinearLayout>
 

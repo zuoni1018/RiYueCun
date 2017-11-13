@@ -9,6 +9,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +19,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
+import com.github.jdsjlzx.interfaces.OnRefreshListener;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.google.gson.Gson;
 import com.mobike.library.MobikeView;
 import com.zuoni.common.utils.LogUtil;
 import com.zuoni.riyuecun.AppUrl;
 import com.zuoni.riyuecun.R;
+import com.zuoni.riyuecun.adapter.RvMianItem02Adapter;
 import com.zuoni.riyuecun.bean.gson.GetMyLevelInfo;
 import com.zuoni.riyuecun.cache.CacheUtils;
 import com.zuoni.riyuecun.http.CallServer;
@@ -31,44 +37,45 @@ import com.zuoni.riyuecun.http.HttpResponseListener;
 import com.zuoni.riyuecun.ui.activity.MainActivity;
 import com.zuoni.riyuecun.ui.activity.MyClubActivity;
 import com.zuoni.riyuecun.ui.activity.MyClubRankActivity;
-import com.zuoni.riyuecun.ui.activity.RecordsOfConsumptionActivity;
+import com.zuoni.riyuecun.ui.activity.RecordsOfConsumptionActivity2;
 import com.zuoni.riyuecun.ui.activity.TestActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
  * Created by zangyi_shuai_ge on 2017/10/16
+ * 我的俱乐部
  */
 
 public class ClubFragment extends Fragment {
 
     Unbinder unbinder;
-    @BindView(R.id.mobike_view)
-    MobikeView mobikeView;
-    @BindView(R.id.UserLevelName)
-    TextView UserLevelName;
-    @BindView(R.id.NeedThing)
-    TextView NeedThing;
-    @BindView(R.id.CurrentThingCount)
-    TextView CurrentThingCount;
-    @BindView(R.id.tvDescribe)
-    TextView tvDescribe;
-    @BindView(R.id.layoutRank)
-    LinearLayout layoutRank;
-    @BindView(R.id.layout1)
-    LinearLayout layout1;
-    @BindView(R.id.layout2)
-    LinearLayout layout2;
-    @BindView(R.id.layout3)
-    LinearLayout layout3;
-    @BindView(R.id.layout4)
-    LinearLayout layout4;
+
+
+    //头布局
+    private MobikeView mobikeView;
+    private TextView UserLevelName;
+    private TextView NeedThing;
+    private TextView CurrentThingCount;
+    private TextView tvDescribe;
+    private LinearLayout layoutRank;
+    private LinearLayout layout1;
+    private LinearLayout layout2;
+    private TextView clubItem01;
+    private TextView clubItem02;
 
     private View view;
+
+    @BindView(R.id.mRecyclerView)
+    LRecyclerView mRecyclerView;
+    private LRecyclerViewAdapter mAdapter;
     private MainActivity mainActivity;
+
     private int[] imgs = {
             R.mipmap.moon,
             R.mipmap.moon,
@@ -91,7 +98,7 @@ public class ClubFragment extends Fragment {
 
 
     private boolean nowIsShow = false;
-
+    private List<GetMyLevelInfo.Model3Bean> mList;
 
     public void setMainActivity(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -105,14 +112,89 @@ public class ClubFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_my_club, null);
         unbinder = ButterKnife.bind(this, view);
 
+
+        mList = new ArrayList<>();
+        mAdapter = new LRecyclerViewAdapter(new RvMianItem02Adapter(getContext(), mList));
+
+        initHead();
+        initViews();
+        sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+        defaultSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setAdapter(mAdapter);
+
+
+        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRecyclerView.refreshComplete(1);
+                        mainActivity.showToast("没有更多数据");
+                        mRecyclerView.setNoMore(true);
+                    }
+                }, 500);
+            }
+        });
+
+        mRecyclerView.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                GetMyLevelInfo();
+            }
+        });
+
         if (CacheUtils.isLogin(getContext())) {
             GetMyLevelInfo();
         }
 
-        initViews();
-        sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
-        defaultSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         return view;
+    }
+
+    private void initHead() {
+        View header = LayoutInflater.from(getContext()).inflate(R.layout.fragment_my_club_head, null, false);
+        //瓶子
+        mobikeView = header.findViewById(R.id.mobike_view);
+        //等级信息
+        UserLevelName = header.findViewById(R.id.UserLevelName);
+        NeedThing = header.findViewById(R.id.NeedThing);
+        CurrentThingCount = header.findViewById(R.id.CurrentThingCount);
+        tvDescribe = header.findViewById(R.id.tvDescribe);
+        layoutRank = header.findViewById(R.id.layoutRank);
+        layoutRank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToActivity(MyClubRankActivity.class);
+            }
+        });
+        mAdapter.addHeaderView(header);
+
+        //消费记录
+        clubItem01 = header.findViewById(R.id.clubItem01);
+        clubItem02 = header.findViewById(R.id.clubItem02);
+
+        layout1 = header.findViewById(R.id.layout1);
+
+        layout2 = header.findViewById(R.id.layout2);
+
+        layout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToActivity(MyClubActivity.class);
+            }
+        });
+        layout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToActivity(RecordsOfConsumptionActivity2.class);
+            }
+        });
+
+
+
+
     }
 
     /**
@@ -195,7 +277,7 @@ public class ClubFragment extends Fragment {
 //            View view =LayoutInflater.from(getContext()).inflate(R.layout.test,null);
             ImageView imageView = new ImageView(getContext());
             imageView.setImageResource(imgs[i]);
-            imageView.setBackgroundColor(getResources().getColor(R.color.color_calendar_state_02));
+//            imageView.setBackgroundColor(getResources().getColor(R.color.color_calendar_state_02));
             imageView.setTag(R.id.mobike_view_circle_tag, false);
             mobikeView.addView(imageView, layoutParams);
         }
@@ -207,51 +289,46 @@ public class ClubFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.layout1, R.id.layout2, R.id.layout3, R.id.layout4})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.layout1:
-                jumpToActivity(MyClubActivity.class);
-                break;
-            case R.id.layout2:
-                jumpToActivity(RecordsOfConsumptionActivity.class);
-                break;
-            case R.id.layout3:
-                jumpToActivity("早餐甜豆花邀请券");
-                break;
-            case R.id.layout4:
-                jumpToActivity("早餐甜豆花邀请券");
-                break;
-        }
-    }
-
     private void jumpToActivity(Class<?> cls) {
         Intent mIntent = new Intent(getContext(), cls);
         startActivity(mIntent);
     }
 
     public void GetMyLevelInfo() {
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
         mainActivity.showLoading();
         HttpRequest httpRequest = new HttpRequest(AppUrl.GetMyLevelInfo);//获取等级信息
         CallServer.getInstance().request(httpRequest, new HttpResponseListener() {
             @Override
             public void onSucceed(String response, Gson gson) {
                 mainActivity.closeLoading();
+                mRecyclerView.refreshComplete(1);
                 LogUtil.i("获取等级信息" + response);
                 GetMyLevelInfo info = gson.fromJson(response, GetMyLevelInfo.class);
                 if (info.getHttpCode() == 200) {
                     //获取等级成功
-                    UserLevelName.setText(info.getListData().get(0).getUserLevelName());
-                    NeedThing.setText("目前获赠" + info.getListData().get(0).getNeedThing() + "数");
+                    UserLevelName.setText(info.getModel1().getUserLevelName());
+                    NeedThing.setText("目前获赠" + info.getModel1().getNeedThing() + "数");
 
-                    CurrentThingCount.setText(info.getListData().get(0).getCurrentThingCount() + "");
+                    CurrentThingCount.setText(info.getModel1().getCurrentThingCount() + "");
 
-                    String describe = "集齐" + info.getListData().get(0).getNextThingCount() + "个" + info.getListData().get(0).getNeedThing() + " , \n"
-                            + "升级为" + info.getListData().get(0).getNextLevelName();
-
+                    String describe = "集齐" + info.getModel1().getNextThingCount() + "个" + info.getModel1().getNeedThing() + " , \n"
+                            + "升级为" + info.getModel1().getNextLevelName();
                     tvDescribe.setText(describe);
-
 //                    集齐58个小太阳,\n升级为至尊太阳系会员会员
+
+                    //消费记录
+                    if (info.getModel2() != null && info.getModel2().size() != 0) {
+                        clubItem01.setText(info.getModel2().get(0).getShopName());
+                        clubItem02.setText(info.getModel2().get(0).getShopTime());
+                    }
+                    //优惠券
+                    if (info.getModel3() != null) {
+                        mList.addAll(info.getModel3());
+                        mAdapter.notifyDataSetChanged();
+                    }
+
                 } else {
                     mainActivity.showToast(info.getMessage());
                 }
@@ -259,16 +336,12 @@ public class ClubFragment extends Fragment {
 
             @Override
             public void onFailed(Exception exception) {
+                mRecyclerView.refreshComplete(1);
                 mainActivity.closeLoading();
                 mainActivity.showToast("服务器异常");
             }
         }, getContext());
 
-    }
-
-    @OnClick(R.id.layoutRank)
-    public void onViewClicked() {
-        jumpToActivity(MyClubRankActivity.class);
     }
 
     private void jumpToActivity(String title) {

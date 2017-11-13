@@ -14,9 +14,10 @@ import android.view.ViewGroup;
 import com.zuoni.common.utils.ToastUtils;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.cache.CacheUtils;
-import com.zuoni.riyuecun.ui.activity.settings.ChangePasswordActivity;
 import com.zuoni.riyuecun.ui.activity.MainActivity;
 import com.zuoni.riyuecun.ui.activity.TestActivity;
+import com.zuoni.riyuecun.ui.activity.base.ActivityCollector;
+import com.zuoni.riyuecun.ui.activity.settings.ChangePasswordActivity;
 import com.zuoni.riyuecun.ui.activity.settings.UserInfoActivity;
 
 import butterknife.ButterKnife;
@@ -80,7 +81,9 @@ public class SettingsFragment extends Fragment {
                         CacheUtils.setLogin(false,getContext());
                         CacheUtils.setToken("",getContext());
                         ToastUtils.showToast(getContext(),"退出登录成功");
-                        mainActivity.turnFirstPage();
+                        ActivityCollector.finishAll();
+                        jumpToActivity(MainActivity.class);
+//                        mainActivity.turnFirstPage();
                     }
                 });
 

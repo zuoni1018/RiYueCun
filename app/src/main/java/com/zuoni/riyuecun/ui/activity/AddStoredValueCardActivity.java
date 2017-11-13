@@ -24,6 +24,7 @@ import butterknife.OnClick;
 
 /**
  * Created by zangyi_shuai_ge on 2017/10/26
+ * 添加储值卡
  */
 
 public class AddStoredValueCardActivity extends BaseTitleActivity {
@@ -45,7 +46,6 @@ public class AddStoredValueCardActivity extends BaseTitleActivity {
     TextView tv04;
     private boolean Active = false;
 
-
     @Override
     public int setLayoutId() {
         return R.layout.activity_add_stored_value_card;
@@ -55,7 +55,7 @@ public class AddStoredValueCardActivity extends BaseTitleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        setTitle("添加会员卡");
+        setTitle("添加储值卡");
 
         et01.addTextChangedListener(new SimpleTextWatcher() {
             @Override
@@ -79,14 +79,16 @@ public class AddStoredValueCardActivity extends BaseTitleActivity {
         });
     }
 
-    @OnClick({R.id.iv01, R.id.iv02,  R.id.tv04})
+    @OnClick({R.id.iv01, R.id.iv02, R.id.tv04})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv01:
+                //卡号
                 et01.setText("");
                 iv01.setVisibility(View.INVISIBLE);
                 break;
             case R.id.iv02:
+                //密码
                 et02.setText("");
                 iv02.setVisibility(View.INVISIBLE);
                 break;
@@ -101,27 +103,27 @@ public class AddStoredValueCardActivity extends BaseTitleActivity {
                     if (CardPassword.equals("")) {
                         showToast("请输入密码");
                     } else {
-                        bindCard(CardName, CardPassword);
+                        BindElecCard(CardName, CardPassword);
                     }
                 }
                 break;
         }
     }
 
-    private void bindCard(String CardName, String CardPassword) {
+    private void BindElecCard(String CardName, String CardPassword) {
         showLoading();
-        HttpRequest httpRequest = new HttpRequest(AppUrl.BindCard);//绑定卡
+        HttpRequest httpRequest = new HttpRequest(AppUrl.BindElecCard);//绑定储值卡
         httpRequest.add("CardName", CardName);
-        httpRequest.add("CardPassword", CardPassword);
-        httpRequest.add("Active", Active);
+        httpRequest.add("PassWord", CardPassword);
+//        httpRequest.add("Active", Active);
         CallServer.getInstance().request(httpRequest, new HttpResponseListener() {
             @Override
             public void onSucceed(String response, Gson gson) {
                 closeLoading();
-                LogUtil.i("绑定卡" + response);
+                LogUtil.i("绑定储值卡" + response);
                 BaseHttpResponse info = gson.fromJson(response, BaseHttpResponse.class);
                 if (info.getHttpCode() == 200) {
-                    setResult(10087);
+                    setResult(10087);//绑定成功
                     myFinish();
                     showToast(info.getMessage());
                 } else {

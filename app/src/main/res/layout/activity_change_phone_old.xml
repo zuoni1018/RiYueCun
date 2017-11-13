@@ -15,7 +15,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="38dp"
         android:gravity="center"
-        android:text="请输入您收到的验证码,您完成验证后方可跟换新的手机号"
+        android:text="请输入您收到的验证码,您完成验证后方可更换新的手机号"
         android:textColor="@color/color_white"
         android:textSize="14sp" />
 

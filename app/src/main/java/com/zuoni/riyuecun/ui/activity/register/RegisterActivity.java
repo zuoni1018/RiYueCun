@@ -47,10 +47,10 @@ public class RegisterActivity extends BaseTitleActivity {
         setTitle("注册");
 
         /////
-        et01.setText("黄金");
-        et02.setText("123456");
-        iv01.setVisibility(View.VISIBLE);
-        iv02.setVisibility(View.VISIBLE);
+//        et01.setText("黄金");
+//        et02.setText("123456");
+//        iv01.setVisibility(View.VISIBLE);
+//        iv02.setVisibility(View.VISIBLE);
         ////
 
 

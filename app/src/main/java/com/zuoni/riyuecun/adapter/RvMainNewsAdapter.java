@@ -1,15 +1,18 @@
 package com.zuoni.riyuecun.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.joooonho.SelectableRoundedImageView;
-import com.zuoni.riyuecun.GlobalVariable;
 import com.zuoni.riyuecun.R;
+import com.zuoni.riyuecun.bean.gson.GetMessageList;
+import com.zuoni.riyuecun.ui.activity.WebViewActivity;
+import com.zuoni.riyuecun.util.ImageLoaderUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +24,10 @@ import java.util.List;
 public class RvMainNewsAdapter extends RecyclerView.Adapter<RvMainNewsAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<String> mList;
+    private List<GetMessageList.Model1Bean> mList;
     private LayoutInflater mInflater;
 
-    public RvMainNewsAdapter(Context mContext, List<String> mList) {
+    public RvMainNewsAdapter(Context mContext, List<GetMessageList.Model1Bean> mList) {
         this.mContext = mContext;
         if (mList != null) {
             this.mList = mList;
@@ -42,21 +45,19 @@ public class RvMainNewsAdapter extends RecyclerView.Adapter<RvMainNewsAdapter.My
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        ImageLoaderUtils.setStoredValueCardImage(mContext,mList.get(position).getMessageImage(),holder.MessageImage);
 
+        holder.MessageDescribe.setText(mList.get(position).getMessageDescribe());
+        holder.MessageName.setText(mList.get(position).getMessageName());
 
-        int a=position%2;
-        if(a==0){
-            Glide.with(mContext)
-                    .load(GlobalVariable.TEST_IMAGE_URL)
-                    .asBitmap()
-                    .into(holder.zzzzz);
-        }else {
-            Glide.with(mContext)
-                    .load(GlobalVariable.TEST_URL_2)
-                    .asBitmap()
-                    .into(holder.zzzzz);
-        }
-
+        holder.MessageImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent=new Intent(mContext, WebViewActivity.class);
+                mIntent.putExtra("MessageId",mList.get(position).getMessageID()+"");
+                mContext.startActivity(mIntent);
+            }
+        });
     }
 
     @Override
@@ -66,14 +67,15 @@ public class RvMainNewsAdapter extends RecyclerView.Adapter<RvMainNewsAdapter.My
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        SelectableRoundedImageView zzzzz;
+        SelectableRoundedImageView MessageImage;
+        TextView MessageName, MessageDescribe;
 
         MyViewHolder(View itemView) {
             super(itemView);
 
-            zzzzz= (SelectableRoundedImageView) itemView.findViewById(R.id.zzzzz);
-//            tvPayType= (TextView) itemView.findViewById(R.id.tvPayType);
-//            tvAreaNo= (TextView) itemView.findViewById(R.id.tvAreaNo);
+            MessageImage = (SelectableRoundedImageView) itemView.findViewById(R.id.MessageImage);
+            MessageName = (TextView) itemView.findViewById(R.id.MessageName);
+            MessageDescribe = (TextView) itemView.findViewById(R.id.MessageDescribe);
 //            tvStartReadDate= (TextView) itemView.findViewById(R.id.tvStartReadDate);
 //            tvRemark= (TextView) itemView.findViewById(R.id.tvRemark);
 //            tvEndReadDate= (TextView) itemView.findViewById(R.id.tvEndReadDate);

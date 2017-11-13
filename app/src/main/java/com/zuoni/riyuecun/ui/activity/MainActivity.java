@@ -1,6 +1,7 @@
 package com.zuoni.riyuecun.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -135,6 +136,19 @@ public class MainActivity extends BaseActivity {
     public void refreshAllData() {
         //刷新我的俱乐部数据
         clubFragment.refreshData();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                cardFragment.refreshData();
+            }
+        },200);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mainFragment.refreshData();
+            }
+        },100);
+
     }
 
 
@@ -202,7 +216,6 @@ public class MainActivity extends BaseActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                     setTitle("我的俱乐部");
                     clubFragment.showClubFragment(true);
-
                 } else {
                     showToast("请先登录");
                 }

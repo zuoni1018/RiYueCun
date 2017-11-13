@@ -17,7 +17,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="14dp"
-            android:src="@mipmap/back_left" />
+            android:src="@mipmap/ryc_12" />
     </RelativeLayout>
 
     <TextView
@@ -41,6 +41,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="14dp"
-            android:src="@mipmap/add_card" />
+            android:src="@mipmap/ryc_2" />
     </RelativeLayout>
 </RelativeLayout>

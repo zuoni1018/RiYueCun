@@ -50,7 +50,7 @@ public class LoginActivity extends BaseTitleActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         setTitle("登录");
-
+        setResult(0);
     }
 
     private boolean isShow = false;
@@ -63,11 +63,11 @@ public class LoginActivity extends BaseTitleActivity {
                 isShow = !isShow;
                 if (isShow) {
                     et02.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    iv02.setImageResource(R.mipmap.eye_02);
+                    iv02.setImageResource(R.mipmap.ryc_10);
                     et02.setSelection(et02.length());
                 } else {
                     et02.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    iv02.setImageResource(R.mipmap.eye_01);
+                    iv02.setImageResource(R.mipmap.ryc_9);
                     et02.setSelection(et02.length());
                 }
                 break;
@@ -109,6 +109,7 @@ public class LoginActivity extends BaseTitleActivity {
                 if (info.getHttpCode() == 200) {
                     CacheUtils.setToken(info.getModel1().getUserToken(),getContext());
                     CacheUtils.setLogin(true,getContext());//设置为已经登录
+                    setResult(1);
                     myFinish();
                 }else {
                     showToast(info.getMessage());

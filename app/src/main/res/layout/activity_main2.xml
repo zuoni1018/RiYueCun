@@ -32,7 +32,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@mipmap/main_top_bar_left" />
+                    android:src="@mipmap/ryc_5" />
             </RelativeLayout>
 
             <LinearLayout
@@ -47,7 +47,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="我的俱乐部"
+                    android:text="首页"
                     android:textColor="@color/color_white"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -66,7 +66,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="14dp"
-                    android:src="@mipmap/add_card" />
+                    android:src="@mipmap/ryc_2" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

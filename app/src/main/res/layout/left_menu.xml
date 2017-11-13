@@ -46,7 +46,7 @@
 
                 <ImageView
                     style="@style/menu_icon_style"
-                    android:src="@mipmap/menu_7" />
+                    android:src="@mipmap/ryc_50" />
 
                 <TextView
                     style="@style/menu_text_style"
@@ -79,7 +79,7 @@
 
                 <ImageView
                     style="@style/menu_icon_style"
-                    android:src="@mipmap/menu_2" />
+                    android:src="@mipmap/ryc_52" />
 
                 <TextView
                     style="@style/menu_text_style"
@@ -112,7 +112,7 @@
 
                 <ImageView
                     style="@style/menu_icon_style"
-                    android:src="@mipmap/menu_3" />
+                    android:src="@mipmap/ryc_49" />
 
                 <TextView
                     style="@style/menu_text_style"
@@ -145,7 +145,7 @@
 
                 <ImageView
                     style="@style/menu_icon_style"
-                    android:src="@mipmap/menu_4" />
+                    android:src="@mipmap/ryc_55" />
 
                 <TextView
                     style="@style/menu_text_style"
@@ -178,7 +178,7 @@
 
                 <ImageView
                     style="@style/menu_icon_style"
-                    android:src="@mipmap/menu_5" />
+                    android:src="@mipmap/ryc_48" />
 
                 <TextView
                     style="@style/menu_text_style"
@@ -211,7 +211,7 @@
 
                 <ImageView
                     style="@style/menu_icon_style"
-                    android:src="@mipmap/menu_6" />
+                    android:src="@mipmap/ryc_51" />
 
                 <TextView
                     style="@style/menu_text_style"

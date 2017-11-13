@@ -55,7 +55,9 @@
         <activity android:name=".ui.activity.settings.UserInfoActivity" />
         <activity android:name=".ui.activity.settings.ChangePasswordActivity" />
         <activity android:name=".ui.activity.TestActivity" />
-        <activity android:name=".ui.activity.MyClubRankActivity" />
+        <activity android:name=".ui.activity.MyClubRankActivity"
+            android:hardwareAccelerated="false"
+            />
         <activity android:name=".ui.activity.MoreCardActivity" />
         <activity android:name=".ui.activity.ManagerCardActivity" />
         <activity android:name=".ui.activity.ConsumptionDetailsActivity" />
@@ -82,6 +84,8 @@
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true" />
+        <activity android:name=".ui.activity.RecordsOfConsumptionActivity2" />
+        <activity android:name=".ui.activity.WebViewActivity" />
     </application>
 
 </manifest>

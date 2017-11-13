@@ -1,81 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/refreshLayout"
     android:background="#101318"
     android:orientation="vertical">
-
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#101318"
         android:orientation="vertical">
 
-        <include layout="@layout/main_login" />
-        <include layout="@layout/main_1"/>
-
         <LinearLayout
-            android:id="@+id/layoutMain2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#414246"
             android:orientation="vertical">
 
-            <com.zuoni.common.gallery.ViewPagerGallery
-                android:id="@+id/ViewPagerGallery"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:text="储值卡(7856)有效期至2099年12月1日"
-                android:textColor="@color/color_white"
-                android:textSize="10sp" />
+            <include layout="@layout/main_login" />
+            <include layout="@layout/main_1"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/layoutMain2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:background="#414246"
+                android:orientation="vertical">
+
+                <com.zuoni.common.gallery.ViewPagerGallery
+                    android:id="@+id/ViewPagerGallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp" />
 
                 <TextView
+                    android:id="@+id/CardName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="可用余额"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/color_white"
-                    android:textSize="13sp" />
+                    android:textSize="10sp" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:text="￥200"
-                    android:textColor="@color/color_white"
-                    android:textSize="20sp" />
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="可用余额"
+                        android:textColor="@color/color_white"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tvMoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:textColor="@color/color_white"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
+            <include
+                android:id="@+id/layoutMain03"
+                layout="@layout/main_item_01"/>
+            <include layout="@layout/main_item_02"/>
+
+            <include
+                layout="@layout/rv_main_news_item"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
 
         </LinearLayout>
-        <include
-            android:id="@+id/layoutMain03"
-            layout="@layout/main_item_01"/>
-        <include layout="@layout/main_item_02"/>
-
-        <include
-            layout="@layout/rv_main_news_item"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"/>
-
-    </LinearLayout>
 
 
-</ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
+

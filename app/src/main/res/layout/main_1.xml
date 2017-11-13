@@ -20,7 +20,6 @@
             android:layout_height="222dp"
             android:layout_marginLeft="22dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/xi"
             app:sriv_left_bottom_corner_radius="@dimen/card_corner_radius"
             app:sriv_left_top_corner_radius="@dimen/card_corner_radius"
             app:sriv_right_bottom_corner_radius="@dimen/card_corner_radius"
@@ -48,6 +47,7 @@
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/UserLevelName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -62,12 +62,15 @@
                 android:src="@mipmap/three" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/NextLevelName"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="再消费3次升级为月亮级"
                 android:textColor="@color/color_white"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -57,7 +57,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
-                        android:src="@mipmap/cha"
+                        android:src="@mipmap/ryc_27"
                         android:visibility="invisible" />
 
 
@@ -89,7 +89,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
-                        android:src="@mipmap/cha"
+                        android:src="@mipmap/ryc_27"
                         android:visibility="invisible" />
 
 

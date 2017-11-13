@@ -52,7 +52,7 @@
             android:orientation="vertical">
 
            <ImageView
-               android:src="@mipmap/find"
+               android:src="@mipmap/ryc_53"
                android:layout_width="30dp"
                android:layout_height="30dp" />
             <TextView

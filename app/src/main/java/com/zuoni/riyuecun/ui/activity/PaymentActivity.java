@@ -3,15 +3,17 @@ package com.zuoni.riyuecun.ui.activity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
-import com.zuoni.riyuecun.GlobalVariable;
 import com.zuoni.riyuecun.R;
+import com.zuoni.riyuecun.bean.model.ElectronicCard;
 import com.zuoni.riyuecun.ui.activity.base.BaseTitleActivity;
+import com.zuoni.riyuecun.util.ImageLoaderUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by zangyi_shuai_ge on 2017/10/17
@@ -25,6 +27,16 @@ public class PaymentActivity extends BaseTitleActivity {
     LinearLayout layout222;
     @BindView(R.id.image)
     ImageView image;
+    @BindView(R.id.CardName)
+    TextView CardName;
+    @BindView(R.id.EffectiveTime)
+    TextView EffectiveTime;
+    @BindView(R.id.CardMoney)
+    TextView CardMoney;
+    @BindView(R.id.finish)
+    TextView finish;
+
+    private ElectronicCard electronicCard;
 
     @Override
     public int setLayoutId() {
@@ -34,11 +46,22 @@ public class PaymentActivity extends BaseTitleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setTranslucentForImageView(this, layout222);
+        StatusBarUtil.setTranslucentForImageView(this, 20, layout222);
         ButterKnife.bind(this);
-        Glide
-                .with(getContext())
-                .load(GlobalVariable.TEST_IMAGE_URL)
-                .into(image);
+        electronicCard = (ElectronicCard) getIntent().getSerializableExtra("electronicCard");
+        if (electronicCard == null) {
+            showToast("该卡无效");
+            myFinish();
+            return;
+        }
+        ImageLoaderUtils.setStoredValueCardImage(getContext(), electronicCard.getCardImage(), image);
+        CardName.setText("卡号(" + electronicCard.getCardName() + ")");
+        EffectiveTime.setText("有效期至" + electronicCard.getEffectiveTime());
+        CardMoney.setText("￥" + electronicCard.getCardMoney());
+    }
+
+    @OnClick(R.id.finish)
+    public void onViewClicked() {
+        myFinish();
     }
 }

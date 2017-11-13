@@ -65,11 +65,11 @@ public class ChangePasswordActivity extends BaseTitleActivity {
                 isShow1 = !isShow1;
                 if (isShow1) {
                     et01.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    iv01.setImageResource(R.mipmap.eye_02);
+                    iv01.setImageResource(R.mipmap.ryc_10);
                     et01.setSelection(et01.length());
                 } else {
                     et01.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    iv01.setImageResource(R.mipmap.eye_01);
+                    iv01.setImageResource(R.mipmap.ryc_9);
                     et01.setSelection(et01.length());
                 }
                 break;
@@ -77,11 +77,11 @@ public class ChangePasswordActivity extends BaseTitleActivity {
                 isShow2 = !isShow2;
                 if (isShow2) {
                     et02.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    iv02.setImageResource(R.mipmap.eye_02);
+                    iv02.setImageResource(R.mipmap.ryc_10);
                     et02.setSelection(et02.length());
                 } else {
                     et02.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    iv02.setImageResource(R.mipmap.eye_01);
+                    iv02.setImageResource(R.mipmap.ryc_9);
                     et02.setSelection(et02.length());
                 }
                 break;
@@ -89,11 +89,11 @@ public class ChangePasswordActivity extends BaseTitleActivity {
                 isShow3 = !isShow3;
                 if (isShow3) {
                     et03.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    iv03.setImageResource(R.mipmap.eye_02);
+                    iv03.setImageResource(R.mipmap.ryc_10);
                     et03.setSelection(et03.length());
                 } else {
                     et03.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    iv03.setImageResource(R.mipmap.eye_01);
+                    iv03.setImageResource(R.mipmap.ryc_9);
                     et03.setSelection(et03.length());
                 }
                 break;

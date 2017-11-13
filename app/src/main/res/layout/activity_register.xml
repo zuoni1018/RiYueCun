@@ -57,7 +57,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
-                        android:src="@mipmap/cha"
+                        android:src="@mipmap/ryc_27"
                         android:visibility="invisible" />
 
 
@@ -89,7 +89,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
-                        android:src="@mipmap/cha"
+                        android:src="@mipmap/ryc_27"
                         android:visibility="invisible" />
 
 
@@ -115,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="还没有会有卡?"
+        android:text="还没有会员卡?"
         android:textColor="@color/color_white"
         android:textSize="13sp" />
 

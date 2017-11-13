@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
 import com.joooonho.SelectableRoundedImageView;
 import com.zuoni.common.utils.DensityUtils;
 import com.zuoni.common.utils.ScreenUtils;
@@ -15,6 +14,7 @@ import com.zuoni.riyuecun.GlobalVariable;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.bean.gson.GetMyCardList;
 import com.zuoni.riyuecun.callback.ItemOnClickListener;
+import com.zuoni.riyuecun.util.ImageLoaderUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +55,7 @@ public class RvClubCardAdapter extends RecyclerView.Adapter<RvClubCardAdapter.My
 
         setCardSize(holder.ivCard);
 
-        Glide.with(mContext)
-                .load(mList.get(position).getImgUrl())
-                .asBitmap()
-                .into(holder.ivCard);
+        ImageLoaderUtils.setStoredValueCardImage(mContext,mList.get(position).getImgUrl(),holder.ivCard);
 
         holder.ivCard.setOnClickListener(new View.OnClickListener() {
             @Override

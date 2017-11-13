@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.joooonho.SelectableRoundedImageView;
 import com.zuoni.common.utils.LogUtil;
@@ -21,6 +20,7 @@ import com.zuoni.riyuecun.http.HttpRequest;
 import com.zuoni.riyuecun.http.HttpResponseListener;
 import com.zuoni.riyuecun.ui.activity.CardActivity;
 import com.zuoni.riyuecun.ui.activity.MyClubActivity;
+import com.zuoni.riyuecun.util.ImageLoaderUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,11 +71,13 @@ public class ClubLeftFragment extends Fragment {
                 GetMyCardList info = gson.fromJson(response, GetMyCardList.class);
                 if (info.getHttpCode() == 200) {
                     cardInfo = info.getListData().get(0);
-                    Glide
-                            .with(getContext())
-                            .load(cardInfo.getImgUrl())
-                            .asBitmap()
-                            .into(ivCard);
+
+                    ImageLoaderUtils.setStoredValueCardImage(getContext(),cardInfo.getImgUrl(),ivCard);
+//                    Glide
+//                            .with(getContext())
+//                            .load(cardInfo.getImgUrl())
+//                            .asBitmap()
+//                            .into(ivCard);
                 }
             }
 

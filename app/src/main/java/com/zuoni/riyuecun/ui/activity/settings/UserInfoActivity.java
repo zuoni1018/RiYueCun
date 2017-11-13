@@ -109,13 +109,10 @@ public class UserInfoActivity extends BaseTitleActivity {
                         iv04nv.setImageResource(R.mipmap.ryc_18);
                         iv04nan.setImageResource(R.mipmap.ryc_16);
                     }
-
                 } else {
                     showToast(info.getMessage());
                 }
-
             }
-
             @Override
             public void onFailed(Exception exception) {
                 closeLoading();

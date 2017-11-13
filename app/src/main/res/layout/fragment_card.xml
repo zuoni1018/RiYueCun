@@ -1,120 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#101318"
     android:orientation="vertical">
-
-    <include layout="@layout/main_false_top_bar" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#101318"
         android:orientation="vertical">
 
-        <com.joooonho.SelectableRoundedImageView
-            android:id="@+id/ivCard"
-            android:layout_width="336dp"
-            android:layout_height="219dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="13dp"
-            android:scaleType="centerCrop"
-            app:sriv_left_bottom_corner_radius="10dp"
-            app:sriv_left_top_corner_radius="10dp"
-            app:sriv_right_bottom_corner_radius="10dp"
-            app:sriv_right_top_corner_radius="10dp" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="卡号(123456789)"
-            android:textColor="#CECECE"
-            android:textSize="10sp" />
+        <include layout="@layout/main_false_top_bar" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="bottom"
-                android:text="可用余额"
-                android:textColor="@color/color_white"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:gravity="bottom"
-                android:text="￥200"
-                android:textColor="@color/color_white"
-                android:textSize="24sp" />
-
-        </LinearLayout>
-
-        <View
+            android:id="@+id/layoutMain"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="10dp"
-            android:background="#414246" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/layoutManager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="5dp"
-            android:paddingTop="38dp">
+            <com.joooonho.SelectableRoundedImageView
+                android:id="@+id/ivCard"
+                android:layout_width="336dp"
+                android:layout_height="219dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="13dp"
+                android:scaleType="centerCrop"
+                app:sriv_left_bottom_corner_radius="10dp"
+                app:sriv_left_top_corner_radius="10dp"
+                app:sriv_right_bottom_corner_radius="10dp"
+                app:sriv_right_top_corner_radius="10dp" />
 
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="18dp"
-                android:layout_marginLeft="13dp"
-                android:background="@mipmap/manage" />
 
             <TextView
+                android:id="@+id/CardName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="管理"
-                android:textColor="@color/color_white"
-                android:textSize="14sp" />
+                android:layout_marginTop="10dp"
+                android:text="卡号(123456789)"
+                android:textColor="#CECECE"
+                android:textSize="10sp" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom"
+                    android:text="可用余额"
+                    android:textColor="@color/color_white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/CardMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="bottom"
+                    android:text="￥200"
+                    android:textColor="@color/color_white"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="#414246" />
+
+            <LinearLayout
+                android:id="@+id/layoutManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="38dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="18dp"
+                    android:layout_marginLeft="13dp"
+                    android:background="@mipmap/ryc_35" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="管理"
+                    android:textColor="@color/color_white"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvMore"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_gravity="center"
+                android:background="#414246"
+                android:gravity="center"
+                android:text="更多储值卡"
+                android:textColor="#FF7640"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:id="@+id/layoutNoData"
+            android:layout_width="208dp"
+            android:layout_height="208dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@mipmap/bg_333">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tvMore"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_gravity="center"
-            android:background="#414246"
-            android:gravity="center"
-            android:text="更多储值卡"
-            android:textColor="#FF7640"
-            android:textSize="16sp" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="暂无储值卡"
+                android:textColor="@color/color_white"
+                android:textSize="22dp" />
+        </RelativeLayout>
     </LinearLayout>
-
-
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
