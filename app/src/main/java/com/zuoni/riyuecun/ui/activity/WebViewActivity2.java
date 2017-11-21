@@ -20,11 +20,11 @@ import butterknife.ButterKnife;
  * Created by zangyi_shuai_ge on 2017/11/13
  */
 
-public class WebViewActivity extends BaseTitleActivity {
+public class WebViewActivity2 extends BaseTitleActivity {
     @BindView(R.id.webView)
     WebView webView;
 
-    private String MessageId;
+    private String title;
 
     @Override
     public int setLayoutId() {
@@ -35,15 +35,22 @@ public class WebViewActivity extends BaseTitleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        setTitle("消息详情");
-        MessageId = getIntent().getStringExtra("MessageId");
-        GetMessageHtml(MessageId);
-    }
 
-    private void GetMessageHtml(String MessageId) {
+        title=getIntent().getStringExtra("title");
+        setTitle(title);
+
+        if(title.equals("常见问题")){
+            CommonProblem();
+        }else if(title.equals("使用条款")){
+            TermsOfUse();
+        }else {
+            myFinish();
+        }
+
+    }
+    private void TermsOfUse() {
         showLoading();
-        HttpRequest httpRequest = new HttpRequest(AppUrl.GetMessageHtml);
-        httpRequest.add("MessageId", MessageId);
+        HttpRequest httpRequest = new HttpRequest(AppUrl.TermsOfUse);
         CallServer.getInstance().request(httpRequest, new HttpResponseListener() {
             @Override
             public void onSucceed(String response, Gson gson) {
@@ -51,7 +58,41 @@ public class WebViewActivity extends BaseTitleActivity {
                 LogUtil.i("网页" + response);
                 GetMessageHtml info = gson.fromJson(response, GetMessageHtml.class);
                 if (info.getHttpCode() == 200) {
+                    if(info.getModel1()==null){
+                        showToast("获取失败");
+                        myFinish();
+                        return;
+                    }
 
+                    if (!info.getModel1().equals("")) {
+                        webView.loadDataWithBaseURL("about:blank", info.getModel1(), "text/html", "utf-8", null);
+                    } else {
+                        showToast("获取失败");
+                        myFinish();
+                    }
+                } else {
+                    showToast(info.getMessage());
+                    myFinish();
+                }
+            }
+
+            @Override
+            public void onFailed(Exception exception) {
+                closeLoading();
+                showToast("服务器异常");
+            }
+        }, getContext());
+    }
+    private void CommonProblem() {
+        showLoading();
+        HttpRequest httpRequest = new HttpRequest(AppUrl.CommonProblem);
+        CallServer.getInstance().request(httpRequest, new HttpResponseListener() {
+            @Override
+            public void onSucceed(String response, Gson gson) {
+                closeLoading();
+                LogUtil.i("网页" + response);
+                GetMessageHtml info = gson.fromJson(response, GetMessageHtml.class);
+                if (info.getHttpCode() == 200) {
                     if(info.getModel1()==null){
                         showToast("获取失败");
                         myFinish();

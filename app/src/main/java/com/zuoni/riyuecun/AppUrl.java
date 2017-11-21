@@ -5,8 +5,8 @@ package com.zuoni.riyuecun;
  */
 
 public class AppUrl {
-//    public  static final  String BASE_URL="http://192.168.2.13:8056/api";
-    public  static final  String BASE_URL="http://106.14.218.31:8062/api";
+    public  static final  String BASE_URL="http://192.168.2.13:8056/api";
+//    public  static final  String BASE_URL="http://106.14.218.31:8062/api";
 
     public static final String VerificCard=BASE_URL+"/User/VerificCard";
 
@@ -57,6 +57,16 @@ public class AppUrl {
     public static final String GetFirstPage=BASE_URL + "/HomePage/GetFirstPage";
 
     public static final String GetFirstPageNoLogin=BASE_URL + "/HomePage/GetFirstPageNoLogin";
+
+    public static final String QRCode=BASE_URL + "/User/QRCode";
+    public static final String QRCode2=BASE_URL + "/StoredCard/QRCode";
+
+    public static final String GetStoreList=BASE_URL + "/Map/GetStoreList";
+
+
+    public static final String CommonProblem=BASE_URL + "/CommonHtml/CommonProblem";
+
+    public static final String TermsOfUse=BASE_URL + "/CommonHtml/TermsOfUse";
 
 
 }

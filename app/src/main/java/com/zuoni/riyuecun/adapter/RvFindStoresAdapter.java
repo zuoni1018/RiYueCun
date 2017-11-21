@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.zuoni.riyuecun.R;
+import com.zuoni.riyuecun.bean.model.Store;
 import com.zuoni.riyuecun.ui.activity.FindStoresActivity;
 
 import java.util.ArrayList;
@@ -21,10 +23,10 @@ import java.util.List;
 public class RvFindStoresAdapter extends RecyclerView.Adapter<RvFindStoresAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<String> mList;
+    private List<Store> mList;
     private LayoutInflater mInflater;
 
-    public RvFindStoresAdapter(Context mContext, List<String> mList) {
+    public RvFindStoresAdapter(Context mContext, List<Store> mList) {
         this.mContext = mContext;
         if (mList != null) {
             this.mList = mList;
@@ -46,10 +48,12 @@ public class RvFindStoresAdapter extends RecyclerView.Adapter<RvFindStoresAdapte
             @Override
             public void onClick(View view) {
                 Intent mIntent=new Intent(mContext, FindStoresActivity.class);
+                mIntent.putExtra("store",mList.get(position));
                 mContext.startActivity(mIntent);
             }
         });
-
+        holder.Adress.setText(mList.get(position).getAdress());
+        holder.StoreName.setText(mList.get(position).getStoreName());
     }
 
     @Override
@@ -59,10 +63,14 @@ public class RvFindStoresAdapter extends RecyclerView.Adapter<RvFindStoresAdapte
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         LinearLayout layoutMain;
+        TextView Adress,StoreName;
+
 
         MyViewHolder(View itemView) {
             super(itemView);
             layoutMain=(LinearLayout)itemView.findViewById(R.id.layoutMain);
+            Adress=itemView.findViewById(R.id.Adress);
+            StoreName=itemView.findViewById(R.id.StoreName);
         }
     }
 }

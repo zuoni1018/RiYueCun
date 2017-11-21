@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.joooonho.SelectableRoundedImageView;
 import com.zuoni.riyuecun.R;
-import com.zuoni.riyuecun.bean.gson.GetMessageList;
+import com.zuoni.riyuecun.bean.model.Message;
 import com.zuoni.riyuecun.ui.activity.WebViewActivity;
 import com.zuoni.riyuecun.util.ImageLoaderUtils;
 
@@ -24,10 +24,10 @@ import java.util.List;
 public class RvMainNewsAdapter extends RecyclerView.Adapter<RvMainNewsAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<GetMessageList.Model1Bean> mList;
+    private List<Message> mList;
     private LayoutInflater mInflater;
 
-    public RvMainNewsAdapter(Context mContext, List<GetMessageList.Model1Bean> mList) {
+    public RvMainNewsAdapter(Context mContext, List<Message> mList) {
         this.mContext = mContext;
         if (mList != null) {
             this.mList = mList;

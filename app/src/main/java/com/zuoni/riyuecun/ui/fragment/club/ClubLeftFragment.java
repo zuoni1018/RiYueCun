@@ -39,25 +39,26 @@ public class ClubLeftFragment extends Fragment {
     TextView tv01;
     private View view;
     private MyClubActivity myClubActivity;
-
-    public void setMyClubActivity(MyClubActivity myClubActivity) {
-        this.myClubActivity = myClubActivity;
-    }
+    GetMyCardList.ListDataBean cardInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_club_left, null);
         unbinder = ButterKnife.bind(this, view);
-
         setCardSize();
-
-
         refresh();
-
         return view;
     }
 
-    GetMyCardList.ListDataBean cardInfo;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    public void setMyClubActivity(MyClubActivity myClubActivity) {
+        this.myClubActivity = myClubActivity;
+    }
 
 
     public void refresh() {
@@ -71,13 +72,7 @@ public class ClubLeftFragment extends Fragment {
                 GetMyCardList info = gson.fromJson(response, GetMyCardList.class);
                 if (info.getHttpCode() == 200) {
                     cardInfo = info.getListData().get(0);
-
-                    ImageLoaderUtils.setStoredValueCardImage(getContext(),cardInfo.getImgUrl(),ivCard);
-//                    Glide
-//                            .with(getContext())
-//                            .load(cardInfo.getImgUrl())
-//                            .asBitmap()
-//                            .into(ivCard);
+                    ImageLoaderUtils.setStoredValueCardImage(getContext(), cardInfo.getImgUrl(), ivCard);
                 }
             }
 
@@ -99,16 +94,6 @@ public class ClubLeftFragment extends Fragment {
 //        ivCard.setLayoutParams(l);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-//    @OnClick(R.id.tv01)
-//    public void onViewClicked() {
-//        jumpToActivity(CardActivity.class);
-//    }
 
     private void jumpToActivity(Class<?> cls) {
         Intent mIntent = new Intent(getContext(), cls);
@@ -117,13 +102,20 @@ public class ClubLeftFragment extends Fragment {
 
     @OnClick({R.id.ivCard, R.id.tv01})
     public void onViewClicked(View view) {
-        jumpToActivity(CardActivity.class);
+        if (cardInfo == null) {
+            myClubActivity.showToast("会员卡获取失败");
+            return;
+        }
+
+        //卡号
+        Intent mIntent = new Intent(getContext(), CardActivity.class);
+        mIntent.putExtra("cardNum", cardInfo.getMemberShipCardId() + "");
+        startActivity(mIntent);
         switch (view.getId()) {
             case R.id.ivCard:
                 break;
             case R.id.tv01:
                 break;
-
         }
     }
 }

@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -27,13 +28,33 @@
             android:text="卡号(123456789)"
             android:textColor="@color/color_white"
             android:textSize="13sp" />
-
-        <ImageView
+        <FrameLayout
             android:layout_width="165dp"
             android:layout_height="165dp"
             android:layout_gravity="center"
-            android:layout_marginTop="26dp"
-            android:src="@mipmap/qrcode" />
+            android:layout_marginTop="30dp">
+
+            <ImageView
+                android:id="@+id/qrCode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@mipmap/blank" />
+
+            <com.zuoni.common.dialog.loading.circle.ProgressWheel
+                android:id="@+id/progressWheel"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                app:matProg_barColor="#717171"
+                app:matProg_barWidth="3dp"
+                app:matProg_fillRadius="true"
+                app:matProg_progressIndeterminate="true" />
+
+        </FrameLayout>
         <TextView
             android:id="@+id/EffectiveTime"
             android:layout_width="wrap_content"

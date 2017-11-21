@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.google.gson.Gson;
 import com.zuoni.common.utils.LogUtil;
 import com.zuoni.riyuecun.AppUrl;
+import com.zuoni.riyuecun.AppUtils;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.adapter.RvClubCardAdapter;
 import com.zuoni.riyuecun.bean.gson.BaseHttpResponse;
@@ -110,13 +111,15 @@ public class ClubRightFragment extends Fragment {
         CallServer.getInstance().request(httpRequest, new HttpResponseListener() {
             @Override
             public void onSucceed(String response, Gson gson) {
-
                 myClubActivity.closeLoading();
                 LogUtil.i("设置活跃卡" + response);
                 BaseHttpResponse info = gson.fromJson(response, BaseHttpResponse.class);
                 if (info.getHttpCode() == 200) {
                     myClubActivity.showToast("设置活跃卡成功");
                     myClubActivity.refreshAll();
+                    //设置成功后首页数据需要刷新
+                    AppUtils.mainFragmentNeedRefresh=true;
+
                 }else {
                     myClubActivity.showToast(info.getMessage());
                 }

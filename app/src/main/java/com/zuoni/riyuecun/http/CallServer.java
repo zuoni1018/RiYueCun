@@ -85,7 +85,7 @@ public class CallServer {
             @Override
             public void onFailed(int what, Response<String> response) {
                 super.onFailed(what, response);
-                LogUtil.i("报错主动报错");
+                LogUtil.i("报错主动报错"+response.getException());
                 httpResponseListener.onFailed(response.getException());
             }
         };

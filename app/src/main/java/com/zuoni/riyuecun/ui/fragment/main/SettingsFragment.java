@@ -11,11 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zuoni.common.utils.LogUtil;
 import com.zuoni.common.utils.ToastUtils;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.cache.CacheUtils;
 import com.zuoni.riyuecun.ui.activity.MainActivity;
-import com.zuoni.riyuecun.ui.activity.TestActivity;
+import com.zuoni.riyuecun.ui.activity.WebViewActivity2;
 import com.zuoni.riyuecun.ui.activity.base.ActivityCollector;
 import com.zuoni.riyuecun.ui.activity.settings.ChangePasswordActivity;
 import com.zuoni.riyuecun.ui.activity.settings.UserInfoActivity;
@@ -45,7 +46,15 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_settings, null);
         unbinder = ButterKnife.bind(this, view);
+        LogUtil.i("Fragment","设置onCreateView");
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogUtil.i("Fragment","设置onResume");
     }
 
     @Override
@@ -106,7 +115,7 @@ public class SettingsFragment extends Fragment {
         startActivity(mIntent);
     }
     private void jumpToActivity(String title){
-        Intent mIntent=new Intent(getContext(), TestActivity.class);
+        Intent mIntent=new Intent(getContext(), WebViewActivity2.class);
         mIntent.putExtra("title",title);
         startActivity(mIntent);
     }

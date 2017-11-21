@@ -125,6 +125,7 @@ public class AddCardActivity extends BaseTitleActivity {
                 LogUtil.i("绑定卡" + response);
                 BaseHttpResponse info = gson.fromJson(response, BaseHttpResponse.class);
                 if (info.getHttpCode() == 200) {
+                    com.zuoni.riyuecun.AppUtils.mainFragmentNeedRefresh=true;
                     setResult(10087);
                     myFinish();
                     showToast(info.getMessage());

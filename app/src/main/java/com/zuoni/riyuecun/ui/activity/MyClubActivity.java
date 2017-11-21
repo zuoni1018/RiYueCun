@@ -33,12 +33,6 @@ public class MyClubActivity extends BaseTitleActivity {
     ViewPager viewPager;
     private List<Fragment> mList;
     private FragmentPagerAdapter mPagerAdapter;
-
-    @Override
-    public int setLayoutId() {
-        return R.layout.activity_my_club;
-    }
-
     private ClubLeftFragment clubLeftFragment;
     private ClubRightFragment clubRightFragment;
 
@@ -54,10 +48,10 @@ public class MyClubActivity extends BaseTitleActivity {
         clubLeftFragment.setMyClubActivity(this);
         clubRightFragment.setMyClubActivity(this);
 
-
         mList = new ArrayList<>();
         mList.add(clubLeftFragment);
         mList.add(clubRightFragment);
+
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), mList);
         viewPager.setAdapter(mPagerAdapter);
 
@@ -79,7 +73,6 @@ public class MyClubActivity extends BaseTitleActivity {
                         left.setBackgroundColor(getResources().getColor(R.color.club_tab_color_01));
                         break;
                 }
-
             }
 
             @Override
@@ -89,6 +82,15 @@ public class MyClubActivity extends BaseTitleActivity {
         });
     }
 
+    @Override
+    public int setLayoutId() {
+        return R.layout.activity_my_club;
+    }
+
+
+    /**
+     * 刷新2个Fragment的数据
+     */
     public void refreshAll() {
         clubLeftFragment.refresh();
         clubRightFragment.refresh();
@@ -112,15 +114,15 @@ public class MyClubActivity extends BaseTitleActivity {
 
     @OnClick(R.id.layoutRight)
     public void onViewClicked() {
-        Intent mIntent=new Intent(getContext(),AddCardActivity.class);
-        startActivityForResult(mIntent,10086);
+        Intent mIntent = new Intent(getContext(), AddCardActivity.class);
+        startActivityForResult(mIntent, 10086);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==10086&&resultCode==10087){
-            refreshAll();
+        if (requestCode == 10086 && resultCode == 10087) {
+            refreshAll();//添加储值卡后需要刷新界面
         }
     }
 }

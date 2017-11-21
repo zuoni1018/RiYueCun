@@ -31,6 +31,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/tvGoStore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -42,6 +43,7 @@
 
 
     <LinearLayout
+        android:id="@+id/layoutGoStore"
         android:layout_width="match_parent"
         android:layout_height="74dp"
         android:layout_gravity="center"
@@ -58,15 +60,16 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/StoreName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"
                 android:layout_marginLeft="14dp"
-                android:text="杭州海创园店"
                 android:textColor="@color/color_white"
                 android:textSize="16sp" />
 
             <TextView
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"
@@ -78,12 +81,11 @@
                 android:textSize="12sp" />
 
             <TextView
-
+                android:id="@+id/Adress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"
                 android:layout_marginLeft="14dp"
-                android:text="营业时间上午6:30到下午8:00"
                 android:textColor="#B5B5B7"
                 android:textSize="12sp" />
 
@@ -95,11 +97,11 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/Distance"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:text="666米"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
     </LinearLayout>

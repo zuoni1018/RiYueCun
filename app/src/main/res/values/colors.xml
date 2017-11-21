@@ -29,4 +29,7 @@
     <color name="refresh_color_02">#ff9f67</color>
     <color name="refresh_color_03">#ffffff</color>
 
+
+
+    <color name="dashboard_red">#E72823</color>
 </resources>

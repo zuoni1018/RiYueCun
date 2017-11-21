@@ -127,7 +127,7 @@ public class MyClubRankActivity extends BaseTitleActivity {
     }
 
     private void setBar(double a) {
-        a=0.5;
+//        a=0.5;
         int allw  =  ScreenUtils.getScreenWidth(getContext())- DensityUtils.dp2px(getContext(),40);
         LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) view03.getLayoutParams();
         params2.width = (int) (a * (allw));

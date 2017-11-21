@@ -32,8 +32,9 @@ public class QRCode {
      */
     public static Bitmap createQRCode(String text, int size) {
         try {
-            Hashtable<EncodeHintType, String> hints = new Hashtable<>();
+            Hashtable<EncodeHintType, Object> hints = new Hashtable<>();
             hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+            hints.put(EncodeHintType.MARGIN,1);//设置边距
             BitMatrix bitMatrix = new QRCodeWriter().encode(text, BarcodeFormat.QR_CODE, size, size, hints);
             int[] pixels = new int[size * size];
             for (int y = 0; y < size; y++) {

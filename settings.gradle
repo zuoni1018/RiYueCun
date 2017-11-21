@@ -1,2 +1,2 @@
-include ':app', ':zuoni-common', ':qrcode', ':MobikeLibrary2'
+include ':app', ':zuoni-common', ':qrcode', ':MobikeLibrary2', ':Pushlib'
 project(':MobikeLibrary2').projectDir = new File('MobikeLibrary')

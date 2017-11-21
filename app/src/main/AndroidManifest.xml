@@ -47,7 +47,6 @@
         <activity android:name=".ui.activity.FindStoresActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
 
-
         <activity android:name=".ui.activity.PaymentActivity" />
         <activity android:name=".ui.activity.CardActivity" />
         <activity android:name=".ui.activity.RecordsOfConsumptionActivity" />
@@ -86,6 +85,20 @@
             android:exported="true" />
         <activity android:name=".ui.activity.RecordsOfConsumptionActivity2" />
         <activity android:name=".ui.activity.WebViewActivity" />
+        <activity android:name=".ui.activity.WebViewActivity2" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="58105bf1aed17925a900395f">
+        </meta-data>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="4e1d6a7a2cf7d3c9da717eaf3b02aae0">
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Unknown" >
+        </meta-data>
     </application>
 
 </manifest>

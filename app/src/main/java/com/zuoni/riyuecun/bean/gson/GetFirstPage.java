@@ -1,6 +1,8 @@
 package com.zuoni.riyuecun.bean.gson;
 
 import com.zuoni.riyuecun.bean.model.ElectronicCard;
+import com.zuoni.riyuecun.bean.model.Message;
+import com.zuoni.riyuecun.bean.model.Store;
 
 import java.util.List;
 
@@ -22,8 +24,8 @@ public class GetFirstPage extends  BaseHttpResponse {
 
     private Model1Bean Model1;
     private Model2Bean Model2;
-    private Object Model5;
-    private Model6Bean Model6;
+    private Store Model5;
+    private Message Model6;
     private List<ElectronicCard> Model3;
     private List<Model4Bean> Model4;
 
@@ -43,19 +45,19 @@ public class GetFirstPage extends  BaseHttpResponse {
         this.Model2 = Model2;
     }
 
-    public Object getModel5() {
+    public Store getModel5() {
         return Model5;
     }
 
-    public void setModel5(Object Model5) {
+    public void setModel5(Store Model5) {
         this.Model5 = Model5;
     }
 
-    public Model6Bean getModel6() {
+    public Message getModel6() {
         return Model6;
     }
 
-    public void setModel6(Model6Bean Model6) {
+    public void setModel6(Message Model6) {
         this.Model6 = Model6;
     }
 
@@ -323,5 +325,43 @@ public class GetFirstPage extends  BaseHttpResponse {
         public void setExpirationDate(String ExpirationDate) {
             this.ExpirationDate = ExpirationDate;
         }
+    }
+
+    public static class Model5Bean {
+        /**
+         * CouponName : 20元减8元
+         * CouponDescribe : 当购买价格大于20元时可用，可以减少8元。
+         * ExpirationDate : 2018-01-01 10:04:38
+         */
+
+        private String Adress;
+        private String StoreName;
+
+        public String getAdress() {
+            return Adress;
+        }
+
+        public void setAdress(String adress) {
+            Adress = adress;
+        }
+
+        public String getStoreName() {
+            return StoreName;
+        }
+
+        public void setStoreName(String storeName) {
+            StoreName = storeName;
+        }
+
+        public String getDistance() {
+            return Distance;
+        }
+
+        public void setDistance(String distance) {
+            Distance = distance;
+        }
+
+        private String Distance;
+
     }
 }

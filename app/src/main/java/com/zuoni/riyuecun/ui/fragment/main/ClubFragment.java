@@ -50,13 +50,12 @@ import butterknife.Unbinder;
 /**
  * Created by zangyi_shuai_ge on 2017/10/16
  * 我的俱乐部
+ * 这个界面 只需要第一次加载和手动刷新的时候需要重新刷新数据
  */
 
 public class ClubFragment extends Fragment {
 
     Unbinder unbinder;
-
-
     //头布局
     private MobikeView mobikeView;
     private TextView UserLevelName;
@@ -85,13 +84,6 @@ public class ClubFragment extends Fragment {
             R.mipmap.club_9,
             R.mipmap.club_9,
             R.mipmap.club_9,
-//            R.mipmap.club_9,
-//            R.mipmap.sun,
-//            R.mipmap.club_9,
-//            R.mipmap.club_9,
-//            R.mipmap.club_9,
-//            R.mipmap.club_9,
-//            R.mipmap.sun,
     };
     private SensorManager sensorManager;
     private Sensor defaultSensor;
@@ -108,23 +100,20 @@ public class ClubFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogUtil.i("我的俱乐部Fragment创建了");
+        LogUtil.i("Fragment", "我的俱乐部onCreateView");
         view = inflater.inflate(R.layout.fragment_my_club, null);
         unbinder = ButterKnife.bind(this, view);
-
-
         mList = new ArrayList<>();
         mAdapter = new LRecyclerViewAdapter(new RvMianItem02Adapter(getContext(), mList));
-
         initHead();
         initViews();
+
+        //获取重力传感器
         sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         defaultSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
-
-
         mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -146,6 +135,7 @@ public class ClubFragment extends Fragment {
             }
         });
 
+        // 如果没有登录  感觉这边数据都不用初始化了
         if (CacheUtils.isLogin(getContext())) {
             GetMyLevelInfo();
         }
@@ -191,11 +181,8 @@ public class ClubFragment extends Fragment {
                 jumpToActivity(RecordsOfConsumptionActivity2.class);
             }
         });
-
-
-
-
     }
+
 
     /**
      * 刷新数据
@@ -227,8 +214,8 @@ public class ClubFragment extends Fragment {
 
     @Override
     public void onResume() {
-        LogUtil.i("我的俱乐部onResume");
         super.onResume();
+        LogUtil.i("Fragment", "我的俱乐部onResume");
         if (nowIsShow) {
             if (sensorManager != null) {
                 mobikeView.getmMobike().onStart();
@@ -250,7 +237,6 @@ public class ClubFragment extends Fragment {
     float lastX = 0;
     float lastY = 0;
     private SensorEventListener listerner = new SensorEventListener() {
-
         @Override
         public void onSensorChanged(SensorEvent event) {
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {

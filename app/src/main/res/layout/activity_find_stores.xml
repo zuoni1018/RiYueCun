@@ -29,12 +29,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/StoreName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="杭州海创园店"
                 android:textColor="#FEFEFE"
                 android:textSize="16sp" />
             <TextView
+                android:id="@+id/Adress"
                 android:layout_marginTop="5dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -52,10 +54,13 @@
             android:orientation="vertical">
 
            <ImageView
+               android:id="@+id/go"
                android:src="@mipmap/ryc_53"
                android:layout_width="30dp"
                android:layout_height="30dp" />
             <TextView
+
+                android:visibility="gone"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

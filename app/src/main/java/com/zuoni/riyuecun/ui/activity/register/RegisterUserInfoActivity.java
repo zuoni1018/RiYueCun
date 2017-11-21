@@ -190,9 +190,6 @@ public class RegisterUserInfoActivity extends BaseTitleActivity {
                 showToast("服务器异常");
             }
         }, getContext());
-
-
-
     }
 
     private void login() {

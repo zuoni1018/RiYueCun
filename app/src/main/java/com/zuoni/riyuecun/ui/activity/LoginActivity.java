@@ -10,14 +10,15 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.zuoni.common.utils.LogUtil;
+import com.zuoni.riyuecun.AppUrl;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.bean.gson.Login;
 import com.zuoni.riyuecun.cache.CacheUtils;
 import com.zuoni.riyuecun.http.CallServer;
 import com.zuoni.riyuecun.http.HttpRequest;
 import com.zuoni.riyuecun.http.HttpResponseListener;
+import com.zuoni.riyuecun.ui.activity.base.ActivityCollector;
 import com.zuoni.riyuecun.ui.activity.base.BaseTitleActivity;
-import com.zuoni.riyuecun.AppUrl;
 import com.zuoni.riyuecun.ui.activity.forget.ForgetActivity;
 
 import butterknife.BindView;
@@ -109,8 +110,12 @@ public class LoginActivity extends BaseTitleActivity {
                 if (info.getHttpCode() == 200) {
                     CacheUtils.setToken(info.getModel1().getUserToken(),getContext());
                     CacheUtils.setLogin(true,getContext());//设置为已经登录
-                    setResult(1);
-                    myFinish();
+//                    setResult(1);
+//                    myFinish();
+                    //登录成功销毁所有界面
+                    ActivityCollector.finishAll();
+                    jumpToActivity(MainActivity.class);
+
                 }else {
                     showToast(info.getMessage());
                 }

@@ -119,13 +119,13 @@ public abstract class BMapLocationBaseActivity extends BaseActivity implements S
                         mBaiduMap.setMyLocationData(locData);//设置最新的坐标 可以吧它get出来
                         LogUtil.i("定位位置", "Latitude:" + mCurrentLat + "mCurrentLon:" + mCurrentLon);
 
-                        if (isFirstLoc) {
-                            isFirstLoc = false;
-                            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
-                            MapStatus.Builder builder = new MapStatus.Builder();
-                            builder.target(ll).zoom(18.0f);
-                            mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));//把坐标移动过去
-                        }
+//                        if (isFirstLoc) {
+//                            isFirstLoc = false;
+//                            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
+//                            MapStatus.Builder builder = new MapStatus.Builder();
+//                            builder.target(ll).zoom(18.0f);
+//                            mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));//把坐标移动过去
+//                        }
 
 
                     }
@@ -228,6 +228,13 @@ public abstract class BMapLocationBaseActivity extends BaseActivity implements S
         MarkerOptions ooD = new MarkerOptions().position(point).icon(bitmap).zIndex(3).title("22222");
         // 生长动画
         ooD.animateType(MarkerOptions.MarkerAnimateType.jump);
+
+
+        LatLng ll = new LatLng(var1, var3);
+        MapStatus.Builder builder = new MapStatus.Builder();
+        builder.target(ll).zoom(18.0f);
+        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));//把坐标移动过去
+
        return  (Marker) mBaiduMap.addOverlay(ooD);
     }
 

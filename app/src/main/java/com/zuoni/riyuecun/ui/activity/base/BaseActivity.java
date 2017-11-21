@@ -104,6 +104,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 builder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        CacheUtils.setLogin(false,getContext());
                         ActivityCollector.finishAll();
                         alertDialog.dismiss();
                     }
@@ -192,8 +193,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
         myFinish();
-
     }
 }

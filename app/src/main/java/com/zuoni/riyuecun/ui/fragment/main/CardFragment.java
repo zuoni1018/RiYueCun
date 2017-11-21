@@ -39,6 +39,7 @@ import butterknife.Unbinder;
 /**
  * Created by zangyi_shuai_ge on 2017/10/16
  * 电子储值卡
+ * 这个界面不用特意去不断刷新数据
  */
 
 public class CardFragment extends Fragment {
@@ -60,22 +61,19 @@ public class CardFragment extends Fragment {
     RelativeLayout layoutNoData;
     @BindView(R.id.refreshLayout)
     SwipeRefreshLayout refreshLayout;
+
     private View view;
     private MainActivity mainActivity;
     private ElectronicCard electronicCard;
-    public void setMainActivity(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
-    }
+    private Intent mIntent;
 
-
-    private boolean isGetInfo = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_card, null);
         unbinder = ButterKnife.bind(this, view);
+        LogUtil.i("Fragment", "电子储值卡onCreateView");
         initRefreshLayout();
-
         ivCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,8 +104,20 @@ public class CardFragment extends Fragment {
         return view;
     }
 
-    public void refreshData() {
-        GetFirstElecCard(true);
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogUtil.i("Fragment", "电子储值卡onResume");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    public void setMainActivity(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
     }
 
     @Override
@@ -117,14 +127,6 @@ public class CardFragment extends Fragment {
             GetFirstElecCard(true);//刷新当前界面数据
         }
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    Intent mIntent;
 
     @OnClick({R.id.tvMore, R.id.layoutManager})
     public void mainLoginView(View view) {
@@ -165,7 +167,9 @@ public class CardFragment extends Fragment {
     }
 
 
-
+    /**
+     * 获得第一张储值卡
+     */
     private void GetFirstElecCard(final boolean isShowLoading) {
         if (isShowLoading) {
             mainActivity.showLoading();

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/refreshLayout"
     android:background="#101318"
     android:orientation="vertical">
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,14 +19,16 @@
             android:orientation="vertical">
 
             <include layout="@layout/main_login" />
-            <include layout="@layout/main_1"/>
+
+            <include layout="@layout/main_1" />
 
             <LinearLayout
                 android:id="@+id/layoutMain2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#414246"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <com.zuoni.common.gallery.ViewPagerGallery
                     android:id="@+id/ViewPagerGallery"
@@ -51,7 +54,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -68,24 +70,21 @@
                         android:layout_marginRight="5dp"
                         android:textColor="@color/color_white"
                         android:textSize="20sp" />
-
                 </LinearLayout>
-
             </LinearLayout>
+
             <include
                 android:id="@+id/layoutMain03"
-                layout="@layout/main_item_01"/>
-            <include layout="@layout/main_item_02"/>
+                layout="@layout/main_item_01" />
 
-            <include
-                layout="@layout/rv_main_news_item"/>
+            <include layout="@layout/main_item_02" />
+
+            <include layout="@layout/rv_main_news_item" />
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="10dp"/>
-
+                android:layout_height="10dp" />
         </LinearLayout>
-
-
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.v4.widget.SwipeRefreshLayout>
