@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.zuoni.common.callback.SimpleTextWatcher;
 import com.zuoni.common.utils.LogUtil;
 import com.zuoni.riyuecun.AppUrl;
+import com.zuoni.riyuecun.AppUtils;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.bean.gson.BaseHttpResponse;
 import com.zuoni.riyuecun.http.CallServer;
@@ -125,10 +126,13 @@ public class AddCardActivity extends BaseTitleActivity {
                 LogUtil.i("绑定卡" + response);
                 BaseHttpResponse info = gson.fromJson(response, BaseHttpResponse.class);
                 if (info.getHttpCode() == 200) {
+                    //添加会员卡成功
                     com.zuoni.riyuecun.AppUtils.mainFragmentNeedRefresh=true;
+                    AppUtils.clubFragmentNeedRefresh=true;
                     setResult(10087);
                     myFinish();
                     showToast(info.getMessage());
+
                 } else {
                     showToast(info.getMessage());
                 }

@@ -55,7 +55,7 @@ public class RvClubCardAdapter extends RecyclerView.Adapter<RvClubCardAdapter.My
 
         setCardSize(holder.ivCard);
 
-        ImageLoaderUtils.setStoredValueCardImage(mContext,mList.get(position).getImgUrl(),holder.ivCard);
+        ImageLoaderUtils.setCardImage01(mContext,mList.get(position).getImgUrl(),holder.ivCard);
 
         holder.ivCard.setOnClickListener(new View.OnClickListener() {
             @Override

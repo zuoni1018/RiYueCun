@@ -11,5 +11,4 @@ public class AppUtils {
     public static boolean cardFragmentNeedRefresh = true;//电子储值卡
 
 
-
 }

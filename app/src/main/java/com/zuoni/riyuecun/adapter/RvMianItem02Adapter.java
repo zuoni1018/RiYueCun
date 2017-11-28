@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.joooonho.SelectableRoundedImageView;
 import com.zuoni.riyuecun.R;
-import com.zuoni.riyuecun.bean.gson.GetMyLevelInfo;
-import com.zuoni.riyuecun.ui.activity.TestActivity;
+import com.zuoni.riyuecun.bean.model.Coupon;
+import com.zuoni.riyuecun.ui.activity.WebViewActivity2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +24,10 @@ import java.util.List;
 public class RvMianItem02Adapter extends RecyclerView.Adapter<RvMianItem02Adapter.MyViewHolder> {
 
     private Context mContext;
-    private List<GetMyLevelInfo.Model3Bean> mList;
+    private List<Coupon> mList;
     private LayoutInflater mInflater;
 
-    public RvMianItem02Adapter(Context mContext, List<GetMyLevelInfo.Model3Bean> mList) {
+    public RvMianItem02Adapter(Context mContext, List<Coupon> mList) {
         this.mContext = mContext;
         if (mList != null) {
             this.mList = mList;
@@ -50,12 +50,21 @@ public class RvMianItem02Adapter extends RecyclerView.Adapter<RvMianItem02Adapte
         holder.layout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent=new Intent(mContext, TestActivity.class);
+                Intent mIntent=new Intent(mContext, WebViewActivity2.class);
                 mIntent.putExtra("title",mList.get(position).getCouponName());
+                mIntent.putExtra("CouponRelationId",mList.get(position).getCouponRealtionId());
                 mContext.startActivity(mIntent);
 
             }
         });
+
+        //最后一条数据
+        if(position==mList.size()-1){
+            holder.layout3.setBackgroundResource(R.drawable.setting_bg_02);
+        }else {
+            holder.layout3.setBackgroundResource(R.drawable.setting_bg_03);
+        }
+
     }
 
     @Override

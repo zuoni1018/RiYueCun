@@ -13,13 +13,25 @@ import com.zuoni.riyuecun.R;
 
 public class ImageLoaderUtils {
 
-    public static  void setStoredValueCardImage(Context context, String url, ImageView imageView){
+    public static  void setCardImage01(Context context, String url, ImageView imageView){
         Glide
                 .with(context)
                 .load(url)
                 .asBitmap()
-                .error(R.mipmap.bg666)
-                .placeholder(R.mipmap.bg666)
+                .error(R.mipmap.card_01)
+                .placeholder(R.mipmap.card_01)
                 .into(imageView);
     }
+
+
+    public static  void setCardImage02(Context context, String url, ImageView imageView){
+        Glide
+                .with(context)
+                .load(url)
+                .asBitmap()
+                .error(R.mipmap.card_02)
+                .placeholder(R.mipmap.card_02)
+                .into(imageView);
+    }
+
 }

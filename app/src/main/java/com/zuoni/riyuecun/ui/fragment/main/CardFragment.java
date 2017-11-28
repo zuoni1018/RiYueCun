@@ -66,7 +66,11 @@ public class CardFragment extends Fragment {
     private MainActivity mainActivity;
     private ElectronicCard electronicCard;
     private Intent mIntent;
+    private View.OnClickListener onClickListener;
 
+    public View.OnClickListener getOnClickListener() {
+        return onClickListener;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,14 +90,14 @@ public class CardFragment extends Fragment {
                 startActivity(mIntent);
             }
         });
-
-        mainActivity.setTopBarRightOnClickListener(new View.OnClickListener() {
+        onClickListener=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent = new Intent(getContext(), AddStoredValueCardActivity.class);
+                                Intent mIntent = new Intent(getContext(), AddStoredValueCardActivity.class);
                 startActivityForResult(mIntent, 100);
             }
-        });
+        };
+
 
         layoutMain.setVisibility(View.GONE);
         layoutNoData.setVisibility(View.VISIBLE);
@@ -193,7 +197,7 @@ public class CardFragment extends Fragment {
                 GetFirstElecCard info = gson.fromJson(response, GetFirstElecCard.class);
                 if (info.getHttpCode() == 200) {
                     electronicCard = info.getModel1();
-                    ImageLoaderUtils.setStoredValueCardImage(getContext(), electronicCard.getCardImage(), ivCard); //卡图片
+                    ImageLoaderUtils.setCardImage02(getContext(), electronicCard.getCardImage(), ivCard); //卡图片
                     CardMoney.setText(" ￥" + electronicCard.getCardMoney());
                     CardName.setText("卡号( " + electronicCard.getCardName() + " )");
                     layoutMain.setVisibility(View.VISIBLE);

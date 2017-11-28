@@ -2,6 +2,7 @@ package com.mobike.library;
 
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,6 +28,11 @@ public class Mobike {
     public static final String TAG = Mobike.class.getSimpleName();
 
     private World world;
+
+    public World getWorld() {
+        return world;
+    }
+
     //dt 更新引擎的间隔时间
     //velocityIterations 计算速度
     //positionIterations 迭代的次数
@@ -85,26 +91,27 @@ public class Mobike {
         onLayout(true);
     }
 
+
     private void createWorld(boolean changed) {
         if (world == null) {
             world = new World(new Vec2(0, 10));
             createTopAndBottomBounds();
             createLeftAndRightBounds();
 
-            double h1=30/245.0001*height;
-            double h2=h1*4/6;
+            double h1 = 30 / 245.0001 * height;
+            double h2 = h1 * 4 / 6;
 
-            double mWidth1=width/16*4;
-            double mWidth2=width/32*9;//宽一点
-            double mWidth3=width/16*3;//小一点
-            double mWidth4=width/16*2;//小一点
-            double mWidth5=width/16;//小一点
-            createOther(0,0, width, (int) h1);//挡住瓶盖部分
-            for (int i = 0; i <4 ; i++) {
-                createOther(0, (int) (h2*(i+1)), (int) (mWidth2-(mWidth1)/5*i), (int) h1);//挡住瓶盖部分
+            double mWidth1 = width / 16 * 4;
+            double mWidth2 = width / 32 * 9;//宽一点
+            double mWidth3 = width / 16 * 3;//小一点
+            double mWidth4 = width / 16 * 2;//小一点
+            double mWidth5 = width / 16;//小一点
+            createOther(0, 0, width, (int) h1);//挡住瓶盖部分
+            for (int i = 0; i < 4; i++) {
+                createOther(0, (int) (h2 * (i + 1)), (int) (mWidth2 - (mWidth1) / 5 * i), (int) h1);//挡住瓶盖部分
             }
-            for (int i = 0; i <4 ; i++) {
-                createOther(width, (int) (h2*(i+1)), (int) (mWidth2-(mWidth1)/5*i), (int) h1);//挡住瓶盖部分
+            for (int i = 0; i < 4; i++) {
+                createOther(width, (int) (h2 * (i + 1)), (int) (mWidth2 - (mWidth1) / 5 * i), (int) h1);//挡住瓶盖部分
             }
         }
         int childCount = mViewgroup.getChildCount();
@@ -117,12 +124,37 @@ public class Mobike {
         }
     }
 
+    /**
+     * 清除
+     */
+    public void clearBody() {
+        for (int i = 0; i < mViewgroup.getChildCount(); i++) {
+            Log.i("zzzzzzzzz","还在循环"+i);
+            View view = mViewgroup.getChildAt(i);
+            Body body = (Body) view.getTag(R.id.mobike_body_tag);
+            if (body != null) {
+                world.destroyBody(body);//世界中移除
+                view.setTag(R.id.mobike_body_tag,null);
+                mViewgroup.removeView(view);//界面中移除
+                i = -1;
+            }
+        }
+    }
+
+    public void addBody() {
+        int childCount = mViewgroup.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = mViewgroup.getChildAt(i);
+//            createBody(world, view);//向世界中添加
+        }
+    }
+
 
     private void createBody(World world, View view) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.setType(BodyType.DYNAMIC);
 
-        bodyDef.position.set(pixelsToMeters(view.getX() + view.getWidth() / 2), pixelsToMeters(view.getY() + view.getHeight() / 2));
+        bodyDef.position.set(pixelsToMeters(view.getX() + view.getWidth() / 2), pixelsToMeters( view.getHeight()/2 ));
         Shape shape = null;
         Boolean isCircle = (Boolean) view.getTag(R.id.mobike_view_circle_tag);
         if (isCircle != null && isCircle) {
@@ -140,8 +172,6 @@ public class Mobike {
         body.createFixture(fixture);
         view.setTag(R.id.mobike_body_tag, body);
         body.setLinearVelocity(new Vec2(random.nextFloat(), random.nextFloat()));
-
-
     }
 
     private Shape createCircleShape(View view) {
@@ -184,8 +214,8 @@ public class Mobike {
 
     /**
      * 起点坐标 长宽
-     * */
-    private void createOther(int a,int b,int c,int d) {
+     */
+    private void createOther(int a, int b, int c, int d) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.setType(BodyType.STATIC);
         bodyDef.position.set(pixelsToMeters(a), pixelsToMeters(b));//位置坐标
@@ -204,6 +234,7 @@ public class Mobike {
         body.createFixture(fixture);
 //        body.setLinearVelocity(new Vec2(random.nextFloat(), random.nextFloat()));
     }
+
     private void createLeftAndRightBounds() {
         float boxWidth = pixelsToMeters(ratio);
         float boxHeight = pixelsToMeters(height);
@@ -263,10 +294,9 @@ public class Mobike {
     public void onSensorChanged(float x, float y) {
         world.setGravity(new Vec2(x, y));
         int childCount = mViewgroup.getChildCount();
-
 //        world.
         for (int i = 0; i < childCount; i++) {
-            Vec2 impulse = new Vec2(x/2, y/2);
+            Vec2 impulse = new Vec2(x / 4, y / 4);
             View view = mViewgroup.getChildAt(i);
             Body body = (Body) view.getTag(R.id.mobike_body_tag);
             if (body != null) {

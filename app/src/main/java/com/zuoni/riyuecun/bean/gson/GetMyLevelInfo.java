@@ -1,5 +1,7 @@
 package com.zuoni.riyuecun.bean.gson;
 
+import com.zuoni.riyuecun.bean.model.Coupon;
+
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ public class GetMyLevelInfo extends  BaseHttpResponse {
 
     private Model1Bean Model1;
     private List<Model2Bean> Model2;
-    private List<Model3Bean> Model3;
+    private List<Coupon> Model3;
 
     public Model1Bean getModel1() {
         return Model1;
@@ -35,11 +37,11 @@ public class GetMyLevelInfo extends  BaseHttpResponse {
         this.Model2 = Model2;
     }
 
-    public List<Model3Bean> getModel3() {
+    public List<Coupon> getModel3() {
         return Model3;
     }
 
-    public void setModel3(List<Model3Bean> Model3) {
+    public void setModel3(List<Coupon> Model3) {
         this.Model3 = Model3;
     }
 
@@ -145,39 +147,5 @@ public class GetMyLevelInfo extends  BaseHttpResponse {
         }
     }
 
-    public static class Model3Bean {
-        /**
-         * CouponName : 20元减8元
-         * CouponDescribe : 当购买价格大于20元时可用，可以减少8元。
-         * ExpirationDate : 2018-01-01 10:04:38
-         */
 
-        private String CouponName;
-        private String CouponDescribe;
-        private String ExpirationDate;
-
-        public String getCouponName() {
-            return CouponName;
-        }
-
-        public void setCouponName(String CouponName) {
-            this.CouponName = CouponName;
-        }
-
-        public String getCouponDescribe() {
-            return CouponDescribe;
-        }
-
-        public void setCouponDescribe(String CouponDescribe) {
-            this.CouponDescribe = CouponDescribe;
-        }
-
-        public String getExpirationDate() {
-            return ExpirationDate;
-        }
-
-        public void setExpirationDate(String ExpirationDate) {
-            this.ExpirationDate = ExpirationDate;
-        }
-    }
 }

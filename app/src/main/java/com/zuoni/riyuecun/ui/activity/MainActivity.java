@@ -1,5 +1,6 @@
 package com.zuoni.riyuecun.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -281,6 +282,14 @@ public class MainActivity extends BaseActivity {
             viewPager.setCurrentItem(1, false);
             drawerLayout.closeDrawer(GravityCompat.START);
             clubFragment.showClubFragment(true);
+            topBarRight.setVisibility(View.VISIBLE);
+            topBarRight.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent mIntent = new Intent(getContext(), AddCardActivity.class);
+                    startActivity(mIntent);
+                }
+            });
         } else {
             showToast("请先登录");
         }
@@ -288,7 +297,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * 跳转到第三页
-     * 我的俱乐部
+     * 电子储值卡
      */
     private void turnPage03() {
         if (CacheUtils.isLogin(getContext())) {
@@ -299,6 +308,7 @@ public class MainActivity extends BaseActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
             clubFragment.showClubFragment(false);
             topBarRight.setVisibility(View.VISIBLE);
+            topBarRight.setOnClickListener(cardFragment.getOnClickListener());
         } else {
             showToast("请先登录");
         }

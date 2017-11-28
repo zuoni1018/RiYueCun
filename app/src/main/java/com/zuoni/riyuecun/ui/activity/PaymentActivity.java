@@ -70,7 +70,7 @@ public class PaymentActivity extends BaseTitleActivity {
             myFinish();
             return;
         }
-        ImageLoaderUtils.setStoredValueCardImage(getContext(), electronicCard.getCardImage(), image);
+        ImageLoaderUtils.setCardImage02(getContext(), electronicCard.getCardImage(), image);
         CardName.setText("卡号(" + electronicCard.getCardName() + ")");
         EffectiveTime.setText("有效期至" + electronicCard.getEffectiveTime());
         CardMoney.setText("￥" + electronicCard.getCardMoney());

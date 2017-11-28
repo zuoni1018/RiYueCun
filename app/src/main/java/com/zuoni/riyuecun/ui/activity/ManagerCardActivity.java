@@ -41,7 +41,6 @@ public class ManagerCardActivity extends BaseTitleActivity {
     @BindView(R.id.layout2)
     LinearLayout layout2;
 
-
     private ElectronicCard electronicCard;
 
     @Override
@@ -55,17 +54,15 @@ public class ManagerCardActivity extends BaseTitleActivity {
         ButterKnife.bind(this);
         setTitle("管理储值卡");
 
-        electronicCard = (ElectronicCard) getIntent().getSerializableExtra("electronicCard");
+        electronicCard = (ElectronicCard) getIntent().getSerializableExtra("electronicCard");//获取储值卡
 
         if (electronicCard == null) {
             myFinish();
             return;
         }
 
-        ImageLoaderUtils.setStoredValueCardImage(getContext(),electronicCard.getCardImage(),ivCard);
-
+        ImageLoaderUtils.setCardImage02(getContext(),electronicCard.getCardImage(),ivCard);
         tvMoney.setText(" ￥" + electronicCard.getCardMoney());
-
         CardName.setText("储值卡(" + electronicCard.getCardName() + ")" + "有效期至" + electronicCard.getEffectiveTime());
     }
 

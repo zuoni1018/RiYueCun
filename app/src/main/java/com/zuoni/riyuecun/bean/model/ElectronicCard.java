@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by zangyi_shuai_ge on 2017/11/8
+ * 储值卡
  */
 
 public class ElectronicCard implements Serializable {

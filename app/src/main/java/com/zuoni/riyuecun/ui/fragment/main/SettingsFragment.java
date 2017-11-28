@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.zuoni.common.utils.LogUtil;
 import com.zuoni.common.utils.ToastUtils;
@@ -21,6 +22,7 @@ import com.zuoni.riyuecun.ui.activity.base.ActivityCollector;
 import com.zuoni.riyuecun.ui.activity.settings.ChangePasswordActivity;
 import com.zuoni.riyuecun.ui.activity.settings.UserInfoActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -35,6 +37,8 @@ public class SettingsFragment extends Fragment {
 //    @BindView(R.id.btLogin)
 //    Button btLogin;
     Unbinder unbinder;
+    @BindView(R.id.ivChoose)
+    ImageView ivChoose;
     private View view;
     private MainActivity mainActivity;
 
@@ -46,7 +50,7 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_settings, null);
         unbinder = ButterKnife.bind(this, view);
-        LogUtil.i("Fragment","设置onCreateView");
+        LogUtil.i("Fragment", "设置onCreateView");
 
         return view;
     }
@@ -54,7 +58,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        LogUtil.i("Fragment","设置onResume");
+        LogUtil.i("Fragment", "设置onResume");
     }
 
     @Override
@@ -64,7 +68,8 @@ public class SettingsFragment extends Fragment {
     }
 
     AlertDialog dialog;
-    @OnClick({R.id.settings_item_1, R.id.settings_item_2, R.id.settings_item_3, R.id.settings_item_4, R.id.settings_item_5,R.id.btGo})
+
+    @OnClick({R.id.settings_item_1, R.id.settings_item_2, R.id.settings_item_3, R.id.settings_item_4, R.id.settings_item_5, R.id.btGo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.settings_item_1:
@@ -81,27 +86,27 @@ public class SettingsFragment extends Fragment {
                 break;
             case R.id.settings_item_5:
 
-                AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("提示");
                 builder.setMessage("是否退出登录?");
                 builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        CacheUtils.setLogin(false,getContext());
-                        CacheUtils.setToken("",getContext());
-                        ToastUtils.showToast(getContext(),"退出登录成功");
+                        CacheUtils.setLogin(false, getContext());
+                        CacheUtils.setToken("", getContext());
+                        ToastUtils.showToast(getContext(), "退出登录成功");
                         ActivityCollector.finishAll();
                         jumpToActivity(MainActivity.class);
 //                        mainActivity.turnFirstPage();
                     }
                 });
 
-                builder.setNegativeButton("取消",null);
-                dialog=builder.create();
+                builder.setNegativeButton("取消", null);
+                dialog = builder.create();
                 dialog.show();
                 break;
             case R.id.btGo:
-                Intent intent= new Intent();
+                Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
                 Uri content_url = Uri.parse("https://fir.im/2p1r");
                 intent.setData(content_url);
@@ -110,13 +115,25 @@ public class SettingsFragment extends Fragment {
         }
     }
 
-    private void jumpToActivity(Class<?> cls){
-        Intent mIntent=new Intent(getContext(),cls);
+    private void jumpToActivity(Class<?> cls) {
+        Intent mIntent = new Intent(getContext(), cls);
         startActivity(mIntent);
     }
-    private void jumpToActivity(String title){
-        Intent mIntent=new Intent(getContext(), WebViewActivity2.class);
-        mIntent.putExtra("title",title);
+
+    private void jumpToActivity(String title) {
+        Intent mIntent = new Intent(getContext(), WebViewActivity2.class);
+        mIntent.putExtra("title", title);
         startActivity(mIntent);
+    }
+
+    private boolean isChoose=true;
+    @OnClick(R.id.ivChoose)
+    public void onViewClicked() {
+        isChoose=!isChoose;
+        if(isChoose){
+            ivChoose.setImageResource(R.mipmap.ryc_17);
+        }else {
+            ivChoose.setImageResource(R.mipmap.ryc_26);
+        }
     }
 }

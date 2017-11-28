@@ -1,5 +1,6 @@
 package com.zuoni.riyuecun.ui.fragment.main;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -25,11 +26,15 @@ import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.google.gson.Gson;
 import com.mobike.library.MobikeView;
+import com.zuoni.common.utils.DensityUtils;
 import com.zuoni.common.utils.LogUtil;
 import com.zuoni.riyuecun.AppUrl;
+import com.zuoni.riyuecun.AppUtils;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.adapter.RvMianItem02Adapter;
+import com.zuoni.riyuecun.bean.gson.GetMyCoupon;
 import com.zuoni.riyuecun.bean.gson.GetMyLevelInfo;
+import com.zuoni.riyuecun.bean.model.Coupon;
 import com.zuoni.riyuecun.cache.CacheUtils;
 import com.zuoni.riyuecun.http.CallServer;
 import com.zuoni.riyuecun.http.HttpRequest;
@@ -50,7 +55,8 @@ import butterknife.Unbinder;
 /**
  * Created by zangyi_shuai_ge on 2017/10/16
  * 我的俱乐部
- * 这个界面 只需要第一次加载和手动刷新的时候需要重新刷新数据
+ * 这个界面 第一次加载和手动刷新的时候需要重新刷新数据
+ * 添加了会员卡后 由于新增会员卡 需要重新刷新数据
  */
 
 public class ClubFragment extends Fragment {
@@ -67,6 +73,7 @@ public class ClubFragment extends Fragment {
     private LinearLayout layout2;
     private TextView clubItem01;
     private TextView clubItem02;
+    private ImageView ivBottleHead;
 
     private View view;
 
@@ -90,13 +97,14 @@ public class ClubFragment extends Fragment {
 
 
     private boolean nowIsShow = false;
-    private List<GetMyLevelInfo.Model3Bean> mList;
+    private List<Coupon> mList;
 
     public void setMainActivity(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
 
     private Handler handler = new Handler();
+    private boolean isFirst=true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -106,7 +114,6 @@ public class ClubFragment extends Fragment {
         mList = new ArrayList<>();
         mAdapter = new LRecyclerViewAdapter(new RvMianItem02Adapter(getContext(), mList));
         initHead();
-        initViews();
 
         //获取重力传感器
         sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
@@ -114,17 +121,12 @@ public class ClubFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
+
+
         mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mRecyclerView.refreshComplete(1);
-                        mainActivity.showToast("没有更多数据");
-                        mRecyclerView.setNoMore(true);
-                    }
-                }, 500);
+                GetMyCoupon();
             }
         });
 
@@ -137,11 +139,13 @@ public class ClubFragment extends Fragment {
 
         // 如果没有登录  感觉这边数据都不用初始化了
         if (CacheUtils.isLogin(getContext())) {
-            GetMyLevelInfo();
+            mRecyclerView.refresh();
         }
+
 
         return view;
     }
+
 
     private void initHead() {
         View header = LayoutInflater.from(getContext()).inflate(R.layout.fragment_my_club_head, null, false);
@@ -153,6 +157,8 @@ public class ClubFragment extends Fragment {
         CurrentThingCount = header.findViewById(R.id.CurrentThingCount);
         tvDescribe = header.findViewById(R.id.tvDescribe);
         layoutRank = header.findViewById(R.id.layoutRank);
+        ivBottleHead=header.findViewById(R.id.ivBottleHead);
+
         layoutRank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,6 +223,11 @@ public class ClubFragment extends Fragment {
         super.onResume();
         LogUtil.i("Fragment", "我的俱乐部onResume");
         if (nowIsShow) {
+            //获取数据
+            if(AppUtils.clubFragmentNeedRefresh){
+                mRecyclerView.refresh();
+            }
+
             if (sensorManager != null) {
                 mobikeView.getmMobike().onStart();
                 sensorManager.registerListener(listerner, defaultSensor, SensorManager.SENSOR_DELAY_UI);
@@ -256,13 +267,30 @@ public class ClubFragment extends Fragment {
         }
     };
 
-    private void initViews() {
+    private void initViews(String needThingName,int num) {
+
+        //把原来的清除掉
+        mobikeView.getmMobike().clearBody();
+        //盖子动起来
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ivBottleHead.setVisibility(View.VISIBLE);
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(ivBottleHead, "translationY",0, DensityUtils.dp2px(getContext(),12));
+                objectAnimator.setDuration(1000).start();
+            }
+        },1000);
+
+
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.CENTER;
-        for (int i = 0; i < imgs.length; i++) {
-//            View view =LayoutInflater.from(getContext()).inflate(R.layout.test,null);
+        List<Integer> imgList=new ArrayList<>();
+        for (int i = 0; i <num ; i++) {
+            imgList.add( R.mipmap.moon);
+        }
+        for (int i = 0; i <imgList.size(); i++) {
             ImageView imageView = new ImageView(getContext());
-            imageView.setImageResource(imgs[i]);
+            imageView.setImageResource(imgList.get(i));
 //            imageView.setBackgroundColor(getResources().getColor(R.color.color_calendar_state_02));
             imageView.setTag(R.id.mobike_view_circle_tag, false);
             mobikeView.addView(imageView, layoutParams);
@@ -281,6 +309,11 @@ public class ClubFragment extends Fragment {
     }
 
     public void GetMyLevelInfo() {
+        ivBottleHead.setVisibility(View.GONE);
+        //把原来的清除掉
+        mobikeView.getmMobike().clearBody();
+
+        pageNum = 1;
         mList.clear();
         mAdapter.notifyDataSetChanged();
         mainActivity.showLoading();
@@ -293,27 +326,39 @@ public class ClubFragment extends Fragment {
                 LogUtil.i("获取等级信息" + response);
                 GetMyLevelInfo info = gson.fromJson(response, GetMyLevelInfo.class);
                 if (info.getHttpCode() == 200) {
+                    AppUtils.clubFragmentNeedRefresh=false;
                     //获取等级成功
                     UserLevelName.setText(info.getModel1().getUserLevelName());
                     NeedThing.setText("目前获赠" + info.getModel1().getNeedThing() + "数");
 
                     CurrentThingCount.setText(info.getModel1().getCurrentThingCount() + "");
-
+                    //集齐58个小太阳,\n升级为至尊太阳系会员会员
                     String describe = "集齐" + info.getModel1().getNextThingCount() + "个" + info.getModel1().getNeedThing() + " , \n"
                             + "升级为" + info.getModel1().getNextLevelName();
                     tvDescribe.setText(describe);
-//                    集齐58个小太阳,\n升级为至尊太阳系会员会员
+
+                    //设置瓶子里面的东西
+                    initViews(info.getModel1().getNeedThing(),info.getModel1().getCurrentThingCount());
+
 
                     //消费记录
                     if (info.getModel2() != null && info.getModel2().size() != 0) {
                         clubItem01.setText(info.getModel2().get(0).getShopName());
                         clubItem02.setText(info.getModel2().get(0).getShopTime());
                     }
+                    pageNum++;
+                    mList.clear();
                     //优惠券
                     if (info.getModel3() != null) {
                         mList.addAll(info.getModel3());
-                        mAdapter.notifyDataSetChanged();
                     }
+                    //小于5条关闭上拉加载更多功能
+                    if (mList.size() < 5) {
+                        mRecyclerView.setLoadMoreEnabled(false);
+                    } else {
+                        mRecyclerView.setLoadMoreEnabled(true);
+                    }
+                    mAdapter.notifyDataSetChanged();
 
                 } else {
                     mainActivity.showToast(info.getMessage());
@@ -328,6 +373,39 @@ public class ClubFragment extends Fragment {
             }
         }, getContext());
 
+    }
+
+    private int pageNum = 1;
+
+    public void GetMyCoupon() {
+
+        mainActivity.showLoading();
+        HttpRequest httpRequest = new HttpRequest(AppUrl.GetMyCoupon);//获取优惠券
+        httpRequest.add("PageNo", pageNum + "");
+        CallServer.getInstance().request(httpRequest, new HttpResponseListener() {
+            @Override
+            public void onSucceed(String response, Gson gson) {
+                mRecyclerView.refreshComplete(1);
+                mainActivity.closeLoading();
+                mRecyclerView.refreshComplete(1);
+                LogUtil.i("获取优惠券" + response);
+                GetMyCoupon info = gson.fromJson(response, GetMyCoupon.class);
+                if (info.getHttpCode() == 200) {
+                    pageNum++;
+                    mList.addAll(info.getModel1());
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    mainActivity.showToast(info.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailed(Exception exception) {
+                mRecyclerView.refreshComplete(1);
+                mainActivity.closeLoading();
+                mainActivity.showToast("服务器异常");
+            }
+        }, getContext());
     }
 
     private void jumpToActivity(String title) {

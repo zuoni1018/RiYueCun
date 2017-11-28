@@ -45,7 +45,7 @@ public class RvMainNewsAdapter extends RecyclerView.Adapter<RvMainNewsAdapter.My
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        ImageLoaderUtils.setStoredValueCardImage(mContext,mList.get(position).getMessageImage(),holder.MessageImage);
+        ImageLoaderUtils.setCardImage01(mContext,mList.get(position).getMessageImage(),holder.MessageImage);
 
         holder.MessageDescribe.setText(mList.get(position).getMessageDescribe());
         holder.MessageName.setText(mList.get(position).getMessageName());

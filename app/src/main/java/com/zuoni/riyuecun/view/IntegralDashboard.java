@@ -114,8 +114,8 @@ public class IntegralDashboard extends View {
         if(animatorFloat!=null){
             animatorFloat.cancel();
         }
-        animatorFloat = ValueAnimator.ofInt(0, 180, pSweepAngle);
-        animatorFloat.setDuration(2000);
+        animatorFloat = ValueAnimator.ofInt(0, pSweepAngle);
+        animatorFloat.setDuration(1000);
         animatorFloat.setRepeatCount(0);
         animatorFloat.start();
         animatorFloat.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

@@ -134,7 +134,7 @@ public class CardActivity extends BaseTitleActivity {
                     //有储值卡
                     ivCard.setVisibility(View.VISIBLE);
                     ElectronicCard electronicCard = info.getModel1();
-                    ImageLoaderUtils.setStoredValueCardImage(getContext(), electronicCard.getCardImage(), ivCard); //卡图片
+                    ImageLoaderUtils.setCardImage01(getContext(), electronicCard.getCardImage(), ivCard); //卡图片
                     tvInfo.setText("用这张储值卡付款 余额" + electronicCard.getCardMoney());
                     timer.start();
                     layout03.setOnClickListener(new View.OnClickListener() {

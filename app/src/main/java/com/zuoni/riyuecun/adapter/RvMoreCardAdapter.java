@@ -45,7 +45,7 @@ public class RvMoreCardAdapter extends RecyclerView.Adapter<RvMoreCardAdapter.My
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        ImageLoaderUtils.setStoredValueCardImage(mContext,mList.get(position).getCardImage(),holder.ivCard);
+        ImageLoaderUtils.setCardImage02(mContext,mList.get(position).getCardImage(),holder.ivCard);
 
         holder.tvMoney.setText(" ￥" + mList.get(position).getCardMoney());
 

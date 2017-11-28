@@ -36,21 +36,24 @@ public class WebViewActivity2 extends BaseTitleActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        title=getIntent().getStringExtra("title");
+        title = getIntent().getStringExtra("title");
         setTitle(title);
 
-        if(title.equals("常见问题")){
+        if (title.equals("常见问题")) {
             CommonProblem();
-        }else if(title.equals("使用条款")){
+        } else if (title.equals("使用条款")) {
             TermsOfUse();
-        }else {
-            myFinish();
+        } else {
+            String CouponRelationId =getIntent().getStringExtra("CouponRelationId");
+            GetCouponHtml(CouponRelationId);
         }
 
     }
-    private void TermsOfUse() {
+
+    private void GetCouponHtml(String  CouponRelationId) {
         showLoading();
-        HttpRequest httpRequest = new HttpRequest(AppUrl.TermsOfUse);
+        HttpRequest httpRequest = new HttpRequest(AppUrl.GetCouponHtml);
+        httpRequest.add("CouponRelationId",CouponRelationId);
         CallServer.getInstance().request(httpRequest, new HttpResponseListener() {
             @Override
             public void onSucceed(String response, Gson gson) {
@@ -58,7 +61,7 @@ public class WebViewActivity2 extends BaseTitleActivity {
                 LogUtil.i("网页" + response);
                 GetMessageHtml info = gson.fromJson(response, GetMessageHtml.class);
                 if (info.getHttpCode() == 200) {
-                    if(info.getModel1()==null){
+                    if (info.getModel1() == null) {
                         showToast("获取失败");
                         myFinish();
                         return;
@@ -83,6 +86,43 @@ public class WebViewActivity2 extends BaseTitleActivity {
             }
         }, getContext());
     }
+
+    private void TermsOfUse() {
+        showLoading();
+        HttpRequest httpRequest = new HttpRequest(AppUrl.TermsOfUse);
+        CallServer.getInstance().request(httpRequest, new HttpResponseListener() {
+            @Override
+            public void onSucceed(String response, Gson gson) {
+                closeLoading();
+                LogUtil.i("网页" + response);
+                GetMessageHtml info = gson.fromJson(response, GetMessageHtml.class);
+                if (info.getHttpCode() == 200) {
+                    if (info.getModel1() == null) {
+                        showToast("获取失败");
+                        myFinish();
+                        return;
+                    }
+
+                    if (!info.getModel1().equals("")) {
+                        webView.loadDataWithBaseURL("about:blank", info.getModel1(), "text/html", "utf-8", null);
+                    } else {
+                        showToast("获取失败");
+                        myFinish();
+                    }
+                } else {
+                    showToast(info.getMessage());
+                    myFinish();
+                }
+            }
+
+            @Override
+            public void onFailed(Exception exception) {
+                closeLoading();
+                showToast("服务器异常");
+            }
+        }, getContext());
+    }
+
     private void CommonProblem() {
         showLoading();
         HttpRequest httpRequest = new HttpRequest(AppUrl.CommonProblem);
@@ -93,7 +133,7 @@ public class WebViewActivity2 extends BaseTitleActivity {
                 LogUtil.i("网页" + response);
                 GetMessageHtml info = gson.fromJson(response, GetMessageHtml.class);
                 if (info.getHttpCode() == 200) {
-                    if(info.getModel1()==null){
+                    if (info.getModel1() == null) {
                         showToast("获取失败");
                         myFinish();
                         return;

@@ -72,7 +72,7 @@ public class ClubLeftFragment extends Fragment {
                 GetMyCardList info = gson.fromJson(response, GetMyCardList.class);
                 if (info.getHttpCode() == 200) {
                     cardInfo = info.getListData().get(0);
-                    ImageLoaderUtils.setStoredValueCardImage(getContext(), cardInfo.getImgUrl(), ivCard);
+                    ImageLoaderUtils.setCardImage01(getContext(), cardInfo.getImgUrl(), ivCard);
                 }
             }
 

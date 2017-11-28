@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.joooonho.SelectableRoundedImageView;
 import com.zuoni.common.callback.TabOnClickListener;
@@ -41,7 +40,6 @@ import com.zuoni.riyuecun.ui.activity.MainActivity;
 import com.zuoni.riyuecun.ui.activity.MyClubActivity;
 import com.zuoni.riyuecun.ui.activity.PaymentActivity;
 import com.zuoni.riyuecun.ui.activity.WebViewActivity;
-import com.zuoni.riyuecun.ui.activity.base.ActivityCollector;
 import com.zuoni.riyuecun.ui.activity.register.RegisterActivity;
 import com.zuoni.riyuecun.util.ImageLoaderUtils;
 import com.zuoni.riyuecun.view.IntegralDashboard;
@@ -57,7 +55,6 @@ import butterknife.Unbinder;
 /**
  * Created by zangyi_shuai_ge on 2017/10/16
  * 首页
- * <p>
  * 首页Fragment 刷新数据的状态
  * 1、会员卡的增删
  * 2、储值卡的增删
@@ -66,13 +63,11 @@ import butterknife.Unbinder;
 
 public class MainFragment extends Fragment {
 
-
+    Unbinder unbinder;
     @BindView(R.id.btRegister)
     Button btRegister;
     @BindView(R.id.btLogin)
     Button btLogin;
-    Unbinder unbinder;
-
     @BindView(R.id.MessageImage)
     SelectableRoundedImageView MessageImage;
     @BindView(R.id.ivCard2)
@@ -97,10 +92,7 @@ public class MainFragment extends Fragment {
     TextView MessageName;
     @BindView(R.id.MessageDescribe)
     TextView MessageDescribe;
-    @BindView(R.id.tvMoney)
-    TextView tvMoney;
-    @BindView(R.id.CardName)
-    TextView CardName;
+
 
     @BindView(R.id.treeView)
     IntegralDashboard integralDashboard;
@@ -114,11 +106,7 @@ public class MainFragment extends Fragment {
     //附近门店
     @BindView(R.id.tvGoStore)
     TextView tvGoStore;
-
     //消息
-
-
-    //储值卡
     @BindView(R.id.vpCoupon)
     ViewPager vpCoupon;
 
@@ -130,33 +118,45 @@ public class MainFragment extends Fragment {
     TextView Distance;
     @BindView(R.id.layoutGoStore)
     LinearLayout layoutGoStore;
-    @BindView(R.id.ViewPagerGallery)
-    com.zuoni.common.gallery.ViewPagerGallery ViewPagerGallery;
+
+    private Intent mIntent;
+    private View view;
+    private MainActivity mainActivity;
 
 
     private List<View> couponViews;
-    private View view;
-    private MainActivity mainActivity;
     private boolean isLogin = false;
-    private Intent mIntent;
     private static int LOGIN_TAG = 10086;
+
+    //当前定位坐标
     public static String Latitude = "";
     public static String Longitude = "";
+
+
+    //储值卡
+    private List<ElectronicCard> electronicCards;
+    @BindView(R.id.ViewPagerGallery)
+    ViewPagerGallery ViewPagerGallery;
+    @BindView(R.id.tvMoney)
+    TextView tvMoney;//储值卡可余额
+    @BindView(R.id.CardName)
+    TextView CardName;//储值卡信息
+
+    //消息
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_mian, null);
         unbinder = ButterKnife.bind(this, view);
         LogUtil.i("Fragment", "首页onCreateView");
-
+        this.inflater = inflater;
         //从缓存中拿定位
         Latitude = CacheUtils.getLatitude(getContext());
         Longitude = CacheUtils.getLongitude(getContext());
 
-
         //设置下拉刷新参数
         initRefreshLayout();
-        this.inflater = inflater;
 
         ivCard2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,13 +172,6 @@ public class MainFragment extends Fragment {
                 refreshUI();
             }
         });
-
-//        integralDashboard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                integralDashboard.setValue(120);
-//            }
-//        });
 
         return view;
     }
@@ -197,6 +190,12 @@ public class MainFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        CacheUtils.setLocation(Latitude, Longitude, getContext());
+        super.onDestroy();
     }
 
     public void setMainActivity(MainActivity mainActivity) {
@@ -230,7 +229,7 @@ public class MainFragment extends Fragment {
      * 刷新界面
      */
     private void refreshUI() {
-        isLogin = CacheUtils.isLogin(getContext());
+        isLogin = CacheUtils.isLogin(getContext());//获取当前登录状态
         if (isLogin) {
             layoutlogin.setVisibility(View.GONE);
             layoutmain.setVisibility(View.VISIBLE);
@@ -263,25 +262,8 @@ public class MainFragment extends Fragment {
                 break;
             case R.id.btLogin:
                 mIntent = new Intent(getContext(), LoginActivity.class);
-                startActivityForResult(mIntent, LOGIN_TAG);
-                break;
-        }
-    }
-
-    /**
-     * 登录成功后需要刷新数据
-     */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == LOGIN_TAG) {
-            if (resultCode == 1) {
-                //登录成功
-//                mainActivity.refreshAllData();//重新刷新所有数据
-                ActivityCollector.finishAll();
-                Intent mIntent = new Intent(getContext(), MainActivity.class);
                 startActivity(mIntent);
-            }
+                break;
         }
     }
 
@@ -292,8 +274,9 @@ public class MainFragment extends Fragment {
         GetFirstPage();
     }
 
-    private List<ElectronicCard> electronicCards;
-
+    /**
+     * 没有登录状态下 获取首页数据
+     */
     private void GetFirstPageNoLogin() {
         mainActivity.showLoading();
         HttpRequest httpRequest = new HttpRequest(AppUrl.GetFirstPageNoLogin);
@@ -310,11 +293,11 @@ public class MainFragment extends Fragment {
                     //文章
                     if (info.getModel2() != null) {
                         message = info.getModel2();
-                        ImageLoaderUtils.setStoredValueCardImage(getContext(), info.getModel2().getMessageImage(), MessageImage);
+                        ImageLoaderUtils.setCardImage01(getContext(), info.getModel2().getMessageImage(), MessageImage);
                         MessageName.setText(info.getModel2().getMessageName());
                         MessageDescribe.setText(info.getModel2().getMessageDescribe());
                     }
-
+                    //附近门店
                     if (info.getModel1() != null) {
                         Adress.setText(info.getModel1().getAdress());
                         StoreName.setText(info.getModel1().getStoreName());
@@ -349,14 +332,9 @@ public class MainFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onDestroy() {
-        CacheUtils.setLocation(Latitude, Longitude, getContext());
-        super.onDestroy();
-    }
-
-
-
+    /**
+     * 登录状态下 获取首页数据
+     */
     private void GetFirstPage() {
         mainActivity.showLoading();
         HttpRequest httpRequest = new HttpRequest(AppUrl.GetFirstPage);
@@ -374,10 +352,9 @@ public class MainFragment extends Fragment {
                     //首页数据获取成功后改变需要刷新状态
                     AppUtils.mainFragmentNeedRefresh = false;
                     //加载首页数据
-
                     //会员卡图片
                     if (info.getModel1() != null) {
-                        ImageLoaderUtils.setStoredValueCardImage(getContext(), info.getModel1().getImgUrl(), ivCard2);
+                        ImageLoaderUtils.setCardImage01(getContext(), info.getModel1().getImgUrl(), ivCard2);
                     }
                     //等级
                     if (info.getModel2() != null) {
@@ -404,15 +381,13 @@ public class MainFragment extends Fragment {
                         MyPagerAdapter myPagerAdapter = new MyPagerAdapter(couponViews);
                         vpCoupon.setAdapter(myPagerAdapter);
                     }
-
+                    //附近门店
                     if (info.getModel5() != null) {
                         Adress.setText(info.getModel5().getAdress());
                         StoreName.setText(info.getModel5().getStoreName());
                         Distance.setText(info.getModel5().getDistance());
                         store = info.getModel5();
                     }
-
-
                     //储值卡
                     if (info.getModel3() != null) {
                         if (electronicCards == null) {
@@ -430,7 +405,7 @@ public class MainFragment extends Fragment {
                             SelectableRoundedImageView selectableRoundedImageView = new SelectableRoundedImageView(getContext());
                             selectableRoundedImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             selectableRoundedImageView.setCornerRadiiDP(4, 4, 4, 4);
-                            ImageLoaderUtils.setStoredValueCardImage(getContext(), info.getModel3().get(i).getCardImage(), selectableRoundedImageView);
+                            ImageLoaderUtils.setCardImage02(getContext(), info.getModel3().get(i).getCardImage(), selectableRoundedImageView);
                             views.add(selectableRoundedImageView);
                         }
                         ViewPagerGallery.setImgResources(views);
@@ -459,7 +434,7 @@ public class MainFragment extends Fragment {
 
                             }
                         });
-
+                        //设置默认的储值卡信息
                         if (electronicCards.size() <= 2) {
                             tvMoney.setText(" ￥" + electronicCards.get(0).getCardMoney());
                             CardName.setText("储值卡(" + electronicCards.get(0).getCardName() + ")" + "有效期至" + electronicCards.get(0).getEffectiveTime());
@@ -474,10 +449,7 @@ public class MainFragment extends Fragment {
                     //文章
                     if (info.getModel6() != null) {
                         message = info.getModel6();
-                        Glide.with(getContext())
-                                .load(info.getModel6().getMessageImage())
-                                .asBitmap()
-                                .into(MessageImage);
+                        ImageLoaderUtils.setCardImage01(getContext(), info.getModel6().getMessageImage(), MessageImage);
                         MessageName.setText(info.getModel6().getMessageName());
                         MessageDescribe.setText(info.getModel6().getMessageDescribe());
                     }
@@ -509,6 +481,7 @@ public class MainFragment extends Fragment {
 
     //附近门店
     private Store store;
+
     @OnClick(R.id.layoutGoStore)
     public void onViewClicked() {
         if (store != null) {
@@ -517,8 +490,10 @@ public class MainFragment extends Fragment {
             startActivity(mIntent);
         }
     }
+
     //消息
     private Message message;
+
     @OnClick(R.id.MessageImage)
     public void onMessageClicked() {
         if (message != null) {

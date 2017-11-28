@@ -5,13 +5,12 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="30.1dp"
+        android:id="@+id/ivBottleHead"
+        android:layout_width="60dp"
+        android:layout_height="35.1dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:src="@mipmap/club_8" />
-
-
+        android:src="@mipmap/bottle03" />
     <RelativeLayout
         android:layout_width="90dp"
         android:layout_height="167dp"
@@ -30,6 +29,5 @@
         android:layout_width="96dp"
         android:layout_height="167dp"
         android:layout_alignParentBottom="true"
-        android:src="@mipmap/pinzi" />
-
+        android:src="@mipmap/bottle04" />
 </RelativeLayout>
