@@ -26,6 +26,7 @@ import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.google.gson.Gson;
 import com.mobike.library.MobikeView;
+import com.zuoni.common.callback.TabOnClickListener;
 import com.zuoni.common.utils.DensityUtils;
 import com.zuoni.common.utils.LogUtil;
 import com.zuoni.riyuecun.AppUrl;
@@ -82,16 +83,7 @@ public class ClubFragment extends Fragment {
     private LRecyclerViewAdapter mAdapter;
     private MainActivity mainActivity;
 
-    private int[] imgs = {
-            R.mipmap.moon,
-            R.mipmap.moon,
-            R.mipmap.moon,
-            R.mipmap.club_17,
-            R.mipmap.club_9,
-            R.mipmap.club_9,
-            R.mipmap.club_9,
-            R.mipmap.club_9,
-    };
+
     private SensorManager sensorManager;
     private Sensor defaultSensor;
 
@@ -104,13 +96,30 @@ public class ClubFragment extends Fragment {
     }
 
     private Handler handler = new Handler();
-    private boolean isFirst=true;
-
+    private boolean isFirst = true;
+    private boolean isAnimator = true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.i("Fragment", "我的俱乐部onCreateView");
         view = inflater.inflate(R.layout.fragment_my_club, null);
         unbinder = ButterKnife.bind(this, view);
+
+        //第一次点击刷新数据
+        mainActivity.setTabOnClickListener02(new TabOnClickListener() {
+            @Override
+            public void onClick() {
+                if(isFirst){
+                    isFirst=false;
+//                    ivBottleHead.setVisibility(View.VISIBLE);
+//                    ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(ivBottleHead, "translationY", 0, DensityUtils.dp2px(getContext(), 20));
+//                    objectAnimator.setDuration(500).start();
+//                    mRecyclerView.refresh();
+                    GetMyLevelInfo();
+                }
+            }
+        });
+
+
         mList = new ArrayList<>();
         mAdapter = new LRecyclerViewAdapter(new RvMianItem02Adapter(getContext(), mList));
         initHead();
@@ -139,7 +148,7 @@ public class ClubFragment extends Fragment {
 
         // 如果没有登录  感觉这边数据都不用初始化了
         if (CacheUtils.isLogin(getContext())) {
-            mRecyclerView.refresh();
+//            mRecyclerView.refresh();
         }
 
 
@@ -157,7 +166,7 @@ public class ClubFragment extends Fragment {
         CurrentThingCount = header.findViewById(R.id.CurrentThingCount);
         tvDescribe = header.findViewById(R.id.tvDescribe);
         layoutRank = header.findViewById(R.id.layoutRank);
-        ivBottleHead=header.findViewById(R.id.ivBottleHead);
+        ivBottleHead = header.findViewById(R.id.ivBottleHead);
 
         layoutRank.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,7 +233,7 @@ public class ClubFragment extends Fragment {
         LogUtil.i("Fragment", "我的俱乐部onResume");
         if (nowIsShow) {
             //获取数据
-            if(AppUtils.clubFragmentNeedRefresh){
+            if (AppUtils.clubFragmentNeedRefresh) {
                 mRecyclerView.refresh();
             }
 
@@ -253,10 +262,17 @@ public class ClubFragment extends Fragment {
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                 float x = event.values[0];
                 float y = event.values[1] * 2.0f;
+                if(isAnimator){
+                    mobikeView.getmMobike().onSensorChanged(-x, (float) 13.709199);
+                }
                 if (Math.abs(lastX * 1000 - x * 1000) > 400 | Math.abs(lastY * 1000 - y * 1000) > 400) {
-                    mobikeView.getmMobike().onSensorChanged(-x, y);
-                    lastX = x;
-                    lastY = y;
+                    if(isAnimator){
+//                        mobikeView.getmMobike().onSensorChanged(-x, (float) 13.709199);
+                    }else {
+                        mobikeView.getmMobike().onSensorChanged(-x, y);
+                        lastX = x;
+                        lastY = y;
+                    }
                 }
             }
         }
@@ -267,34 +283,61 @@ public class ClubFragment extends Fragment {
         }
     };
 
-    private void initViews(String needThingName,int num) {
+    private void initViews(String needThingName, int num,int num2) {
+        List<Integer> imgList = new ArrayList<>();
+        //添加钻石
+        for (int i = 0; i <num2 ; i++) {
+            imgList.add(R.mipmap.integral_4);
+        }
+        int imgId = 0;
+        switch (needThingName) {
+            case "小星星":
+                imgId = R.mipmap.integral_2;
+                break;
+            case "小月亮":
+                imgId = R.mipmap.integral_3;
+                break;
+            case "小太阳":
+                imgId = R.mipmap.integral_1;
+                break;
+        }
+        for (int i = 0; i < num; i++) {
+            imgList.add(imgId);
+        }
 
         //把原来的清除掉
         mobikeView.getmMobike().clearBody();
+        isAnimator=true;
+        //向瓶子里添加东西
+        final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(DensityUtils.dp2px(getContext(), 20), DensityUtils.dp2px(getContext(), 20));
+        layoutParams.gravity = Gravity.CENTER;
+        int size=imgList.size();
+        if(size>15){
+            size=15;
+        }
+        for (int i = 0; i < size; i++) {
+            final ImageView imageView = new ImageView(getContext());
+            imageView.setImageResource(imgList.get(i));
+//            imageView.setBackgroundColor(getResources().getColor(R.color.color_calendar_state_02));
+            imageView.setTag(R.id.mobike_view_circle_tag, true);
+            mobikeView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mobikeView.addView(imageView, layoutParams);
+                }
+            }, 150 * i);
+        }
+
         //盖子动起来
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                isAnimator=false;
                 ivBottleHead.setVisibility(View.VISIBLE);
-                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(ivBottleHead, "translationY",0, DensityUtils.dp2px(getContext(),12));
-                objectAnimator.setDuration(1000).start();
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(ivBottleHead, "translationY", 0, DensityUtils.dp2px(getContext(), 20));
+                objectAnimator.setDuration(500).start();
             }
-        },1000);
-
-
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.CENTER;
-        List<Integer> imgList=new ArrayList<>();
-        for (int i = 0; i <num ; i++) {
-            imgList.add( R.mipmap.moon);
-        }
-        for (int i = 0; i <imgList.size(); i++) {
-            ImageView imageView = new ImageView(getContext());
-            imageView.setImageResource(imgList.get(i));
-//            imageView.setBackgroundColor(getResources().getColor(R.color.color_calendar_state_02));
-            imageView.setTag(R.id.mobike_view_circle_tag, false);
-            mobikeView.addView(imageView, layoutParams);
-        }
+        }, 150*size+500);
     }
 
     @Override
@@ -326,7 +369,7 @@ public class ClubFragment extends Fragment {
                 LogUtil.i("获取等级信息" + response);
                 GetMyLevelInfo info = gson.fromJson(response, GetMyLevelInfo.class);
                 if (info.getHttpCode() == 200) {
-                    AppUtils.clubFragmentNeedRefresh=false;
+                    AppUtils.clubFragmentNeedRefresh = false;
                     //获取等级成功
                     UserLevelName.setText(info.getModel1().getUserLevelName());
                     NeedThing.setText("目前获赠" + info.getModel1().getNeedThing() + "数");
@@ -338,7 +381,7 @@ public class ClubFragment extends Fragment {
                     tvDescribe.setText(describe);
 
                     //设置瓶子里面的东西
-                    initViews(info.getModel1().getNeedThing(),info.getModel1().getCurrentThingCount());
+                    initViews(info.getModel1().getNeedThing(), info.getModel1().getCurrentThingCount(),info.getModel1().getDiamonds());
 
 
                     //消费记录

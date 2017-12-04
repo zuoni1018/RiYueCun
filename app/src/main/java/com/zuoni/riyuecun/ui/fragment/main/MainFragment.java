@@ -3,6 +3,7 @@ package com.zuoni.riyuecun.ui.fragment.main;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -104,11 +105,9 @@ public class MainFragment extends Fragment {
     TextView size;//优惠券数量
 
     //附近门店
-    @BindView(R.id.tvGoStore)
-    TextView tvGoStore;
+
     //消息
-    @BindView(R.id.vpCoupon)
-    ViewPager vpCoupon;
+
 
     @BindView(R.id.StoreName)
     TextView StoreName;
@@ -118,6 +117,14 @@ public class MainFragment extends Fragment {
     TextView Distance;
     @BindView(R.id.layoutGoStore)
     LinearLayout layoutGoStore;
+    @BindView(R.id.tvDashboard01)
+    TextView tvDashboard01;
+    @BindView(R.id.tvDashboard02)
+    TextView tvDashboard02;
+    @BindView(R.id.vpCoupon)
+    ViewPager vpCoupon;
+    @BindView(R.id.tvGoStore)
+    TextView tvGoStore;
 
     private Intent mIntent;
     private View view;
@@ -141,9 +148,12 @@ public class MainFragment extends Fragment {
     TextView tvMoney;//储值卡可余额
     @BindView(R.id.CardName)
     TextView CardName;//储值卡信息
-
     //消息
 
+
+
+    //当前是否在显示
+    private  boolean isNowShow=true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -151,6 +161,9 @@ public class MainFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         LogUtil.i("Fragment", "首页onCreateView");
         this.inflater = inflater;
+
+        electronicCards=new ArrayList<>();
+        couponViews=new ArrayList<>();
         //从缓存中拿定位
         Latitude = CacheUtils.getLatitude(getContext());
         Longitude = CacheUtils.getLongitude(getContext());
@@ -174,6 +187,10 @@ public class MainFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void setNowShow(boolean nowShow) {
+        isNowShow = nowShow;
     }
 
     /**
@@ -229,12 +246,29 @@ public class MainFragment extends Fragment {
      * 刷新界面
      */
     private void refreshUI() {
+        //如果当前不在这个tab里不去刷新
+        if(!isNowShow){
+            return;
+        }
         isLogin = CacheUtils.isLogin(getContext());//获取当前登录状态
         if (isLogin) {
-            layoutlogin.setVisibility(View.GONE);
-            layoutmain.setVisibility(View.VISIBLE);
-            layoutMain2.setVisibility(View.VISIBLE);
-            layoutMain03.setVisibility(View.VISIBLE);
+            layoutlogin.setVisibility(View.GONE);//登录模块
+            layoutmain.setVisibility(View.VISIBLE);//积分模块
+
+            //储值卡模块
+            if (electronicCards.size() == 0) {
+                layoutMain2.setVisibility(View.GONE);
+            } else {
+                layoutMain2.setVisibility(View.VISIBLE);
+            }
+
+            //优惠券模块
+            if(couponViews.size()==0){
+                layoutMain03.setVisibility(View.GONE);
+            }else {
+                layoutMain03.setVisibility(View.VISIBLE);
+            }
+
             //判断是否有必要取刷新数据
             if (AppUtils.mainFragmentNeedRefresh) {
                 GetFirstPage();
@@ -265,13 +299,6 @@ public class MainFragment extends Fragment {
                 startActivity(mIntent);
                 break;
         }
-    }
-
-    /**
-     * 提供给MainActivity 调用
-     */
-    public void refreshData() {
-        GetFirstPage();
     }
 
     /**
@@ -347,7 +374,7 @@ public class MainFragment extends Fragment {
                 mainActivity.closeLoading();
                 refreshLayout.setRefreshing(false);
                 LogUtil.i("首页Fragment" + response);
-                GetFirstPage info = gson.fromJson(response, GetFirstPage.class);
+                final GetFirstPage info = gson.fromJson(response, GetFirstPage.class);
                 if (info.getHttpCode() == 200) {
                     //首页数据获取成功后改变需要刷新状态
                     AppUtils.mainFragmentNeedRefresh = false;
@@ -358,48 +385,25 @@ public class MainFragment extends Fragment {
                     }
                     //等级
                     if (info.getModel2() != null) {
-                        UserLevelName.setText(info.getModel2().getUserLevelName());
-                        NextLevelName.setText("再消费" + (info.getModel2().getNextThingCount() - info.getModel2().getCurrentThingCount())
-                                + "次升级为" + info.getModel2().getNextLevelName());
-                        //设置进度条
-                        //计算角度
-                        int sp = (int) ((info.getModel2().getCurrentThingCount() * 1.000 / (info.getModel2().getNextThingCount() * 1.000)) * 180);
-                        integralDashboard.setValue(sp);
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                UserLevelName.setText(info.getModel2().getUserLevelName());
+                                NextLevelName.setText("再消费" + (info.getModel2().getNextThingCount() - info.getModel2().getCurrentThingCount())
+                                        + "次升级为" + info.getModel2().getNextLevelName());
+                                //设置进度条
+                                //计算角度
+                                int sp = (int) ((info.getModel2().getCurrentThingCount() * 1.000 / (info.getModel2().getNextThingCount() * 1.000)) * 380);
+                                integralDashboard.setValue(sp);
+                                tvDashboard01.setText(info.getModel2().getCurrentThingCount() + "/" + info.getModel2().getNextThingCount());
+                            }
+                        });
                     }
-                    //优惠券
-                    if (info.getModel4() != null) {
-                        couponViews = new ArrayList<>();
-                        for (int i = 0; i < info.getModel4().size(); i++) {
-                            View view = inflater.inflate(R.layout.vp_main_coupon, null);
-                            TextView tv01 = view.findViewById(R.id.CouponName);
-                            TextView tv02 = view.findViewById(R.id.ExpirationDate);
-                            tv01.setText(info.getModel4().get(i).getCouponName());
-                            tv02.setText(info.getModel4().get(i).getExpirationDate());
-                            couponViews.add(view);
-                        }
-                        size.setText(couponViews.size() + "");
-                        MyPagerAdapter myPagerAdapter = new MyPagerAdapter(couponViews);
-                        vpCoupon.setAdapter(myPagerAdapter);
-                    }
-                    //附近门店
-                    if (info.getModel5() != null) {
-                        Adress.setText(info.getModel5().getAdress());
-                        StoreName.setText(info.getModel5().getStoreName());
-                        Distance.setText(info.getModel5().getDistance());
-                        store = info.getModel5();
-                    }
+
                     //储值卡
+                    electronicCards.clear();
                     if (info.getModel3() != null) {
-                        if (electronicCards == null) {
-                            electronicCards = new ArrayList<>();
-                        }
-                        electronicCards.clear();
                         electronicCards.addAll(info.getModel3());
-                        if (electronicCards.size() == 0) {
-                            layoutMain2.setVisibility(View.GONE);
-                        } else {
-                            layoutMain2.setVisibility(View.VISIBLE);
-                        }
                         final List<View> views = new ArrayList<>();
                         for (int i = 0; i < info.getModel3().size(); i++) {
                             SelectableRoundedImageView selectableRoundedImageView = new SelectableRoundedImageView(getContext());
@@ -438,13 +442,46 @@ public class MainFragment extends Fragment {
                         if (electronicCards.size() <= 2) {
                             tvMoney.setText(" ￥" + electronicCards.get(0).getCardMoney());
                             CardName.setText("储值卡(" + electronicCards.get(0).getCardName() + ")" + "有效期至" + electronicCards.get(0).getEffectiveTime());
-                        } else if (electronicCards.size() > 3) {
+                        } else if (electronicCards.size() > 2) {
                             tvMoney.setText(" ￥" + electronicCards.get(1).getCardMoney());
                             CardName.setText("储值卡(" + electronicCards.get(1).getCardName() + ")" + "有效期至" + electronicCards.get(1).getEffectiveTime());
                         }
+                    }
+                    if(electronicCards.size()==0){
+                        LogUtil.i("嘻嘻"+"储值卡");
+                        layoutMain2.setVisibility(View.GONE);
+                    }else {
+                        LogUtil.i("嘻嘻"+"有");
                         layoutMain2.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutMain2.setVisibility(View.GONE);//没有储值卡
+                    }
+                    //优惠券
+                    couponViews .clear();
+                    if (info.getModel4() != null) {
+                        for (int i = 0; i < info.getModel4().size(); i++) {
+                            View view = inflater.inflate(R.layout.vp_main_coupon, null);
+                            TextView tv01 = view.findViewById(R.id.CouponName);
+                            TextView tv02 = view.findViewById(R.id.ExpirationDate);
+                            tv01.setText(info.getModel4().get(i).getCouponName());
+                            tv02.setText(info.getModel4().get(i).getExpirationDate());
+                            couponViews.add(view);
+                        }
+                        size.setText(couponViews.size() + "");
+                        MyPagerAdapter myPagerAdapter = new MyPagerAdapter(couponViews);
+                        vpCoupon.setAdapter(myPagerAdapter);
+                    }
+                    if(couponViews.size()==0){
+                        layoutMain03.setVisibility(View.GONE);
+                    }else {
+                        layoutMain03.setVisibility(View.VISIBLE);
+                    }
+
+
+                    //附近门店
+                    if (info.getModel5() != null) {
+                        Adress.setText(info.getModel5().getAdress());
+                        StoreName.setText(info.getModel5().getStoreName());
+                        Distance.setText(info.getModel5().getDistance());
+                        store = info.getModel5();
                     }
                     //文章
                     if (info.getModel6() != null) {

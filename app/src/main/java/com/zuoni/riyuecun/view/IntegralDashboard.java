@@ -2,18 +2,16 @@ package com.zuoni.riyuecun.view;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.graphics.Xfermode;
+import android.graphics.SweepGradient;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.zuoni.common.utils.LogUtil;
 import com.zuoni.riyuecun.R;
 
 /**
@@ -23,18 +21,25 @@ import com.zuoni.riyuecun.R;
 
 public class IntegralDashboard extends View {
 
-    private Paint mPaint;//画笔
-    private Bitmap dashboardBg;//仪表盘背景
-    private RectF oval;//绘制扇形所在区域
-    private RectF dstRect, srcRect;
-    private int sweepAngle = 0;
-    private Xfermode mXfermode;
-    private Xfermode mXfermode2;
+    private ValueAnimator animatorFloat;//浮动动画
+    //画笔的渐变色
+    private int[] circleColors;
     //自定义View尺寸
     private int viewW;
     private int viewH;
+    //圆环的宽度
+    private int ringWidth;
+    //画圆弧的区域
+    private RectF oval;
+    //画笔
+    private  Paint paintBg;//绘制外圆环背景
+    private  Paint paintCircle;//绘制刻度画笔
+
     private Context context;
-    private ValueAnimator animatorFloat;//浮动动画
+    private int sweepAngle;
+
+
+
 
     public IntegralDashboard(Context context) {
         this(context, null);
@@ -47,81 +52,75 @@ public class IntegralDashboard extends View {
     public IntegralDashboard(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
-        dashboardBg = BitmapFactory.decodeResource(getResources(), R.mipmap.dashboard_bg);
+        //初始化圆环背景画笔
+        paintBg=new Paint();
+        paintBg.setStyle(Paint.Style.STROKE);//描边
 
-        mXfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT);
-        mXfermode2 = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
+        paintBg.setAntiAlias(true);//设置抗锯齿
+        paintBg.setColor(getResources().getColor(R.color.dashboard_bg));
+
+        paintCircle=new Paint();
+        paintCircle.setStyle(Paint.Style.STROKE);//描边
+        paintCircle.setAntiAlias(true);//设置抗锯齿
+        paintCircle.setColor(getResources().getColor(R.color.refresh_color_02));
+        paintCircle.setStrokeCap(Paint.Cap.ROUND);
+
+        circleColors = new int[]{
+                getResources().getColor(R.color.circle_color_01),
+                getResources().getColor(R.color.circle_color_02),
+                getResources().getColor(R.color.circle_color_03),
+                getResources().getColor(R.color.circle_color_04),
+                getResources().getColor(R.color.circle_color_05),
+                getResources().getColor(R.color.circle_color_04),
+                getResources().getColor(R.color.circle_color_03),
+                getResources().getColor(R.color.circle_color_02),
+                getResources().getColor(R.color.circle_color_01),
+        };
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-//        LogUtil.i("onSizeChanged");
+
+        //初始化尺寸
         viewW = w;
         viewH = h;
-        srcRect = new RectF(0, 0, w, h);
-        dstRect = new RectF(0, 0, w, h);
-        oval = new RectF(-(h-w/2), 0, w +(h-w/2), 2*h);
+
+        ringWidth= (int) ((20/250.000)*w);//圆环宽度
+        oval = new RectF((ringWidth / 2+1), (ringWidth / 2+1), w-(ringWidth/2+1), w-(ringWidth/2+1));
+
+        //初始化画笔
+        paintCircle .setShader(new SweepGradient(viewW / 2, viewW / 2,circleColors , null));
+        paintBg.setStrokeWidth(ringWidth);
+        paintCircle.setStrokeWidth(ringWidth);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //背景色设为白色，方便比较效果
-        //canvas.drawColor(Color.WHITE);
-        //将绘制操作保存到新的图层，因为图像合成是很昂贵的操作，将用到硬件加速，这里将图像合成的处理放到离屏缓存中进行
-        int saveCount = canvas.saveLayer(srcRect, mPaint, Canvas.ALL_SAVE_FLAG);
-        //绘制目标图
-        canvas.drawBitmap(dashboardBg, null, dstRect, mPaint);
-        //设置混合模式
-        mPaint.setXfermode(mXfermode);
-        //绘制源图
-        //canvas.drawBitmap(srcBmp, null, srcRect, mPaint);
-        mPaint.setColor(getResources().getColor(R.color.color_white));
-        canvas.drawCircle(viewW / 2, viewH, viewW, mPaint);//绘制白色背景
-        //canvas.drawArc(dstRect, 0, 60, true, mPaint);
-        mPaint.setXfermode(mXfermode2);
-        mPaint.setColor(getResources().getColor(R.color.dashboard_red));
-        canvas.drawArc(oval, 180, sweepAngle, true, mPaint);
-        //清除混合模式
-        mPaint.setXfermode(null);
-        //还原画布
-        canvas.restoreToCount(saveCount);
+        //绘制背景
+        canvas.drawArc(oval, 0, 360, false, paintBg);
+        //绘制刻度
+        canvas.drawArc(oval, 180+90, sweepAngle, false, paintCircle);
     }
 
-    /**
-     * 开启动画
-     */
-    public void invalidateView() {
-        animatorFloat = ValueAnimator.ofInt(0, 180, 0);
-        animatorFloat.setDuration(1500);
-        animatorFloat.setRepeatCount(-1);
-        animatorFloat.start();
-        animatorFloat.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                sweepAngle = (int) animation.getAnimatedValue();
-                invalidate();
-            }
-        });
-        invalidate();
-    }
     public void setValue(int pSweepAngle) {
         if(pSweepAngle==0){
             pSweepAngle=1;
         }
+        LogUtil.i("pSweepAngle"+pSweepAngle);
         if(animatorFloat!=null){
             animatorFloat.cancel();
         }
-        animatorFloat = ValueAnimator.ofInt(0, pSweepAngle);
-        animatorFloat.setDuration(1000);
+        animatorFloat = ValueAnimator.ofInt(0,360,pSweepAngle);
+        animatorFloat.setInterpolator(new AccelerateDecelerateInterpolator());//设置差值器 先加速后减速
+        animatorFloat.setDuration(2000);
         animatorFloat.setRepeatCount(0);
         animatorFloat.start();
         animatorFloat.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                sweepAngle = (int) animation.getAnimatedValue();
+                sweepAngle = -(int) animation.getAnimatedValue();
                 invalidate();
             }
         });

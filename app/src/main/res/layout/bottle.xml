@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="96dp"
-    android:layout_height="200dp"
+    android:layout_width="120.5dp"
+    android:layout_height="228dp"
     android:orientation="vertical">
+    <!--瓶子比例334*554-->
 
     <ImageView
-        android:id="@+id/ivBottleHead"
-        android:layout_width="60dp"
-        android:layout_height="35.1dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/bottle03" />
-    <RelativeLayout
-        android:layout_width="90dp"
-        android:layout_height="167dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="2dp"
-        android:layout_marginTop="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@mipmap/bottle_2" />
 
+
+    <LinearLayout
+        android:layout_marginBottom="13dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_width="102dp"
+        android:layout_height="150dp">
         <com.mobike.library.MobikeView
             android:id="@+id/mobike_view"
-            android:layout_width="90dp"
-            android:layout_height="167dp" />
-    </RelativeLayout>
+            android:layout_width="102dp"
+            android:layout_height="150dp" />
+    </LinearLayout>
+
 
     <ImageView
-        android:layout_width="96dp"
-        android:layout_height="167dp"
+
+        android:layout_alignParentTop="true"
+        android:id="@+id/ivBottleHead"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@mipmap/bottle_3" />
+
+
+    <ImageView
         android:layout_alignParentBottom="true"
-        android:src="@mipmap/bottle04" />
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@mipmap/bottle_1" />
+
 </RelativeLayout>

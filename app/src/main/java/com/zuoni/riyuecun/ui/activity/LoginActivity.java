@@ -90,8 +90,6 @@ public class LoginActivity extends BaseTitleActivity {
                         login(UserPassword, UserPhone);
                     }
                 }
-
-
                 break;
         }
     }

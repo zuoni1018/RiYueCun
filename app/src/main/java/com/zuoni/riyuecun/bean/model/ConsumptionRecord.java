@@ -15,6 +15,17 @@ public class ConsumptionRecord {
     private String ShopTime;
     private int CardMoney;
 
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
+    }
+
+    private String PhoneNumber;
+
+
     public String getShopName() {
         return ShopName;
     }

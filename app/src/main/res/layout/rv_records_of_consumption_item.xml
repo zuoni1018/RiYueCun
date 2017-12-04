@@ -39,7 +39,6 @@
                 android:textColor="@color/color_white"
                 android:textSize="14sp" />
 
-
         </LinearLayout>
 
         <LinearLayout
@@ -60,13 +59,35 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
+        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginRight="10dp"
-        android:id="@+id/CardMoney"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|left"
-        android:textColor="#D1D1D1"
-        android:textSize="14sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+
+            android:text="111111"
+            android:id="@+id/CardMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:textColor="#D1D1D1"
+            android:textSize="14sp" />
+
+        <TextView
+            android:text="111111"
+            android:id="@+id/tvPhone"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#D1D1D1"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+
 
 </LinearLayout>

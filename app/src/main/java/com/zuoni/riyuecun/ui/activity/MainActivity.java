@@ -2,7 +2,6 @@ package com.zuoni.riyuecun.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -77,6 +76,12 @@ public class MainActivity extends BaseActivity {
 
 
     private TabOnClickListener tabOnClickListener01;
+    private TabOnClickListener tabOnClickListener02;
+
+    public void setTabOnClickListener02(TabOnClickListener tabOnClickListener02) {
+        this.tabOnClickListener02 = tabOnClickListener02;
+    }
+
     private List<Fragment> mList;
     private FragmentPagerAdapter mPagerAdapter;
     private MainFragment mainFragment;
@@ -206,26 +211,7 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    /**
-     * 刷新所有数据
-     */
-    public void refreshAllData() {
-        //刷新我的俱乐部数据
-        clubFragment.refreshData();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                cardFragment.refreshData();
-            }
-        }, 200);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mainFragment.refreshData();
-            }
-        }, 100);
 
-    }
 
     /**
      * 跳转界面
@@ -265,8 +251,10 @@ public class MainActivity extends BaseActivity {
         menu1.setBackgroundResource(R.drawable.menu_bg_01);
         viewPager.setCurrentItem(0, false);//切换viewPager
         drawerLayout.closeDrawer(GravityCompat.START);//关闭抽屉
+        mainFragment.setNowShow(true);
         tabOnClickListener01.onClick();//触发tab 事件
         clubFragment.showClubFragment(false);//关闭我的俱乐部中的某些状态 传感器之类的
+
     }
 
     /**
@@ -290,6 +278,8 @@ public class MainActivity extends BaseActivity {
                     startActivity(mIntent);
                 }
             });
+            tabOnClickListener02.onClick();//触发tab 事件
+            mainFragment.setNowShow(false);
         } else {
             showToast("请先登录");
         }
@@ -309,6 +299,7 @@ public class MainActivity extends BaseActivity {
             clubFragment.showClubFragment(false);
             topBarRight.setVisibility(View.VISIBLE);
             topBarRight.setOnClickListener(cardFragment.getOnClickListener());
+            mainFragment.setNowShow(false);
         } else {
             showToast("请先登录");
         }
@@ -325,6 +316,7 @@ public class MainActivity extends BaseActivity {
         viewPager.setCurrentItem(3, false);
         drawerLayout.closeDrawer(GravityCompat.START);
         clubFragment.showClubFragment(false);
+        mainFragment.setNowShow(false);
     }
 
     /**
@@ -338,6 +330,7 @@ public class MainActivity extends BaseActivity {
         viewPager.setCurrentItem(4, false);
         drawerLayout.closeDrawer(GravityCompat.START);
         clubFragment.showClubFragment(false);
+        mainFragment.setNowShow(false);
     }
 
     /**
@@ -352,6 +345,7 @@ public class MainActivity extends BaseActivity {
             viewPager.setCurrentItem(5, false);
             drawerLayout.closeDrawer(GravityCompat.START);
             clubFragment.showClubFragment(false);
+            mainFragment.setNowShow(false);
         } else {
             showToast("请先登录");
         }

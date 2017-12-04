@@ -68,7 +68,7 @@
                 android:layout_gravity="center|left"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="14dp"
-                android:text="扫一扫扫一扫扫一扫扫一扫扫一扫"
+                android:text="积点点获优惠券、关联会员卡或电子储值卡"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
         </LinearLayout>

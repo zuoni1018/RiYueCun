@@ -57,13 +57,13 @@ public class RecordsOfConsumptionActivity extends BaseTitleActivity {
             return;
         }
         ConsumptionRecords(CardId);
-
         mList = new ArrayList<>();
 
 
         mAdapter = new LRecyclerViewAdapter(new RvRecordsOfConsumptionAdapter(getContext(), mList));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setPullRefreshEnabled(false);
     }
 
     private void ConsumptionRecords(String CardId) {

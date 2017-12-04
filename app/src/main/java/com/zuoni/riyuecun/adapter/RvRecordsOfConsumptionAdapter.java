@@ -1,7 +1,11 @@
 package com.zuoni.riyuecun.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +28,8 @@ public class RvRecordsOfConsumptionAdapter extends RecyclerView.Adapter<RvRecord
     private Context mContext;
     private List<ConsumptionRecord> mList;
     private LayoutInflater mInflater;
+    private SpannableStringBuilder builder;
+    private ForegroundColorSpan redSpan;
 
     public RvRecordsOfConsumptionAdapter(Context mContext, List<ConsumptionRecord> mList) {
         this.mContext = mContext;
@@ -33,6 +39,8 @@ public class RvRecordsOfConsumptionAdapter extends RecyclerView.Adapter<RvRecord
             this.mList = new ArrayList<>();
         }
         mInflater = LayoutInflater.from(mContext);
+         redSpan = new ForegroundColorSpan(Color.RED);
+
     }
 
     @Override
@@ -50,11 +58,26 @@ public class RvRecordsOfConsumptionAdapter extends RecyclerView.Adapter<RvRecord
 //                mContext.startActivity(mIntent);
             }
         });
-        DecimalFormat df   = new DecimalFormat("######0.00");
-        holder.CardMoney.setText(" ￥ "+df.format(mList.get(position).getCardMoney()));
+        DecimalFormat df = new DecimalFormat("######0.00");
+        holder.CardMoney.setText(" ￥ " + df.format(mList.get(position).getCardMoney()));
         holder.ShopName.setText(mList.get(position).getShopName());
         holder.ShopTime.setText(mList.get(position).getShopTime());
 
+        if (mList.get(position).getPhoneNumber() == null) {
+            holder.tvPhone.setVisibility(View.GONE);
+        } else {
+            holder.tvPhone.setVisibility(View.VISIBLE);
+
+
+            String showPhone = mList.get(position).getPhoneNumber();
+            if (showPhone.length() > 8) {
+                showPhone = showPhone.substring(0, 3) + " *** " + showPhone.substring(showPhone.length() - 3, showPhone.length());
+            }
+
+            builder= new SpannableStringBuilder("异号消费"+showPhone);
+            builder.setSpan(redSpan, 0,4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.tvPhone.setText(builder);
+        }
     }
 
     @Override
@@ -65,13 +88,15 @@ public class RvRecordsOfConsumptionAdapter extends RecyclerView.Adapter<RvRecord
     class MyViewHolder extends RecyclerView.ViewHolder {
         LinearLayout layoutMain;
 
-        TextView ShopName,ShopTime,CardMoney;
+        TextView ShopName, ShopTime, CardMoney, tvPhone;
+
         MyViewHolder(View itemView) {
             super(itemView);
-            layoutMain=(LinearLayout)itemView.findViewById(R.id.layoutMain);
-            ShopName= (TextView) itemView.findViewById(R.id.ShopName);
-            ShopTime= (TextView) itemView.findViewById(R.id.ShopTime);
-            CardMoney= (TextView) itemView.findViewById(R.id.CardMoney);
+            layoutMain = (LinearLayout) itemView.findViewById(R.id.layoutMain);
+            ShopName = (TextView) itemView.findViewById(R.id.ShopName);
+            ShopTime = (TextView) itemView.findViewById(R.id.ShopTime);
+            CardMoney = (TextView) itemView.findViewById(R.id.CardMoney);
+            tvPhone = (TextView) itemView.findViewById(R.id.tvPhone);
         }
     }
 }

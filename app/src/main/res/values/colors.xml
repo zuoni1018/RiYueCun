@@ -32,4 +32,16 @@
 
 
     <color name="dashboard_red">#E72823</color>
+
+    <!--自定义时间选择器渐变色-->
+    <color name="circle_color_01">#EE7A3D</color>
+    <color name="circle_color_02">#EE6132</color>
+    <color name="circle_color_03">#EEA950</color>
+    <color name="circle_color_04">#EEAE53</color>
+    <color name="circle_color_05">#EEC05A</color>
+    <color name="circle_color_06">#EE6434</color>
+    <color name="circle_color_07">#ED291B</color>
+    <color name="circle_color_08">#ED291B</color>
+    <color name="circle_color_09">#ED4526</color>
+    <color name="dashboard_bg">#581E00</color>
 </resources>
