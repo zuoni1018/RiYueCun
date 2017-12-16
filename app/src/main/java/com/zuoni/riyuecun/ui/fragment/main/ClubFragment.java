@@ -98,6 +98,7 @@ public class ClubFragment extends Fragment {
     private Handler handler = new Handler();
     private boolean isFirst = true;
     private boolean isAnimator = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.i("Fragment", "我的俱乐部onCreateView");
@@ -108,8 +109,8 @@ public class ClubFragment extends Fragment {
         mainActivity.setTabOnClickListener02(new TabOnClickListener() {
             @Override
             public void onClick() {
-                if(isFirst){
-                    isFirst=false;
+                if (isFirst) {
+                    isFirst = false;
 //                    ivBottleHead.setVisibility(View.VISIBLE);
 //                    ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(ivBottleHead, "translationY", 0, DensityUtils.dp2px(getContext(), 20));
 //                    objectAnimator.setDuration(500).start();
@@ -256,19 +257,21 @@ public class ClubFragment extends Fragment {
 
     float lastX = 0;
     float lastY = 0;
+
     private SensorEventListener listerner = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                 float x = event.values[0];
                 float y = event.values[1] * 2.0f;
-                if(isAnimator){
-                    mobikeView.getmMobike().onSensorChanged(-x, (float) 13.709199);
+                if (isAnimator) {
+//                    mobikeView.getmMobike().onSensorChanged(-x, 13);
+                    return;
                 }
                 if (Math.abs(lastX * 1000 - x * 1000) > 400 | Math.abs(lastY * 1000 - y * 1000) > 400) {
-                    if(isAnimator){
+                    if (isAnimator) {
 //                        mobikeView.getmMobike().onSensorChanged(-x, (float) 13.709199);
-                    }else {
+                    } else {
                         mobikeView.getmMobike().onSensorChanged(-x, y);
                         lastX = x;
                         lastY = y;
@@ -283,38 +286,49 @@ public class ClubFragment extends Fragment {
         }
     };
 
-    private void initViews(String needThingName, int num,int num2) {
+    private void initViews(String needThingName, int num, int num2) {
+        mRecyclerView.setPullRefreshEnabled(false);
         List<Integer> imgList = new ArrayList<>();
         //添加钻石
-        for (int i = 0; i <num2 ; i++) {
+        for (int i = 0; i < num2; i++) {
             imgList.add(R.mipmap.integral_4);
         }
+
         int imgId = 0;
         switch (needThingName) {
             case "小星星":
                 imgId = R.mipmap.integral_2;
+                ivBottleHead.setImageResource(R.mipmap.bbbb_2);
                 break;
             case "小月亮":
                 imgId = R.mipmap.integral_3;
+                ivBottleHead.setImageResource(R.mipmap.bbbb_4);
                 break;
             case "小太阳":
                 imgId = R.mipmap.integral_1;
+                ivBottleHead.setImageResource(R.mipmap.bbbb_5);
+                break;
+            default:
+                ivBottleHead.setImageResource(R.mipmap.bbbb_1);
                 break;
         }
-        for (int i = 0; i < num; i++) {
-            imgList.add(imgId);
+        if (!needThingName.equals("")) {
+            for (int i = 0; i < num; i++) {
+                imgList.add(imgId);
+            }
         }
 
         //把原来的清除掉
         mobikeView.getmMobike().clearBody();
-        isAnimator=true;
+        isAnimator = true;
         //向瓶子里添加东西
         final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(DensityUtils.dp2px(getContext(), 20), DensityUtils.dp2px(getContext(), 20));
         layoutParams.gravity = Gravity.CENTER;
-        int size=imgList.size();
-        if(size>15){
-            size=15;
+        int size = imgList.size();
+        if (size > 15) {
+            size = 15;
         }
+        mobikeView.getmMobike().onSensorChanged(0, 13);
         for (int i = 0; i < size; i++) {
             final ImageView imageView = new ImageView(getContext());
             imageView.setImageResource(imgList.get(i));
@@ -325,19 +339,27 @@ public class ClubFragment extends Fragment {
                 public void run() {
                     mobikeView.addView(imageView, layoutParams);
                 }
-            }, 150 * i);
+            }, 500 * i);
         }
 
         //盖子动起来
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                isAnimator=false;
+                isAnimator = false;
                 ivBottleHead.setVisibility(View.VISIBLE);
                 ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(ivBottleHead, "translationY", 0, DensityUtils.dp2px(getContext(), 20));
                 objectAnimator.setDuration(500).start();
+                //动画结束后才可以刷新
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRecyclerView.setPullRefreshEnabled(true);
+                    }
+                }, 500);
+
             }
-        }, 150*size+500);
+        }, 500 * size + 500);
     }
 
     @Override
@@ -372,16 +394,22 @@ public class ClubFragment extends Fragment {
                     AppUtils.clubFragmentNeedRefresh = false;
                     //获取等级成功
                     UserLevelName.setText(info.getModel1().getUserLevelName());
-                    NeedThing.setText("目前获赠" + info.getModel1().getNeedThing() + "数");
 
-                    CurrentThingCount.setText(info.getModel1().getCurrentThingCount() + "");
-                    //集齐58个小太阳,\n升级为至尊太阳系会员会员
-                    String describe = "集齐" + info.getModel1().getNextThingCount() + "个" + info.getModel1().getNeedThing() + " , \n"
-                            + "升级为" + info.getModel1().getNextLevelName();
-                    tvDescribe.setText(describe);
 
+                    if ("".equals(info.getModel1().getNextLevelName())) {
+                        tvDescribe.setText("每消费满30元产生一个钻石");
+                        CurrentThingCount.setText(info.getModel1().getDiamonds() + "");
+                        NeedThing.setText("目前获赠钻石数");
+                    } else {
+                        NeedThing.setText("目前获赠" + info.getModel1().getNeedThing() + "数");
+                        CurrentThingCount.setText(info.getModel1().getCurrentThingCount() + "");
+                        //集齐58个小太阳,\n升级为至尊太阳系会员会员
+                        String describe = "集齐" + info.getModel1().getNextThingCount() + "个" + info.getModel1().getNeedThing() + " , \n"
+                                + "升级为" + info.getModel1().getNextLevelName();
+                        tvDescribe.setText(describe);
+                    }
                     //设置瓶子里面的东西
-                    initViews(info.getModel1().getNeedThing(), info.getModel1().getCurrentThingCount(),info.getModel1().getDiamonds());
+                    initViews(info.getModel1().getNeedThing(), info.getModel1().getCurrentThingCount(), info.getModel1().getDiamonds());
 
 
                     //消费记录

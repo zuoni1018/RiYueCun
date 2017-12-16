@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword 'hhkj123456'
+            storeFile file('C:/Users/PVer/Desktop/hhkj.jks')
+            storePassword 'hhkj123456'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
@@ -17,6 +25,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.config
+        }
     }
     sourceSets {
         main {
@@ -29,7 +40,7 @@ android {
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 //这里修改apk文件名
 //                def fileName = outputFile.name.replace("app","${defaultConfig.applicationId }_${defaultConfig.versionName}_${releaseTime() }")
-                def fileName = outputFile.name.replace("app", "日月村_"+"${defaultConfig.versionName}"+"_${releaseTime() }")
+                def fileName = outputFile.name.replace("app", "日月村_" + "${defaultConfig.versionName}" + "_${releaseTime()}")
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }
@@ -53,7 +64,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-
     ////////////////////////////////////////////////////////
     compile project(':zuoni-common')
     compile 'com.jaeger.statusbarutil:library:1.4.0'

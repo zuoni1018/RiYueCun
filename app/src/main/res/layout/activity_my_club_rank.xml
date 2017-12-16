@@ -64,14 +64,14 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/rank_bar_01"
+            android:background="@drawable/rank_bar_02"
             android:orientation="horizontal">
 
             <View
                 android:id="@+id/view03"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/rank_bar_02" />
+                android:background="@drawable/rank_bar_01" />
         </LinearLayout>
     </LinearLayout>
 

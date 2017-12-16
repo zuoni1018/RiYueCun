@@ -389,8 +389,12 @@ public class MainFragment extends Fragment {
                             @Override
                             public void run() {
                                 UserLevelName.setText(info.getModel2().getUserLevelName());
-                                NextLevelName.setText("再消费" + (info.getModel2().getNextThingCount() - info.getModel2().getCurrentThingCount())
-                                        + "次升级为" + info.getModel2().getNextLevelName());
+                                if("".equals(info.getModel2().getNextLevelName())){
+                                    NextLevelName.setText("每消费满30元产生一个钻石");
+                                }else {
+                                    NextLevelName.setText("再消费" + (info.getModel2().getNextThingCount() - info.getModel2().getCurrentThingCount())
+                                            + "次升级为" + info.getModel2().getNextLevelName());
+                                }
                                 //设置进度条
                                 //计算角度
                                 int sp = (int) ((info.getModel2().getCurrentThingCount() * 1.000 / (info.getModel2().getNextThingCount() * 1.000)) * 380);

@@ -101,7 +101,12 @@ public class MyClubRankActivity extends BaseTitleActivity {
 
                     if (info.getModel2() != null) {
                         tv01.setText(info.getModel2().getUserLevelName());
-                        tv02.setText("集齐" + info.getModel2().getNextThingCount() + "个" + info.getModel2().getNeedThing() + "立即升级为" + info.getModel2().getNextLevelName());
+                        if("".equals(info.getModel2().getNextLevelName())){
+                            tv02.setText("每消费满30元产生一个钻石" );
+                        }else {
+                            tv02.setText("集齐" + info.getModel2().getNextThingCount() + "个" + info.getModel2().getNeedThing() + "立即升级为" + info.getModel2().getNextLevelName());
+                        }
+
                         //设置进度条
                         double a = info.getModel2().getCurrentThingCount() * 1.000 / info.getModel2().getNextThingCount() * 1.000;
                         setBar(a);

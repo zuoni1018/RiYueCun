@@ -10,8 +10,8 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.navi.BaiduMapNavigation;
-import com.baidu.mapapi.navi.NaviParaOption;
+import com.baidu.mapapi.utils.route.BaiduMapRoutePlan;
+import com.baidu.mapapi.utils.route.RouteParaOption;
 import com.zuoni.common.utils.LogUtil;
 import com.zuoni.riyuecun.R;
 import com.zuoni.riyuecun.bean.model.Store;
@@ -85,7 +85,7 @@ public class FindStoresActivity extends BMapLocationBaseActivity {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         marker.getTitle();
-                        showToast(marker.getTitle());
+//                        showToast(marker.getTitle());
                         LogUtil.i("" + marker.getTitle());
                         return false;
                     }
@@ -104,48 +104,22 @@ public class FindStoresActivity extends BMapLocationBaseActivity {
 
     @OnClick(R.id.go)
     public void onViewClicked() {
-        // 天安门坐标
-        double mLat1 = 39.915291;
-        double mLon1 = 116.403857;
-        // 百度大厦坐标
-        double mLat2 = 40.056858;
-        double mLon2 = 116.308194;
-
-
         String coord = store.getCoord();
         a = coord.split(",")[0];
         b = coord.split(",")[1];
         LatLng pt1 = new LatLng(Double.parseDouble(MainFragment.Latitude), Double.parseDouble(MainFragment.Longitude));
         LatLng pt2 = new LatLng(Double.parseDouble(b), Double.parseDouble(a));
-//
-//        LatLng pt1 = new LatLng(mLat1, mLon1);
-//        LatLng pt2 = new LatLng(mLat2, mLon2);
-//
-//        // 构建 导航参数
-//        NaviParaOption para = new NaviParaOption()
-//                .startPoint(pt1).endPoint(pt2);
-//
-////        BaiduMapNavigation.openWebBaiduMapNavi(para, this);
-////        LatLng pt1 = new LatLng(mLat1, mLon1);
-////        LatLng pt2 = new LatLng(mLat2, mLon2);
-//
-//        // 构建 导航参数
-//        NaviParaOption para2 = new NaviParaOption()
-//                .startPoint(pt1).endPoint(pt2);
-//
-//        BaiduMapNavigation.openBaiduMapNavi(para2, this);
-
-//        LatLng pt1 = new LatLng(mLat1, mLon1);
-//        LatLng pt2 = new LatLng(mLat2, mLon2);
-
-        // 构建 导航参数
-        NaviParaOption para = new NaviParaOption()
-                .startPoint(pt1).endPoint(pt2)
-                .startName("天安门").endName("百度大厦");
-
-
-            BaiduMapNavigation.openBaiduMapWalkNavi(para, this);
-
-
+        // 构建 route搜索参数
+        RouteParaOption para = new RouteParaOption()
+                .startPoint(pt1)
+                .endPoint(pt2);
+        try {
+            //轨迹规划
+            BaiduMapRoutePlan.setSupportWebRoute(false);
+            BaiduMapRoutePlan.openBaiduMapDrivingRoute(para, this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showToast("您还未安装百度地图哦！");
+        }
     }
 }
